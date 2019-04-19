@@ -5,7 +5,7 @@ Let the non-centrality parameter vectors $\lambda = \lambda_p$ have
 \begin{equation} \label{eq:signal-sparsity}
     |S_p| = \left\lfloor p^{1-\beta} \right\rfloor
 \end{equation}
-non-zero entries, where the non-zero parameters $\lambda(i),\,i\in S_p$ are in the range between
+non-zero entries, where the sizes of the non-zero parameters $\lambda(i),\,i\in S_p$ are in the range between
 \begin{equation} \label{eq:signal-size}
     \underline{\Delta} = 2\underline{r}\log{p}
     \quad\text{and}\quad
@@ -16,22 +16,22 @@ Here $\beta$ parametrizes the problem sparsity, whereas $\underline{r}$ and $\ov
 
 We define the criteria for success and failure of exact support recovery under this asymptotic regime.
 \begin{definition} \label{def:exact-recovery-success-failure}
-We say the exact support recovery asymptotically succeeds if 
+We say the exact support recovery succeeds asymptotically if 
 \begin{equation} \label{eq:exact-recovery-success}
     \mathrm{risk}^{\mathrm{Exact}}\to0, \quad \text{as}\quad p\to\infty.
 \end{equation}
-We say the exact support recovery asymptotically fails if 
+We say the exact support recovery fails asymptotically if 
 \begin{equation} \label{eq:exact-recovery-failure}
     \liminf\mathrm{risk}^{\mathrm{Exact}}\ge1, \quad \text{as}\quad p\to\infty.
 \end{equation}
 \end{definition}
 Similarly, we define the criteria for asymptotic success and failure for approximate support recovery as follows.
 \begin{definition} \label{def:approx-recovery-success-failure}
-We say the approximate support recovery asymptotically succeeds if 
+We say the approximate support recovery succeeds asymptotically if 
 \begin{equation} \label{eq:approx-recovery-success}
     \mathrm{risk}^{\mathrm{Approx}}\to0, \quad \text{as}\quad p\to\infty.
 \end{equation}
-We say the approximate support recovery asymptotically fails if 
+We say the approximate support recovery fails asymptotically if 
 \begin{equation} \label{eq:approx-recovery-failure}
     \liminf\mathrm{risk}^{\mathrm{Approx}}\ge1, \quad \text{as}\quad p\to\infty.
 \end{equation}
@@ -41,7 +41,7 @@ The performance of procedures in terms of the criteria in Definitions \ref{def:e
 \begin{remark}
 The parametrization of signal sparsity \eqref{eq:signal-sparsity} and signal sizes  \eqref{eq:signal-size} was first introduced \citet{donoho2004higher}, where the signal sizes are assumed equal with a magnitude of $2{r}\log{p}$.
 It was shown in \cite{donoho2004higher} that a phase transition in the $r$-$\beta$ plane exists for the signal detection problem. 
-That is, depending on the $r$-$\beta$ combination, the global hypothesis test for $\lambda(i)=0$ for all $i$ can be either solved exactly, with vanishing type I and type II errors, or no better than a random guess, with the sum of type I and type II errors exceeding 1.
+That is, depending on the $r$-$\beta$ combination, the global hypothesis testing problem for $\lambda(i)=0,\,i=1,\ldots,p$ can be either solved exactly, with vanishing type I and type II errors, or no better than a random guess, with the sum of type I and type II errors equal to or exceeding 1 in the limit.
 
 We shall see that the scaling of sparsity \eqref{eq:signal-sparsity} and signal size \eqref{eq:signal-size} is also the suitable parametrization for studying the phase transitions of the approximate and exact signal support recovery problems.
 \end{remark}
@@ -49,8 +49,8 @@ We shall see that the scaling of sparsity \eqref{eq:signal-sparsity} and signal 
 \subsection{FWER-controlling procedures}
 \label{subsec:FWER-controlling-procedures}
 
-We review four thresholding procedures that aims at controlling family-wise error rates.
-The first (deterministic) thresholding procedure is the well-known Bonferroni's procedure.
+We review four thresholding procedures which aim at controlling family-wise error rates.
+We start with the well-known Bonferroni's procedure.
 \begin{definition}[Bonferroni's procedure]
 Suppose the errors $\epsilon(j)$'s have a common marginal distribution $F$, Bonferroni's procedure with level $\alpha$ is the thresholding procedure that uses the threshold
 \begin{equation} \label{eq:Bonferroni-procedure}
@@ -59,7 +59,8 @@ Suppose the errors $\epsilon(j)$'s have a common marginal distribution $F$, Bonf
 %where  $F^{\leftarrow}(u)=\inf{\left\{x:F(x)\ge u\right\}}$ is the generalized inverse function.
 \end{definition}
 % It is easy to see that the family-wise error rate (FWER) is controlled at level $\alpha$ by applying the union bound, regardless of the error-dependence structure (see e.g.\ Relation \eqref{eq:Bonferroni-FWER-control}, below).
-A closely related procedure is Sid\'ak's procedure \citep{vsidak1967rectangular}
+The Bonferroni procedure is deterministic (i.e., non data-dependent), and only depends on the dimension of the problem and the null distribution.
+A closely related procedure is Sid\'ak's procedure \citep{vsidak1967rectangular},
 which is a more aggressive (and also deterministic) thresholding procedure that uses the 
 threshold
 \begin{equation} \label{eq:Sidak-procedure}
@@ -67,7 +68,7 @@ threshold
 \end{equation}
 % can be shown to control FWER in the case independent errors.
 
-A procedure strictly more powerful than Bonferroni's is the so-called Holm's procedure \citep{holm1979simple}.
+The third procedure, strictly more powerful than Bonferroni's, is the so-called Holm's procedure \citep{holm1979simple}.
 On observing the data $x$, its coordinates can be ordered from largest to smallest
 $x(i_1) \ge x(i_2)  \ge \ldots \ge x(i_p)$,
 where $(i_1, \ldots, i_p)$ is a permutation of $\{1, \ldots, p\}$. 
@@ -83,7 +84,6 @@ Holm's procedure with level $\alpha$ is the thresholding procedure that uses the
 \end{definition}
 In contrast to the Bonferroni procedure, Holm's procedure is data-dependent.
 % It can be shown that Holm's procedure also controls FWER at $\alpha$ level, regardless of dependence in the data.
-
 A closely related, more aggressive (data-dependent) thresholding procedure is Hochberg's procedure \citep{hochberg1988sharper}
 %\begin{definition}[Hochberg's procedure]
 %Hochberg's procedure 
@@ -93,6 +93,9 @@ $$
 $$
 %where  $\overline{F}(x)=1-F(x)$ is the survival function.
 %\end{definition}
+
+It can be shown that Bonferroni's procedure and Holm's procedure both control FWER at their nominal levels, regardless of dependence in the data.
+While Sid\'ak's procedure and Hochberg's procedure control FWER at nominal levels when data are independent.
 
 \subsection{The strong classification boundary}
 \label{subsec:strong-classification-boundary}
@@ -130,12 +133,12 @@ Relation \eqref{eq:exact-recovery-implies-risk-0} follows from \eqref{eq:risk-ex
 \end{proof}
 
 \begin{remark}
-By Lemma \ref{lemma:risk-exact-recovery-probability}, is in fact sufficient to study the probability of exact support recovery $\P[\{\widehat{S}=S\}]$ in place of $\mathrm{risk}^{\mathrm{Exact}}$, if we are interested in the asymptotic properties of the risk defined in \eqref{def:exact-recovery-success-failure}.
+By virtue of Lemma \ref{lemma:risk-exact-recovery-probability}, it is sufficient to study the probability of exact support recovery $\P[\{\widehat{S}=S\}]$ in place of $\mathrm{risk}^{\mathrm{Exact}}$, if we are interested in the asymptotic properties of the risk defined in \eqref{def:exact-recovery-success-failure}.
 The converse, however, is not true.
 An example where $\liminf\mathrm{risk}^{\mathrm{Exact}}\ge1$ but $\P[\widehat{S} = S] \not\to 0$ is given in Remark \ref{rmk:asymptotic-risks}.
 \end{remark}
 
-We now state our first main result, characterizing the phase-transition  the exact support recovery problem.
+We now state our first main result, characterizing the phase-transition phenomenon in the exact support recovery problem under the chi-square model.
 
 \begin{theorem} \label{thm:chi-squred-strong-boundary}
 Consider the high-dimensional chi-squared model \eqref{eq:model-chisq} with signal sparsity and size as described in \eqref{eq:signal-sparsity} and \eqref{eq:signal-size}.
@@ -180,6 +183,8 @@ Introduce the Benjamini-Hochberg procedure here.
 
 \subsection{The weak classification boundary}
 \label{subsec:weak-classification-boundary}
+
+We now state our second main result, characterizing the phase-transition phenomenon in the approximate support recovery problem under the chi-square model.
 
 \begin{theorem} \label{thm:chi-squred-weak-boundary}
 Consider the high-dimensional chi-squared model \eqref{eq:model-chisq}.

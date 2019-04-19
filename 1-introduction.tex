@@ -108,11 +108,13 @@ The relationship between $\P[\widehat{S} = S]$ and $\mathrm{risk}^{\mathrm{Exact
 \begin{remark} \label{rmk:asymptotic-risks}
 While a procedure that never rejects and one that always rejects have both risks $\mathrm{risk}^{\mathrm{Approx}}$ and $\mathrm{risk}^{\mathrm{Exact}}$ equal to 1, the converse is not true.
 
-For example, a procedure may select the true index set $S$ half of the time, but is completely off by selecting the complement $S^c$ the other half of the time. In this case the procedure also will have $\mathrm{risk}^{\mathrm{Approx}}$ equal to 1.
-Similarly, it is possible that a procedure selects the true index set half of the time, but makes both false inclusions and false omissions simultaneously the other half of the time. In this case the procedure also will have $\mathrm{risk}^{\mathrm{Exact}}$ equal to 1.
+For example, a procedure may select the true index set $S$ with probability $1/2$, but selects the complement $S^c$ the other half of the time. 
+In this case the procedure will have $\mathrm{risk}^{\mathrm{Approx}}$ equal to 1.
+Similarly, it is possible that a procedure selects the true index set with probability $1/2$, but makes one false inclusion and one false omission simultaneously the other half of the time. 
+In this case the procedure will have $\mathrm{risk}^{\mathrm{Exact}}$ equal to 1.
  
-Therefore, not all methods that has a risks equal to or exceeding 1 are ``useless''.
-Although such methods certainly contain trivial ones as in the first two examples.\footnote{In light of this, Remark 2 of \citet*{arias2017distribution} is inaccurate.}
+Therefore, not all methods that has a risks equal to or exceeding 1 are useless\footnote{In light of this, Remark 2 of \citet*{arias2017distribution} is inaccurate.}.
+Although the class of methods with risks equal to or exceeding 1 certainly contains trivial ones as in the first two examples.
 \end{remark}
 
 \subsection{Thresholding procedures and their optimality}
