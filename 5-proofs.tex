@@ -1,0 +1,441 @@
+
+\subsection{Signal sizes and odds ratio in 2-by-2 contingency tables}
+
+\begin{proof}[Proof of Proposition \ref{prop:signal-size-odds-ratio} and Corollary \ref{cor:signal-limits-OR}]
+We parametrize the 2-by-2 multinomial distribution with the parameter $\delta$, 
+$$
+\mu_{11} = \phi_1\theta_1+\delta,\quad \mu_{12} = \phi_1\theta_2-\delta,\quad 
+\mu_{21} = \phi_2\theta_1-\delta,\quad \mu_{22} = \phi_2\theta_2+\delta.
+$$ 
+By relabeling of categories, we may assume $0<\theta_1,\phi_1\le1/2$ without loss of generality.
+Note that $\delta$ must lie within the range $[\delta_\mathrm{min}, \delta_\mathrm{max}]$, where
+$$
+\delta_\mathrm{min} := \max\{-\phi_1\theta_1, -\phi_2\theta_2, \phi_1\theta_2-1, \phi_2\theta_1-1\} 
+= -\phi_1\theta_1,
+$$
+and
+$$
+\delta_\mathrm{max} := \min\{1-\phi_1\theta_1, 1-\phi_2\theta_2, \phi_1\theta_2, \phi_2\theta_1\}
+= \min\{\phi_1\theta_2, \phi_2\theta_1\},
+$$
+in order for $\mu_{ij}\ge0$ for all $i,j\in \{1,2\}$.
+Under this parametrization, Relation \eqref{eq:odds-ratio} then becomes
+\begin{equation} \label{eq:odds-ratio-delta}
+    \text{R} = \frac{\mu_{11}\mu_{22}}{\mu_{12}\mu_{21}}
+    = \frac{\phi_1\theta_1\phi_2\theta_2 + \delta(\phi_1\theta_1+\phi_2\theta_2)+\delta^2}{\phi_1\theta_1\phi_2\theta_2 - \delta(\phi_1\theta_2+\phi_2\theta_1)+\delta^2},
+\end{equation}
+which is one-to-one and increasing in $\delta$ on $(\delta_\mathrm{min}, \delta_\mathrm{max})$.
+Equations \eqref{eq:signal-size-chisq} becomes
+\begin{equation} \label{eq:signal-size-chisq-delta}
+w^2 = \sum_{i=1}^2 \sum_{j=1}^2 \frac{(\mu_{ij} - \phi_i\theta_j)^2}{\phi_i\theta_j}
+= \delta^2\sum_i\sum_j \frac{1}{\phi_i\theta_j}
+= \frac{\delta^2}{\phi_1\theta_1\phi_2\theta_2},
+\end{equation}
+Solving for $\delta$ in \eqref{eq:odds-ratio-delta} using $R>0$, and plug into the expression for signal size \eqref{eq:signal-size-chisq-delta} yields Relation \eqref{eq:signal-size-odds-ratio}.
+The last claim follows from the fact that $w^2(\delta)$ is decreasing on $[\delta_\mathrm{min},0)$, increasing on $(0,\delta_\mathrm{max}]$, with limits
+$$
+\lim_{d\to \delta_\mathrm{min}} w^2(\delta) = \frac{\phi_1\theta_1}{\phi_2\theta_2},
+\quad
+\text{and}
+\quad
+\lim_{d\to \delta_\mathrm{max}} w^2(\delta) = \min\left\{\frac{\phi_1\theta_2}{\phi_2\theta_1}, \frac{\phi_2\theta_1}{\phi_1\theta_2}\right\}.
+$$
+The other three cases ($1/2\le\theta_1,\phi_1\le1$, $0<\theta_1\le1/2\le\phi_1\le1$, and $0\le\phi_1\le1/2\le\theta_1\le1$) may be handled similarly, or simply by observing the symmetry of the problem.
+\end{proof}
+
+\subsection{Auxiliary facts about chi-square distributions}
+
+We first establish some auxiliary facts about chi-square distributions, used in the proofs of Theorem \ref{thm:chi-squred-strong-boundary} and Theorem \ref{thm:chi-squred-weak-boundary}.
+
+\begin{lemma}[Rapid variation of chi-square distribution tails] \label{lemma:rapid-variation-chisq}
+The central chi-square distribution with $\nu$ degrees of freedom has rapidly varying tails.
+That is, 
+\begin{equation} \label{eq:rapid-variation-chisq}
+    \lim_{x\to\infty}\frac{\P[\chi_\nu^2(0)>tx]}{\P[\chi_\nu^2(0)>x]} = 
+    \begin{cases}
+    0, & t > 1 \\
+    1, & t = 1 \\
+    \infty, & 0 < t < 1.
+\end{cases}
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Proof of Lemma \ref{lemma:rapid-variation-chisq}]
+When $\nu=1$, the chi-square distribution reduces to a squared Normal, and \eqref{eq:rapid-variation-chisq} follows from the rapid variation of the standard Normal distribution.
+For $\nu\ge2$, we recall the following bound on tail probabilities (see, e.g., \citep{inglot2010inequalities}),
+$$
+\frac{1}{2}\mathcal{E}_\nu(x) \le \P[\chi_\nu^2(0)>x] \le \frac{x}{(x-\nu+2)\sqrt{\pi}} \mathcal{E}_\nu(x), \quad \nu\ge2,\;x>\nu-2,
+$$
+where $\mathcal{E}_\nu(x) = \exp\left\{-\frac{1}{2}[(x-\nu-(\nu-2)\log(x/\nu) + \log\nu]\right\}$.
+Therefore, we have 
+$$
+\frac{(tx-\nu+2)\sqrt{\pi}}{2tx}\frac{\mathcal{E}_\nu(tx)}{\mathcal{E}_\nu(x)} 
+\le \frac{\P[\chi_\nu^2(0)>tx]}{\P[\chi_\nu^2(0)>x]}
+\le \frac{2tx}{(tx-\nu+2)\sqrt{\pi}}\frac{\mathcal{E}_\nu(tx)}{\mathcal{E}_\nu(x)},
+$$
+where ${\mathcal{E}_\nu(tx)}/{\mathcal{E}_\nu(x)} = \exp\{-\frac{1}{2}[(t-1)x-(\nu-2)\log{t}]\}$ converges to $0$ or $\infty$ depending on whether $t>1$ or $0<t<1$.
+The case where $t=1$ is trivial.
+\end{proof}
+
+\begin{corollary} \label{cor:relative-stability}
+Maxima of independent observations from central chi-square distributions with $\nu$ degrees of freedom are relatively stable. 
+Specifically, let $\epsilon_p = \left(\epsilon_p(j)\right)_{j=1}^p$ be a i.i.d.\ $\chi_\nu^2(0)$. 
+Define the sequence $(u_p)_{p=1}^\infty$ to be the $(1-1/p)$-th generalized quantiles, i.e., 
+\begin{equation} \label{eq:quantiles}
+    u_p = F^\leftarrow(1 - 1/p),
+\end{equation}
+where $F$ is the central chi-square distributions with $\nu$ degrees of freedom.
+The triangular array ${\cal E} = \{\epsilon_p, p\in\N\}$ has relatively stable (RS) maxima, i.e.,
+\begin{equation} \label{eq:RS-condition}
+    \frac{1}{u_{p}} M_p := \frac{1}{u_{p}} \max_{j=1,\ldots,p} \epsilon_p(j) \xrightarrow{\P} 1,
+\end{equation}
+as $p\to\infty$.
+\end{corollary}
+
+\begin{proof}[Proof of Corollary \ref{cor:relative-stability}]
+When $F(x)<1$ for all finite $x$, \citet{gnedenko1943distribution} showed that the distribution $F$ has rapidly varying tails if and only if the maxima of independent observations from $F$ are relatively stable.
+Rapid variation follows from Lemma \ref{lemma:rapid-variation-chisq}.
+\end{proof}
+
+
+\begin{lemma}[Stochastic monotonicity] \label{lemma:stochastic-monotonicity}
+The non-central chi-square distribution is stochastically monotone in its non-centrality parameter.
+Specifically, for two non-central chi-square distributions both with $\nu$ degrees of freedom, and non-centrality parameters $\lambda_1 \le \lambda_2$, we have $\chi^2_\nu(\lambda_1) \stackrel{\mathrm{d}}{\le} \chi^2_\nu(\lambda_2)$. 
+That is,
+\begin{equation} \label{eq:stochastic-monotonicity}
+    \P[\chi^2_\nu(\lambda_1) \le t] \ge \P[\chi^2_\nu(\lambda_2) \le t], \quad \text{for any}\quad t\ge0.
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Proof of Lemma \ref{lemma:stochastic-monotonicity}]
+Recall that non-central chi-square distributions can be written as sums of $\nu-1$ standard normal random variables and a non-central normal random variable with mean $\sqrt{\lambda}$ and variance 1,
+\begin{equation*}
+    \chi_\nu^2(\lambda) 
+    \stackrel{\mathrm{d}}{=} Z_1^2 + \ldots + Z_{\nu-1}^2 + (Z_\nu + \sqrt{\lambda})^2.
+\end{equation*}
+Therefore, it suffices to show that $\P[(Z+\sqrt{\lambda})^2 \le t]$ is non-increasing in $\lambda$ for any $t\ge0$, where $Z$ is a standard normal random variable.
+We rewrite this expression in terms of standard normal probability function $\Phi$,
+\begin{align}
+    \P[(Z+\sqrt{\lambda})^2 \le t] 
+    &= \P[-\sqrt{\lambda} - \sqrt{t} \le Z \le -\sqrt{\lambda} + \sqrt{t}] \nonumber \\
+    &= \Phi(-\sqrt{\lambda} + \sqrt{t}) - \Phi(-\sqrt{\lambda} - \sqrt{t}). \label{eq:stochastic-monotonicity-proof-1}
+\end{align}
+The derivative of the last expression (with respect to $\lambda$) is 
+\begin{equation} \label{eq:stochastic-monotonicity-proof-2}
+    \frac{1}{2\sqrt{\lambda}} \left(\phi(\sqrt{\lambda} + \sqrt{t}) - \phi(\sqrt{\lambda} - \sqrt{t})\right) 
+    = \frac{1}{2\sqrt{\lambda}} \left(\phi(\sqrt{\lambda} + \sqrt{t}) - \phi(\sqrt{t} - \sqrt{\lambda})\right),
+\end{equation}
+where $\phi$ is the density of the standard normal distribution.
+Notice that we have used the symmetry of $\phi$ around 0 in the last expression.
+
+Since $0 \le \max\{\sqrt{\lambda} - \sqrt{t}, \sqrt{t} - \sqrt{\lambda}\} < \sqrt{t} + \sqrt{\lambda}$ when $t>0$, by monotonicity of the normal density on $(0,\infty)$, we conclude that the derivative \eqref{eq:stochastic-monotonicity-proof-2} is indeed negative.
+Therefore, \eqref{eq:stochastic-monotonicity-proof-1} is decreasing in $\lambda$, and \eqref{eq:stochastic-monotonicity} follows for $t>0$.
+For $t = 0$, equality holds in \eqref{eq:stochastic-monotonicity} with both probabilities being 0.
+\end{proof}
+
+
+Finally, we derive asymptotic expressions for  chi-square quantiles.
+
+\begin{lemma}[Chi-square quantiles] \label{lemma:chisq-quantiles}
+Let $F$ be the central chi-square distributions with $\nu$ degrees of freedom, and let $u(y)$ be the $(1-y)$-th generalized quantile of $F$, i.e.,
+\begin{equation} \label{eq:quantiles-generic}
+    u(y) = F^\leftarrow(1 - y).
+\end{equation}
+Then 
+\begin{equation}
+    u(y) \sim 2\log(1/y), \quad \text{as }y\to0. 
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Proof of Lemma \ref{lemma:chisq-quantiles}]
+The case where $\nu=1$ follows from the well-known Normal quantiles $\Phi^\leftarrow(1-1/p)\sim\sqrt{2\log{p}}$.
+The case where $\nu\ge2$ follows from the following estimates of higher quantiles of chi-square distributions (see, e.g., \citep{inglot2010inequalities}),
+\begin{equation}
+    \nu +  2\log(1/y) -5/2 \le u(y) \le \nu +  2\log(1/y) + 2\sqrt{k\log(1/y)}, \quad \text{for all }y\le0.17.
+\end{equation}
+\end{proof}
+
+
+\subsection{Proof of Theorem \ref{thm:chi-squred-strong-boundary}}
+
+\begin{proof}
+We first prove the sufficient condition.
+Some algebraic manipulation reveals that $\underline{r} > {{g}}(\beta)$ implies
+$$
+\frac{1}{2\sqrt{\underline{r}}} - \frac{\sqrt{\underline{r}}}{2} < -\sqrt{1-\beta}.
+$$
+Therefore, we can pick $q>1$ such that 
+$$
+\frac{q}{2\sqrt{\underline{r}}} - \frac{\sqrt{\underline{r}}}{2} < -\sqrt{1-\beta}.
+$$
+The Bonferroni procedure sets the threshold at $t_p = F^\leftarrow(1-\alpha/p)$, which, by Lemma \ref{lemma:chisq-quantiles}, is asymptotic to $2\log{p} - 2\log{\alpha}$.
+By assumption on $\alpha$ in \eqref{eq:FWER-rate-to-zero}, for any $\delta>0$, we have $\alpha\gg p^{-\delta}$ for large $p$.
+Therefore, $-\log\alpha\ll\delta\log{p}$ eventually, and we have
+$$
+1 \le \limsup_{p\to\infty}\frac{2\log{p} - 2\log{\alpha}}{2\log{p}} \le 1+\delta,
+$$
+for any $\delta>0$.
+Hence, $t_p\sim 2\log{p}$.
+Setting the $t^* = t^*_p = 2q\log{p}$, we have $t_p < t^*_p$ for large $p$.
+
+
+Now on the one hand, $\text{FWER} = 1 - \P[\widehat{S}_p \subseteq S_p]$ vanishes under the Bonferroni procedure with $\alpha\to0$.
+On the other hand, for large $p$, the probability of no missed detection is bounded from below,
+\begin{equation} \label{eq:chi-square-sufficient-1}
+    \P[\widehat{S}_p \supseteq S_p] 
+    = \P[\min_{i\in S} x(i) \ge t_p] 
+    \ge \P[\min_{i\in S} x(i) \ge t^*] 
+    \ge 1 - p^{1-\beta}\P[\chi_\nu^2(\underline{\Delta}) \le t^*],
+\end{equation}
+where we have used the fact that signal sizes are bounded below by $\underline{\Delta}$, and the stochastic monotonicity of chi-square distributions (Lemma \ref{lemma:stochastic-monotonicity}) in the last inequality.
+Writing
+$$
+\chi_\nu^2(\underline{\Delta}) \stackrel{\mathrm{d}}{=} Z_1^2 + \ldots + Z_{\nu-1}^2 + (Z_\nu + \sqrt{\underline{\Delta}})^2
+$$
+where $Z_i$'s are iid standard normal variables, we have
+\begin{align}
+    \P[\chi_\nu^2({\underline{\Delta}}) \le t^*]
+    &\le \P[2Z_\nu\sqrt{\underline{\Delta}} + \underline{\Delta} \le t^*] 
+    = \P\Big[Z_\nu \le \frac{t^*}{2\sqrt{\underline{\Delta}}} - \frac{\sqrt{\underline{\Delta}}}{2}\Big] \nonumber \\
+    &\le \P\Big[Z_\nu \le \frac{2q\log{p}}{2\sqrt{2\underline{r}\log{p}}} - \frac{\sqrt{2\underline{r}\log{p}}}{2}\Big] \nonumber \\
+    &= \P\Big[Z_\nu \le \left(\frac{q}{2\sqrt{\underline{r}}} - \frac{\sqrt{\underline{r}}}{2}\right)\sqrt{2\log{p}}\Big]. \label{eq:chi-square-sufficient-2}
+\end{align}
+By our choice of $q$, the last probability in \eqref{eq:chi-square-sufficient-2}
+is bounded from above by 
+$$
+\P\Big[Z_\nu \le -\sqrt{2(1-\beta)\log{p}}\Big] = o\left(p^{-(1-\beta)}\right).
+$$
+This, combined with \eqref{eq:chi-square-sufficient-1}, completes the proof of the sufficient condition.
+
+We now show the necessary condition. 
+We first normalize the maxima by the chi-square quantiles $u_p = F^{\leftarrow}(1-1/p)$, where $F$ is the distribution of a (central) chi-square random variable,
+\begin{equation}
+ \P[\widehat{S}_p = S_p] \le \P\left[\max_{i\in S^c}x(i) < \min_{i\in S}x(i)\right]
+  % &= \P\left[\frac{\max_{i\in S^c}x(i)}{u_p} < \frac{\min_{i\in S}x(i)}{u_p}\right] \nonumber \\
+  % &\le  \P\left[\frac{\max_{i\in S^c}\chi_\nu^2(\lambda(j))}{u_p} < \frac{\min_{i\in S}\chi_\nu^2(\lambda(j))}{u_p}\right] \nonumber \\
+  = \P\left[ \frac{M_{S^c}}{u_p} < \frac{m_S}{u_p} \right], \label{eq:chi-square-necessary-0}
+\end{equation}
+where $M_{S^c} = \max_{i\in S^c}\chi_\nu^2(\lambda(i))$ and $m_{S} = \min_{i\in S}\chi_\nu^2(\lambda(i))$.
+
+By relative stability of chi-square distributions (Lemma \ref{lemma:rapid-variation-chisq}), we have
+\begin{equation} \label{eq:chi-square-necessary-1}
+    \frac{M_{S^c}}{u_{p}} = \frac{M_{S^c}}{u_{p-p^{1-\beta}}} \frac{u_{p-p^{1-\beta}}}{u_{p}} \stackrel{\P}{\longrightarrow} 1,
+\end{equation}
+where we used the expression for chi-square quantiles (Lemma \ref{lemma:chisq-quantiles}).
+Meanwhile, for any $i\in S$, by stochastic monotonicity of chi-square distributions (Lemma \ref{lemma:stochastic-monotonicity}) and the fact that signal sizes are bounded above by $\overline{\Delta}$, we have
+\begin{equation*}
+    \frac{\chi_\nu^2(\lambda(i))}{u_p} \stackrel{\mathrm{d}}{\le} \frac{\chi_\nu^2(\overline{\Delta})}{u_p}.
+\end{equation*}
+The last expression is further bounded above by
+\begin{align}
+    \frac{\chi_\nu^2(\overline{\Delta})}{u_p} 
+    &\stackrel{\mathrm{d}}{\le} \frac{Z_1^2 + \ldots + Z_{\nu-1}^2 + (Z_\nu + \sqrt{\overline{\Delta}})^2}{2\log{p}} \nonumber \\
+    &= \frac{\chi_{\nu-1}^2(0) + Z_\nu^2+ 2Z_\nu\sqrt{\overline{\Delta}} + \overline{\Delta}}{2\log{p}} \nonumber \\
+    &\stackrel{\mathrm{d}}{\le} r + 2\sqrt{\overline{r}} \frac{Z_\nu}{\sqrt{2\log{p}}}. \label{eq:chi-square-necessary-2}
+\end{align}
+Taking minimum of \eqref{eq:chi-square-necessary-2} over $S$, we have
+\begin{align}
+    \frac{m_S}{u_p} &= \min_{i\in S} \frac{\chi_\nu^2(\lambda(j))}{u_p} 
+    \stackrel{\mathrm{d}}{\le} r + \min_{i\in S} 2\sqrt{\overline{r}} \frac{Z_\nu(i)}{\sqrt{2\log{p}}} \nonumber \\
+    &\stackrel{\P}{\longrightarrow} r + 2\sqrt{\overline{r}}\sqrt{1-\beta}. \label{eq:chi-square-necessary-3}
+\end{align}
+Since $\overline{r} < g(\beta)$, the last expression is strictly less than 1.
+In view of \eqref{eq:chi-square-necessary-0}, \eqref{eq:chi-square-necessary-1} and \eqref{eq:chi-square-necessary-3}, we conclude that exact recovery cannot succeed with any positive probability.
+The proof of the necessary condition is complete.
+\end{proof}
+
+\subsection{Proof of Theorem \ref{thm:chi-squred-weak-boundary}}
+
+The structure of the proof follow closely that of Theorem 2 and Theorem 3 in \citet{arias2017distribution}.
+
+\begin{proof}
+Denote $F_0$ as the distribution of $\chi^2_\nu(0)$, and $F_a$ as the distribution of $\chi^2_\nu(\Delta)$.
+
+We first show the necessary condition, i.e., when $r<\beta$, approximate support recovery cannot be achieved with any thresholding procedure.
+In particular, we show that the liminf of the sum of FDP and NDP is at least 1.
+
+Recall that thresholding procedures are of the form
+$$
+\widehat{S}_p = \left\{i\,|\,x(i) > t_p(x)\right\}.
+$$
+Denote $\widehat{S} := \left\{i\,|\,x(i) > t_p(x)\right\}$, and $\widehat{S}(u) := \left\{i\,|\,x(i) > u\right\}$.
+For any threshold $u\ge t_p$ we must have $\widehat{S}(u)\subseteq\widehat{S}$, and hence
+\begin{equation} \label{eq:weak-boundary-proof-FDP}
+    \text{FDP} = \frac{|\widehat{S}\setminus{S}|}{|\widehat{S}|} \ge \frac{|\widehat{S}\setminus{S}|}{|\widehat{S}\cup{S}|} = \frac{|\widehat{S}\setminus{S}|}{|\widehat{S}\setminus{S}| + |S|} \ge
+    \frac{|\widehat{S}(u)\setminus{S}|}{|\widehat{S}(u)\setminus{S}| + |S|}.
+\end{equation}
+On the other hand, for any threshold $u\le t_p$ we must have $\widehat{S}(u)\supseteq\widehat{S}$, and hence
+\begin{equation} \label{eq:weak-boundary-proof-NDP}
+    \text{NDP} = \frac{|{S}\setminus\widehat{S}|}{|{S}|} \ge 
+    \frac{|{S}\setminus\widehat{S}(u)|}{|{S}|}.
+\end{equation}
+Since either $u\ge t_p$ or  $u\le t_p$ must take place, putting \eqref{eq:weak-boundary-proof-FDP} and \eqref{eq:weak-boundary-proof-NDP} together, we have
+\begin{equation} \label{eq:weak-boundary-proof-converse-1}
+    \text{FDP} + \text{NDP} 
+    \ge \frac{|\widehat{S}(u)\setminus{S}|}{|\widehat{S}(u)\setminus{S}|+|{S}|} \wedge \frac{|{S}\setminus\widehat{S}(u)|}{|{S}|}.
+\end{equation}
+Therefore it suffices to show that for a suitable choice of $u$, the RHS of \eqref{eq:weak-boundary-proof-converse-1} converges to 1.
+
+Let $t^* = 2q\log{p}$, where $r<q<\beta$, we obtain an estimate of the tail probability
+\begin{align}
+    \overline{F_0}(t^*) 
+    &= \P[\chi_\nu^2(0) > t^*] 
+    = \frac{2^{1-\nu/2}}{\Gamma(\nu/2)} \int_{2q\log{p}}^\infty x^{\nu/2-1}e^{-x/2} \mathrm{d}x \nonumber \\
+    &\sim \frac{2^{1-\nu/2}}{\Gamma(\nu/2)} \left(2q\log{p}\right)^{\nu/2-1}p^{-q}. \label{eq:weak-boundary-proof-null-tail-prob}
+\end{align}
+Observe that $|\widehat{S}(t^*)\setminus{S}| \sim \text{Binom}(p-s, \overline{F_0}(t^*))$, denote $X = X_p := {|\widehat{S}(t^*)\setminus{S}|}/{|S|}$, and we have 
+$$
+\mu := \E\left[X\right] = \frac{(p-s)\overline{F_0}(t^*)}{s},
+\quad \text{and} \quad
+\var\left(X\right) = \frac{(p-s)\overline{F_0}(t^*){F_0}(t^*)}{s^2} \le \mu/s.
+$$
+Therefore for any $M>0$, we have, by Chebyshev's inequality,
+\begin{equation}
+    \P\left[X < M\right] 
+    \le \P\left[\left|X-\mu\right| > \mu - M\right]
+    \le \frac{\mu/s}{(\mu-M)^2}
+    = \frac{1/(\mu s)}{(1-M/\mu)^2}. \label{eq:weak-boundary-proof-converse-2}
+\end{equation}
+Now, from the expression of $\overline{F_0}(t^*)$ in \eqref{eq:weak-boundary-proof-null-tail-prob}, we obtain
+$$
+\mu = (p^\beta - 1)\overline{F_0}(t^*) \sim \frac{2^{1-\nu/2}}{\Gamma(\nu/2)} \left(2q\log{p}\right)^{\nu/2-1}p^{\beta-q}\to\infty \quad \text{ as }\;p\to\infty.
+$$
+Therefore the last expression in \eqref{eq:weak-boundary-proof-converse-2} converges to 0, and we conclude that $X\to\infty$ in probability, and hence
+$$
+\frac{|\widehat{S}(t^*)\setminus{S}|}{|\widehat{S}(t^*)\setminus{S}|+|{S}|} 
+= \frac{X}{X+1} \to 1 \quad \text{in probability}.
+$$
+
+On the other hand, we need to show that with the same choice of $u = t^*$,
+$$
+\frac{|{S}\setminus\widehat{S}(t^*)|}{|{S}|}\to 1 \quad \text{in probability}.
+$$
+Since $|{S}\setminus\widehat{S}(t^*)| \sim \text{Binom}(s, {F_a}(t^*))$, it suffices to show that ${F_a}(t^*)$ converges to 1.
+This is indeed the case, since
+\begin{align}
+    {F_a}(t^*) 
+    &= \P[Z_1^2 + \ldots + Z_\nu^2 + 2\sqrt{2r\log{p}} Z_\nu + 2r\log{p} \le 2q\log{p}] \\
+    &\ge \P[Z_1^2 + \ldots + Z_\nu^2 \le (q-r)\log{p}, \; 2\sqrt{2r\log{p}} Z_\nu \le (q-r)\log{p}],
+\end{align}
+and both events in the last line have probability going to 1 as $p\to\infty$.
+The necessary condition is shown.
+
+We now turn to show the sufficient condition. 
+That is, when $r > \beta$, the Benjamini-Hochberg procedure with suitably chosen FDR level achieves asymptotic approximate support recovery.
+Let $\widehat{G}$ denote the empirical survival function
+\begin{equation} \label{eq:empirical-survival}
+    \widehat{G}(t) = \frac{1}{p}\sum_{i\in[p]}\mathbbm{1}\{x(i) \ge t\}.
+\end{equation}
+Define the empirical survival functions for the null part and signal part
+\begin{equation} \label{eq:empirical-survival-null-signal}
+    \widehat{W}_\text{null}(t) = \frac{1}{p-s}\sum_{i\not\in S}\mathbbm{1}\{x(i) \ge t\},
+    \quad
+    \widehat{W}_\text{signal}(t) = \frac{1}{s}\sum_{i\in S}\mathbbm{1}\{x(i) \ge t\},
+\end{equation}
+so that
+$$
+\widehat{G}(t) = \frac{p-s}{s}\widehat{W}_\text{null}(t) + \frac{s}{p}\widehat{W}_\text{signal}(t).
+$$
+
+We need the following result to control the deviations of the empirical distributions.
+\begin{lemma}[\cite{eicker1979asymptotic}] \label{lemma:empirical-process}
+Let $Z_1,\ldots,Z_k$ be i.i.d.\ with continuous survival function $Q$.
+Let $\widehat{Q}_k$ denote their empirical survival function and define 
+$\xi_k = \sqrt{2\log{\log{(k)}}/k}$ for $k \ge 3$. 
+Then
+$$
+\frac{1}{\xi_k}\sup_z\frac{\widehat{Q}_k(z) - Q(z)}{\sqrt{Q(z)(1 - Q(z))}} \to 1,
+$$
+in probability as $k \to \infty$.
+In particular,
+$$
+\widehat{Q}_k(z) = Q(z) + O_\P\left(\xi_k\sqrt{Q(z)(1 - Q(z))}\right),
+$$
+uniformly in z.
+\end{lemma}
+
+Apply Lemma \ref{lemma:empirical-process} to $\widehat{G}$ we have
+$\widehat{G}(t) = G(t) + \widehat{R}(t)$.
+where 
+\begin{equation} \label{eq:empirical-process-mean}
+    G(t) = \frac{p-s}{s}\overline{F_0}(t) + \frac{s}{p}\overline{F_a}(t),
+\end{equation}
+where $\overline{F_0}$ and $\overline{F_a}$ are the survival functions of $\chi_\nu^2(0)$ and $\chi_\nu^2(\Delta)$ respectively, and 
+\begin{equation} \label{eq:empirical-process-residual}
+    \widehat{R}(t) = O_\P\left(\xi_p\sqrt{\overline{F_0}(t)F_0(t)} + \frac{s}{p}\xi_s\sqrt{\overline{F_a}(t)F_a(t)}\right),
+\end{equation}
+uniformly in $t$.
+
+Denote the order statistics of $x$ as $x_{[1]}\ge\ldots\ge x_{[p]}$, and let $i^* := \max\{i\,|\,\overline{F_0}(x_{[i]})\le \alpha i/p\}$.
+Notice that the BH procedure at FDR level $\alpha$ rejects all hypotheses whose observations exceed $x_{[i^*]}$. 
+That is, the BH procedure is the thresholding procedure with threshold set at $x_{[i^*]}$.
+
+By the definition of $\widehat{G}$ we know that $\widehat{G}(x_{[i]}) = i/p$.
+Therefore, by the deinition of $i^*$ we have
+\begin{equation}
+    \overline{F_0}(x_{[i]}) > \alpha\widehat{G}(x_{[i]}) = \alpha j/p \quad \text{for all }i>i^*.
+\end{equation}
+Since $\widehat{G}$ is constant between $x_{[i^*]}$ and $x_{[i^*+1]}$, the fact that 
+$\overline{F_0}(x_{[i^*]}) \le \alpha\widehat{G}(x_{[i^*]})$ and $\overline{F_0}(x_{[i^*+1]}) > \alpha\widehat{G}(x_{[i^*+1]})$ means that $\alpha\widehat{G}$ and $\overline{F_0}$ must intersect on $(x_{[i^*+1]}, x_{[i^*]}]$.
+We denote this intersection as
+\begin{equation} \label{eq:weak-boundary-proof-tau}
+    \tau = \min\{t\,|\,\overline{F_0}(t)\le\alpha\widehat{G}(t)\} = \min\{t\,|\,\overline{F_0}(t)=\alpha\widehat{G}(t)\}.
+\end{equation}
+We can now express the BH procedure as the thresholding procedure with threshold set at $\tau$ (since there is no observation between $\tau$ and $x_{[i^*]}$).
+The NDP may also be re-written as 
+$$
+\text{NDP} = \frac{|{S}\setminus\widehat{S}|}{|{S}|} = \frac{1}{s}\sum_{i\in S}\mathbbm{1}\{x(i) < \tau\} = 1 - \widehat{W}_\text{signal}(\tau),
+$$
+so that it suffices to show that 
+\begin{equation} \label{eq:weak-boundary-proof-sufficient-1}
+    \widehat{W}_\text{signal}(\tau)\to 1
+\end{equation} in probability.
+Applying Lemma \ref{lemma:empirical-process} to $\widehat{W}_\text{signal}$, we know that 
+$$
+\widehat{W}_\text{signal}(\tau) = \overline{F_a}(\tau) + O_\P\left(\xi_s\sqrt{\overline{F_a}(\tau)F_a(\tau)}\right) = \overline{F_a}(\tau) + o_\P(1).
+$$
+So it suffices to show that $F_a(\tau)\to 0$ in probability.
+Now let $t^* = 2q\log(p)$ for some $q$ such that $\beta<q<r$.
+We have 
+\begin{equation} \label{eq:weak-boundary-proof-sufficient-2}
+    F_a(t^*) = \P[\chi^2_\nu(\Delta) \le t^*]
+    \le \P\left[2\sqrt{\Delta}Z_\nu \le t^* - \Delta\right] 
+    = \P\left[Z_\nu \le \frac{t^*}{2\sqrt{\Delta}} - \frac{\sqrt{\Delta}}{2}\right] \to 0.
+\end{equation}
+Hence in order to show \eqref{eq:weak-boundary-proof-sufficient-1}, it suffices to show 
+\begin{equation} \label{eq:weak-boundary-proof-sufficient-3}
+    \P\left[\tau \le t^*\right] \to 1.
+\end{equation}
+By \eqref{eq:empirical-process-mean}, the mean of the empirical process $\widehat{G}$ evaluated at $t^*$ is
+\begin{equation*}
+    G(t^*) = \frac{p-s}{s}\overline{F_0}(t^*) + \frac{s}{p}\overline{F_a}(t^*).
+\end{equation*}
+The first term, using Relation \eqref{eq:weak-boundary-proof-null-tail-prob}, is asymptotic to $p^{-q}L(p)$, where $L(p)$ is the logarithmic term in $p$.
+The second term, since $\overline{F_a}(t^*)\to 1$ by Relation \eqref{eq:weak-boundary-proof-sufficient-2}, is asymptotic to $p^{-\beta}$.
+Therefore, $G(t^*) \sim p^{-q}L(p) + p^{-\beta} = p^{-\beta}$, since $q>\beta$ and $p^\delta L(p)$ for all $\delta>0$.
+
+The fluctuation of the empirical process at $t^*$, by Relation \eqref{eq:empirical-process-residual}, is 
+\begin{align*}
+    \widehat{R}(t^*) 
+    &= O_\P\left(\xi_p\sqrt{\overline{F_0}(t^*)F_0(t^*)} + \frac{s}{p}\xi_s\sqrt{\overline{F_a}(t^*)F_a(t^*)}\right)\\
+    &= O_\P\left(\xi_p\sqrt{\overline{F_0}(t^*)}\right) + o_\P\left(p^{-\beta}\right).
+\end{align*}
+By \eqref{eq:weak-boundary-proof-null-tail-prob} and the expression for $\xi_p$, the first term is $O_\P\left(p^{-(q+1)/2}L(p)\right)$ where $L(p)$ is a poly-logarithmic term in $p$.
+Since $\beta<\min\{q,1\}$, we have $\beta<(q+1)/2$, and hence $\widehat{R}(t^*) = o_\P(p^{-\beta})$.
+
+Putting the mean and the fluctuation of $\widehat{G}(t^*)$ together, we obtain
+$$
+\widehat{G}(t^*) = G(t^*) + \widehat{R}(t^*) \sim_\P G(t^*) \sim p^{-\beta},
+$$
+and therefore, together with \eqref{eq:weak-boundary-proof-null-tail-prob}, we have
+$$
+\overline{F_0}(t^*)/\widehat{G}(t^*) = p^{\beta-q}L(p)(1+o_{\P}(1)),
+$$
+which is eventually smaller than the FDR level $\alpha$ by the assumption \eqref{eq:FDR-rate-to-zero} and the fact that $\beta<q$.
+That is, 
+$$
+\P\left[\overline{F}_0(t^*) / \widehat{G}(t^*) < \alpha\right] \to 1.
+$$
+By definition of $\tau$ ( recall \eqref{eq:weak-boundary-proof-tau}), this implies that $\tau \le t^*$ with probability tending to 1, and \eqref{eq:weak-boundary-proof-sufficient-3} is shown.
+The proof for the sufficient condition is complete.
+\end{proof}

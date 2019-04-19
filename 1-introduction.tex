@@ -1,0 +1,172 @@
+
+Multiple testing
+
+While additive error models have been studied extensively, other models have not been as vigorously explored.
+\begin{equation} \label{eq:model-chisq}
+    x(i) \sim \chi_\nu^2\left(\lambda(i)\right), \quad i=1,\ldots,p.
+\end{equation}
+Models such as \eqref{eq:model-chisq} arise naturally in high-dimensional screening problems for categorical covariates.
+A prototypical example is genome-wide association studies (GWAS).
+
+Section \ref{subsec:motivation}.
+
+
+Our contribution is three-fold.
+
+First, we show that several well-known family-wise error rate controlling procedures, including Bonferroni's procedure, are asymptotically optimal to first order for \emph{exact} support recovery problems when the statistics are independently chi-square distributed.
+Second, we show that the Benjamini-Hochberg procedure is asymptotically optimal to first order for \emph{approximate} support recovery problems in the high-dimensional chi-square models.
+These two results, establishing the relationship between dimensionality and signal sizes in support recovery problems, are made precise in Theorems \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary}.
+
+Unlike in additive error models, the notion of signal size in chi-square models can be difficult to interpret.
+Our third contribution demystifies this notion in the context of association tests, by characterizing of the relationship between signal sizes and marginal frequencies, odds ratio, and sample sizes, for association tests on 2-by-2 contingency tables.
+% Specifically, the amount of signal, when rare variants are present, is weaker compared to the signal when the marginal distributions are balanced.
+% In other words, reliable detection of the effects by rare variants would require more samples compared to common variants, even at the same odds ratio.
+This result, establishing the relationship between sample sizes and signal sizes, is made quantitative in Proposition \ref{prop:signal-size-odds-ratio}.
+
+Together, these results allows us to work out the signal sizes, and in turn, the sample sizes needed to achieve a desired accuracy of support recovery, from the problem dimensionality and assumed sparsity levels.
+
+\subsection{Motivating applications}
+\label{subsec:motivation}
+
+In a typical case-control design of GWAS, we have a total of $n$ subjects consisting of $n_1$ cases possessing the defined trait, and $n_2$ controls without the trait.
+Frequencies of single-nucleotide polymorphisms (SNPs) at an array of $p$ genomic marker locations are compared between the case group and the control group.
+The counts of observed genotypes at a particular genomic location, if two variants are present, can be tabulated as follows.
+\begin{center}
+    \begin{tabular}{cccc}
+    \hline
+    & \multicolumn{2}{c}{Genotype} & \\
+    \cline{2-3}
+    \# Observations & Variant 1 & Variant 2 & Total by phenotype \\
+    \hline
+    Cases & $O_{11}$ & $O_{12}$ & $n_1$ \\
+    Controls & $O_{21}$ & $O_{22}$ & $n_2$ \\
+    \hline
+    \end{tabular}
+\end{center}
+To detect associations between the genotypes and the phenotypes, statistical tests are performed on the tabulated counts.
+A common test of association is Pearson's Chi-square test, with statistic
+\begin{equation} \label{eq:chisq-statistic}
+    x = \sum_{j=1}^2 \sum_{k=1}^2 \frac{(O_{jk} - E_{jk})^2}{E_{jk}},
+\end{equation}
+where $E_{jk}$'s are the expected number of observations in respective cells, estimated empirically with $E_{jk} = (O_{j1}+O_{j2})(O_{1k}+O_{2k})/n$.
+%E_{jk} = \Big(\sum_{l}O_{jl}\Big)\Big(\sum_{l}O_{lk}\Big)\Big/n.
+
+Under the mild assumption that the counts $O_{jk}$'s follow a multinomial distribution, the statistic $x$ in \eqref{eq:chisq-statistic} can be shown to be asymptotically $\chi^2$-distributed with $\nu=1$ degree of freedom when the two marginals are truly independent.
+If dependence exists, $x$ will have an approximate non-central $\chi^2(\lambda)$ distribution -- again, with $\nu=1$ degree of freedom -- where the non-centrality parameter $\lambda$ depends on the underlying multinomial probabilities.
+
+More generally, if we have a $J\times K$ multinomial distribution, the statistic will follow approximately a $\chi^2_{\nu}(\lambda)$ distribution with $\nu = (J-1)(K-1)$ degrees of freedom.
+
+This type of association tests are repeated at each of the $p$ genomic locations, yielding $p$ test statistics having approximately (non-)central $\chi^2_{\nu}$ distributions,
+\begin{equation} \label{eq:model-chisquare-approx}
+    x(i) \mathrel{\dot\sim} \chi_\nu^2\left(\lambda(i)\right), \quad i=1,\ldots,p.
+\end{equation}
+Here $\lambda = (\lambda(i))_{i=1}^p$ is the $p$-dimensional non-centrality parameter, $\lambda(i)=0$ indicating independence of the $i$-th SNP with the outcomes, and $\lambda(i)\neq0$ for variants associates with the outcomes.
+
+In high-dimensional problems where $p$ is large, it is often believed that $\lambda$ is sparse, or approximately so.
+Under the stylized assumption of exact $s$-sparsity, $\lambda$ has only $s$ non-zero components, where $s$ is often much smaller than the problem dimension $p$. 
+The goal of researchers is usually two-fold: to test if $\lambda(i)=0$ for all $i$ (i.e., determine if there are any genetic variation associated with the disease); and if there are associations, to estimate the set $S=\{i:\lambda(i)\neq 0\}$ (i.e., locate the associated variants).
+The latter, referred to as the \emph{support recovery problem}, is the focus of this work.
+
+\subsection{Statistical risks in support recovery problems}
+\label{subsec:risks}
+
+In support recovery problems, our goal is to come up with a good procedure, denoted $\mathcal R$, to produce a set estimate $\widehat{S}$ of the true index set of relevant variables  $S=\{i:\lambda(i)\neq 0\}$.
+The set estimate depends on the procedure $\mathcal{R}$, which in turn, takes as input the data or test statistics $x$.
+Therefore formally we should write $\widehat{S}(\mathcal{R}(x))$; we suppress this dependence for notational convenience when it does not lead to ambiguity.
+
+For a given procedure $\mathcal{R}$, the \emph{false discovery rate} (FDR) is defined to be the expected fraction of false findings not in the true index set, among the reported discoveries \cite{benjamini1995controlling}. That is,
+\begin{equation} \label{eq:FDR}
+    \mathrm{FDR}(\mathcal{R}) = \E\left[\frac{|\widehat{S}\setminus S|}{\max\{|\widehat{S}|,1\}}\right].
+\end{equation}
+Similarly, \emph{false non-discovery rate} (FNR), which measures the power of the procedure, is defined as the expected fraction of missed detections,
+\begin{equation} \label{eq:FNR}
+    \mathrm{FNR}(\mathcal{R}) = \E\left[\frac{|S\setminus \widehat{S}|}{\max\{|{S}|,1\}}\right].
+\end{equation}
+Following \cite{arias2017distribution}, we define the risk for \emph{approximate} support recovery as
+\begin{equation} \label{eq:risk-approximate}
+    \mathrm{risk}^{\mathrm{Approx}}(\mathcal{R}) = \mathrm{FDR}(\mathcal{R}) + \mathrm{FNR}(\mathcal{R}).
+\end{equation}
+
+A more stringent criteria for false discovery in multiple testing problems is family-wise error rate (FWER), defined to be the probability of reporting at least one finding not contained in the true index set.
+That is,
+\begin{equation} \label{eq:FWER}
+    \mathrm{FWER}(\mathcal{R}) = 1 - \P[\widehat{S} \subseteq S].
+\end{equation}
+Correspondingly, a more stringent criteria for false non-discovery is family-wise non-discovery rate (FWNR), defined as the probability of missing at least one finding in the true index set,
+\begin{equation} \label{eq:FWNDR}
+    \mathrm{FWNR}(\mathcal{R}) = 1 - \P[S \subseteq \widehat{S}].
+\end{equation}
+Analogous to the risk for approximate support recovery, we define the risk for \emph{exact} support recovery as
+\begin{equation} \label{eq:risk-exact}
+    \mathrm{risk}^{\mathrm{Exact}}(\mathcal{R}) = \mathrm{FWER}(\mathcal{R}) + \mathrm{FWNR}(\mathcal{R}).
+\end{equation}
+An intimately related measure of success in the exact support recovery problem is the probability of exact recovery 
+\begin{equation} \label{eq:risk-prob}
+    \P[\widehat{S} = S] = 1 - \P[\widehat{S} \neq S].
+\end{equation}
+The relationship between $\P[\widehat{S} = S]$ and $\mathrm{risk}^{\mathrm{Exact}}$ will be elaborated on in Section \ref{sec:chisq-boundaries}, where we study the performance of procedures in terms of the two risk metrics defined above.
+\begin{remark} \label{rmk:asymptotic-risks}
+While a procedure that never rejects and one that always rejects have both risks $\mathrm{risk}^{\mathrm{Approx}}$ and $\mathrm{risk}^{\mathrm{Exact}}$ equal to 1, the converse is not true.
+
+For example, a procedure may select the true index set $S$ half of the time, but is completely off by selecting the complement $S^c$ the other half of the time. In this case the procedure also will have $\mathrm{risk}^{\mathrm{Approx}}$ equal to 1.
+Similarly, it is possible that a procedure selects the true index set half of the time, but makes both false inclusions and false omissions simultaneously the other half of the time. In this case the procedure also will have $\mathrm{risk}^{\mathrm{Exact}}$ equal to 1.
+ 
+Therefore, not all methods that has a risks equal to or exceeding 1 are ``useless''.
+Although such methods certainly contain trivial ones as in the first two examples.\footnote{In light of this, Remark 2 of \citet*{arias2017distribution} is inaccurate.}
+\end{remark}
+
+\subsection{Thresholding procedures and their optimality}
+
+We shall study the performance of five procedures in Section \ref{sec:chisq-boundaries}.
+All of them fall under the broad class of thresholding procedures, defined as follows.
+\begin{definition}[Thresholding procedures]
+A thresholding procedure for estimating the support 
+$S:=\{i\, :\, \lambda(i)\neq0\}$ is one that takes on the form
+\begin{equation} \label{eq:thresholding-procedure}
+    \widehat{S} = \left\{i\,|\,x(i) > t(x)\right\},
+\end{equation}
+where the threshold $t(x)$ may depend on the data $x$.
+\end{definition}
+Examples of thresholding procedures include ones that control FWER -- Bonferroni's, Sid\'ak's \citep{vsidak1967rectangular}, Holm's \citep{holm1979simple}, and Hochberg's procedure \citep{hochberg1988sharper} -- as well as ones that target FDR, such as Benjamini-Hochberg's procedure \cite{benjamini1995controlling} and Cand\'es-Barber's procedure \cite{barber2015controlling}.
+
+A special case of thresholding procedures is one which has oracle information of the sparsity $s = |S|$ of the problem. 
+In this case, a natural estimator for $S$ would be based on the set of top $s$ order statistics.
+\begin{definition}[Oracle thresholding]
+We call $\widehat{S}^* = \{j\,|\, x(j)\ge x_{[s]}\}$ the oracle data thresholding procedure, where $x_{[1]} \ge \ldots \ge x_{[p]}$ are the order statistics of $x$.
+\end{definition}
+The oracle thresholding procedure is intimately linked with the so-called monotone likelihood ratio (MLR) property of distribution families.
+\begin{definition}[Monotone Likelihood Ratio]
+A family of positive densities on $\R$, $\{f_\lambda, \lambda \in U\}$, is said to have the MLR property if, for all $\lambda_0, \lambda_1\in U\subseteq\R$ such that $\lambda_0 < \lambda_1$, the likelihood ratio $\left(f_{\lambda_1}(x)/f_{\lambda_0}(x)\right)$ is an increasing function of $x$.
+\end{definition}
+The oracle thresholding procedure is in fact \emph{finite-sample optimal}, for independent observations from MLR distribution families. 
+This is recently shown in \cite{gao2018fundamental}, Lemma 5.1.
+
+Returning to the discussion of support recovery in the chi-square model \eqref{eq:model-chisq}, it can be shown the chi-square distributions $\{\chi^2_\nu(\lambda), \lambda\ge 0\}$ is indeed an MLR family.
+This fact is shown in, for example, Theorem 2.36 a) of \cite{witting2013mathematische}; we include its proof in Appendix \fbox{reference} for completeness.
+
+In view of the MLR property of chi-square models and the optimality of the oracle thresholding procedure for MLR families, it suffices to restrict attention to the class of thresholding procedures when studying support recovery problems in Model \eqref{eq:model-chisq}.
+
+\subsection{Related work}
+
+Review \cite{jin2014optimality, jin2016rare, butucea2018variable, arias2017distribution, gao2018fundamental, ji2012ups, rabinovich2017optimal}.
+
+\begin{equation} \label{eq:model-additive}
+    x(i) = \mu(i) + \epsilon(i), \quad i=1,\ldots,p.
+\end{equation}
+where the second term $\epsilon$ is a $p$-dimensional random error vector. 
+The signal, $\mu = (\mu(i))_{i=1}^p$, is a vector with $s$ non-zero components supported on the set $S=\{i:\mu(i)\neq 0\}$
+
+
+For approximate support recovery problems, \citet*{arias2017distribution} established the asymptotic optimality of the Benjamini-Hochberg procedure \cite{benjamini1995controlling}, and the Cand\'es-Barber procedure \cite{barber2015controlling} for independent additive errors;
+\citet{rabinovich2017optimal} further established the rate-optimality of both procedures under the same regime.
+
+When the goal is the more stringent asymptotically exact support recovery, it was recently shown that several FWER-controlling procedures are optimal, even under severe dependence of the errors \cite{gao2018fundamental}.
+
+The sparse signal detection problem in the chi-square model \eqref{eq:model-chisq} was first studied by \cite{donoho2004higher}.
+
+
+\cite{gao2019upass}
+
+
+
+\subsection{Content}

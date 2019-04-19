@@ -1,0 +1,197 @@
+\documentclass[ejs]{imsart}
+
+\RequirePackage[OT1]{fontenc}
+\RequirePackage{amsthm,amsmath}
+\RequirePackage[numbers]{natbib}
+\RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
+
+% settings
+\pubyear{2019}
+\volume{0}
+\issue{0}
+\firstpage{1}
+\lastpage{8}
+
+% add packages
+\usepackage{enumitem}
+\usepackage{amsfonts,graphicx,bbm}
+%\usepackage[square,numbers]{natbib}
+%\bibliographystyle{plain}
+\usepackage{array,booktabs}
+%\usepackage[margin=1.25in]{geometry}
+
+%
+% My definitions:
+%
+\def\bbN{{\mathbb N}}
+\def\bbZ{{\mathbb Z}}
+\def\bbR{{\mathbb R}}
+\def\bbC{{\mathbb C}}
+
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+
+\newcommand{\var}{{\rm {Var}}}
+\newcommand{\cov}{{\rm {Cov}}}
+
+\def\N{\mathbb N}
+\def\R{\mathbb R}
+\def\Z{\mathbb Z}
+\usepackage{bm}
+\renewcommand\vec[1]{{\bm #1}}
+
+\def\alert#1{\fbox{#1}}
+\def\what{\widehat}
+\def\noi{\noindent}
+\def\MSE{{\rm m.s.e.}}
+\newcommand\comment[1]{{}}
+\def\refeq#1{(\ref{e:#1})}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+\newcommand\version[2]{{#1}} % The short version of the paper
+%\newcommand\version[2]{{#2}} % The long version of the paper
+
+%\startlocaldefs
+\numberwithin{equation}{section}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+% my defs
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{definition}{Definition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{assumption}{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem{example}{Example}[section]
+%\endlocaldefs
+
+
+
+\begin{document}
+
+\begin{frontmatter}
+\title{Fundamental Limits of Multiple Testing in High-dimensional Categorical Data Analysis}%\thanksref{T1}}
+\runtitle{Multiple Testing for Hi-dim. Categorical Data}
+%\thankstext{T1}{Footnote to the title with the `thankstext' command.}
+
+\begin{aug}
+\author{\fnms{First} \snm{Author}\thanksref{t1}\ead[label=e1]{first@somewhere.edu}}
+\and
+\author{\fnms{Second} \snm{Author}}%\thanksref{t3}\ead[label=e2]{second@somewhere.com}}
+
+\address{Department of Statistics, University of Michigan, Ann Arbor, USA\\
+\printead{e1}}
+
+\thankstext{t1}{This research is supported by NSF Grant DMS-1830293, Algorithms for Threat Detection.}
+%\thankstext{t2}{First supporter of the project}
+%\thankstext{t3}{Second supporter of the project}
+\runauthor{Z. Gao}
+
+\affiliation{University of Michigan}
+
+\end{aug}
+
+\begin{abstract}
+We study the fundamental limits of high-dimensional multiple testing problems when test statistics have independent chi-square distributions.
+In particular, we characterize two new phase transition phenomena, by deriving the statistical signal sizes necessary and sufficient for statistical procedures to 1) approximately, and 2) exactly select the set of relevant features in large dimensions.
+Remarkably, the degrees-of-freedom parameter is irrelevant for the boundaries of both phase transitions.
+
+We then elucidate on the nature of statistical signal sizes in the context of association tests on contingency tables, typified by genome-wide association studies (GWAS). 
+Specifically, we characterize the relationship between statistical signal size and marginal frequencies, odds ratio, and sample sizes. % in common association tests for binary traits.
+% Specifically, detection of rare genetic variants associated with the outcomes requires more samples compared to common variants. 
+% Specifically, the difficulty in detecting associations between genetic variants and phenotype traits is quantified in terms of the statistical signal sizes.
+We further demonstrate, perhaps surprisingly, that balanced designs in case-control studies may \emph{not} deliver the highest power. % for detecting rare genetic variants with high odds ratios.
+% Specifically, the amount of signal per sample is inherently smaller when rare variants are present. 
+% In other words, 
+% Further, case prevalence in the recruited subjects plays a role, while case prevalence in the population is irrelevant.
+
+We provide explicit formulas for power calculations, as well as software tools for finding the optimal study designs.
+These results allow us to perform power analysis for high-dimensional screening problems where responses and covariates are categorical, such as in GWAS of qualitative traits.
+\end{abstract}
+
+\begin{keyword}[class=MSC]
+%\kwd[Primary ]{62G10, 62G20}
+\kwd{62G10, 62G20}
+%\kwd[; secondary ]{60K35}
+\end{keyword}
+
+\begin{keyword}
+\kwd{Multiple testing}
+\kwd{asymptotic optimality}
+\kwd{family-wise error rate (FWER) control}
+\kwd{false discovery rate (FDR) control}
+\kwd{categorical data analysis}
+\kwd{association tests}
+\end{keyword}
+\tableofcontents
+\end{frontmatter}
+
+\section{Introduction}
+\label{sec:intro}
+\input{1-introduction.tex}
+
+\section{Phase transitions of multiple testing in chi-square models}
+\label{sec:chisq-boundaries}
+\input{2-boundary.tex}
+
+\section{Odds ratio, rare variants, and signal sizes in association tests}
+\label{sec:signal-size-odds-ratio}
+\input{3-odds-ratios.tex}
+
+\section{Numerical illustrations}
+\label{sec:numerical}
+\input{4-numerical-experiments.tex}
+
+\appendix
+\section{Proofs}
+\label{sec:proofs}
+\input{5-proofs.tex}
+
+
+\section*{Acknowledgements}
+And this is an acknowledgements section with a heading that was produced by the
+$\backslash$section* command. Thank you all for helping me writing this
+\LaTeX\ sample file.
+
+\cite{gao2018fundamental}
+
+
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+
+\begin{thebibliography}{9}
+
+\bibitem{r1}
+\textsc{Billingsley, P.} (1999). \textit{Convergence of
+Probability Measures}, 2nd ed.
+Wiley, New York.
+\MR{1700749}
+
+
+\bibitem{r2}
+\textsc{Bourbaki, N.}  (1966). \textit{General Topology}  \textbf{1}.
+Addison--Wesley, Reading, MA.
+
+\bibitem{r3}
+\textsc{Ethier, S. N.} and \textsc{Kurtz, T. G.} (1985).
+\textit{Markov Processes: Characterization and Convergence}.
+Wiley, New York.
+\MR{838085}
+
+\bibitem{r4}
+\textsc{Prokhorov, Yu.} (1956).
+Convergence of random processes and limit theorems in probability
+theory. \textit{Theory  Probab.  Appl.}
+\textbf{1} 157--214.
+\MR{84896}
+
+\end{thebibliography}
+
+\end{document}
