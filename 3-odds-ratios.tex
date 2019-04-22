@@ -62,7 +62,7 @@ Power calculations would therefore only depend on the distributions through $\la
 
 The relationship between the signal size $w^2$ and the odds ratio $\text{R}$ is characterized in the following Proposition.
 
-\begin{proposition} \label{prop:signal-size-odds-ratio}
+\begin{theorem} \label{thm:signal-size-odds-ratio}
 Consider 2-by-2 multinomial distribution with marginals $(\phi_1, \phi_2 = 1-\phi_1)$ and $(\theta_1, \theta_2 = 1-\theta_1)$.
 Let signal size $w^2$ be defined as in \eqref{eq:signal-size-chisq}, and odds ratio $\text{R}$ be defined as in \eqref{eq:odds-ratio}. 
 We have $w^2 = 0$ if $R=1$, and
@@ -72,7 +72,7 @@ We have $w^2 = 0$ if $R=1$, and
 \end{equation}
 if $R\neq1$, and $R>0$, 
 with constants $A = \phi_1\theta_1\phi_2\theta_2$, $B = \phi_1\theta_1+\phi_2\theta_2$, and $C = \phi_1\theta_2+\phi_2\theta_1$.
-\end{proposition}
+\end{theorem}
 
 We emphasize that only the proportion of cases and controls \emph{in the study}, the distribution of alleles \emph{in the study}, and the odds ratio are relevant for power analysis.
 The prevalence of the cases and the distributions of alleles in the general population are \emph{irrelevant}.
@@ -85,7 +85,7 @@ Notice that while the odds ratio $R$ can be unbounded for any arbitrary marginal
       \includegraphics[width=0.49\textwidth]{./singal-vs-odds-p05}
       \includegraphics[width=0.49\textwidth]{./singal-vs-odds-p0333}            
       % \includegraphics[width=0.35\textwidth]{./phase_diagram_chisquared.eps}
-      \caption{Signal size in chi-square tests as functions of odds ratio in 2-by-2 multinomial distributions, for selected marginal probabilities; see Relation \eqref{eq:signal-size-odds-ratio} in Proposition \ref{prop:signal-size-odds-ratio}.
+      \caption{Signal size in chi-square tests as functions of odds ratio in 2-by-2 multinomial distributions, for selected marginal probabilities; see Relation \eqref{eq:signal-size-odds-ratio} in Theorem \ref{thm:signal-size-odds-ratio}.
       For fixed marginal distributions, extreme odds ratios imply stronger signals at a given sample size.
       However, the signal sizes are bounded above by constants that depend on the marginal distributions; see Relation \eqref{eq:signal-size-upper-bound}.
       % Unbalanced marginal distributions -- or rare variants -- lead to smaller signal sizes at a given odds ratio.
@@ -131,7 +131,7 @@ Just as the multinomial distribution is fully parametrized by the marginals and 
     \end{tabular}
 \end{center}
 
-Proposition \ref{prop:signal-size-odds-ratio} may then be re-stated in terms of the new trio $(f, \phi_1, R)$.
+Theorem \ref{thm:signal-size-odds-ratio} may then be re-stated in terms of the new trio $(f, \phi_1, R)$.
 
 % Note that all these quantities refer to what is in the study, and differ from their counterparts in the general population.
 

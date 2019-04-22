@@ -14,26 +14,28 @@ non-zero entries, where the sizes of the non-zero parameters $\lambda(i),\,i\in 
 for some constants $0<\underline{r}\le\overline{r}$.
 Here $\beta$ parametrizes the problem sparsity, whereas $\underline{r}$ and $\overline{r}$ parametrize the signal sizes.
 
+\subsection{Asymptotic success and failure of support recovery}
+
 We define the criteria for success and failure of exact support recovery under this asymptotic regime.
 \begin{definition} \label{def:exact-recovery-success-failure}
 We say the exact support recovery succeeds asymptotically if 
 \begin{equation} \label{eq:exact-recovery-success}
-    \mathrm{risk}^{\mathrm{Exact}}\to0, \quad \text{as}\quad p\to\infty.
+    \mathrm{risk}^{\mathrm{E}}\to0, \quad \text{as}\quad p\to\infty.
 \end{equation}
 We say the exact support recovery fails asymptotically if 
 \begin{equation} \label{eq:exact-recovery-failure}
-    \liminf\mathrm{risk}^{\mathrm{Exact}}\ge1, \quad \text{as}\quad p\to\infty.
+    \liminf\mathrm{risk}^{\mathrm{E}}\ge1, \quad \text{as}\quad p\to\infty.
 \end{equation}
 \end{definition}
 Similarly, we define the criteria for asymptotic success and failure for approximate support recovery as follows.
 \begin{definition} \label{def:approx-recovery-success-failure}
 We say the approximate support recovery succeeds asymptotically if 
 \begin{equation} \label{eq:approx-recovery-success}
-    \mathrm{risk}^{\mathrm{Approx}}\to0, \quad \text{as}\quad p\to\infty.
+    \mathrm{risk}^{\mathrm{A}}\to0, \quad \text{as}\quad p\to\infty.
 \end{equation}
 We say the approximate support recovery fails asymptotically if 
 \begin{equation} \label{eq:approx-recovery-failure}
-    \liminf\mathrm{risk}^{\mathrm{Approx}}\ge1, \quad \text{as}\quad p\to\infty.
+    \liminf\mathrm{risk}^{\mathrm{A}}\ge1, \quad \text{as}\quad p\to\infty.
 \end{equation}
 \end{definition}
 The performance of procedures in terms of the criteria in Definitions \ref{def:exact-recovery-success-failure} and \ref{def:approx-recovery-success-failure} will be analyzed in Sections \ref{subsec:strong-classification-boundary} and \ref{subsec:weak-classification-boundary}, respectively.
@@ -45,6 +47,59 @@ That is, depending on the $r$-$\beta$ combination, the global hypothesis testing
 
 We shall see that the scaling of sparsity \eqref{eq:signal-sparsity} and signal size \eqref{eq:signal-size} is also the suitable parametrization for studying the phase transitions of the approximate and exact signal support recovery problems.
 \end{remark}
+
+We now elaborate on the relationship between the probability of exact recovery and risk of exact support recovery, as promised in Section \ref{subsec:risks}.
+\begin{lemma} \label{lemma:risk-exact-recovery-probability}
+Let $\mathcal{R} = \mathcal{R}_p$ be the sequence of procedures for support recovery under the chi-square model \eqref{eq:model-chisq}. 
+%The probability of exact recovery $\P[\widehat{S} = S]$, and risk of exact support recovery $\mathrm{risk}^{\mathrm{E}}$, defined in \eqref{eq:risk-exact}, are related as follows,
+In this case, as $p\to\infty$, we have
+\begin{equation} \label{eq:exact-recovery-implies-risk-0}
+    \P[\widehat{S} = S] \to 1 \iff \mathrm{risk}^{\mathrm{E}}\to0,
+\end{equation}
+and
+\begin{equation} \label{eq:failure-recovery-implies-risk-1}
+    \P[\widehat{S} = S] \to 0 \implies \liminf\mathrm{risk}^{\mathrm{E}}\ge1,
+\end{equation}
+where the dependence on $p$ was suppressed for notational convenience.
+\end{lemma}
+
+\begin{proof}[Proof of Lemma \ref{lemma:risk-exact-recovery-probability}]
+Notice that $\{\widehat{S}=S\}$ implies $\{\widehat{S}\subseteq S\} \cap \{\widehat{S}\supseteq S\}$, therefore we have for every fixed $p$,
+\begin{equation} \label{eq:risk-exact-recovery-probability-proof-1}
+    \mathrm{risk}^{\mathrm{E}} 
+    = 2 - \P[\widehat{S} \subseteq S] - \P[S \subseteq \widehat{S}] \\
+    \le 2 - 2\P[\widehat{S}=S].
+\end{equation}
+On the other hand, since $\{\widehat{S}\neq S\}$ implies $\{\widehat{S}\not\subseteq S\} \cup \{\widehat{S}\not\supseteq S\}$, we have for every fixed $p$,
+\begin{equation} \label{eq:risk-exact-recovery-probability-proof-2}
+    1 - \P[\widehat{S}=S]
+    = \P[\widehat{S}\neq S]
+    \le 2 - \P[\widehat{S} \subseteq S] - \P[S \subseteq \widehat{S}]
+    = \mathrm{risk}^{\mathrm{E}}. 
+\end{equation}
+Relation \eqref{eq:exact-recovery-implies-risk-0} follows from \eqref{eq:risk-exact-recovery-probability-proof-1} and \eqref{eq:risk-exact-recovery-probability-proof-2}, and Relation \eqref{eq:failure-recovery-implies-risk-1} from \eqref{eq:risk-exact-recovery-probability-proof-2}.
+\end{proof}
+
+\begin{remark}
+By virtue of Lemma \ref{lemma:risk-exact-recovery-probability}, it is sufficient to study the probability of exact support recovery $\P[\{\widehat{S}=S\}]$ in place of $\mathrm{risk}^{\mathrm{E}}$, if we are interested in the asymptotic properties of the risk defined in \eqref{def:exact-recovery-success-failure}.
+\end{remark}
+
+The converse of \eqref{eq:failure-recovery-implies-risk-1}, however, is not true.
+
+\begin{remark} \label{rmk:asymptotic-risks}
+%The converse is not true.
+While a procedure that never rejects and one that always rejects have risk $\mathrm{risk}^{\mathrm{E}}$ equal to 1, the converse is not true.
+For example, it is possible that a procedure selects the true index set $S$ with probability $1/2$, but makes one false inclusion and one false omission simultaneously the other half of the time. 
+In this case the procedure will have 
+$$\mathrm{risk}^{\mathrm{E}} = 1, \quad \text{but} \quad \P[\widehat{S}=S] = 1/2.$$
+ 
+The same argument applies to $\mathrm{risk}^{\mathrm{A}}$. 
+A procedure may select the true index set $S$ with probability $1/2$, but makes enough mistakes other half of the time such that $\mathrm{risk}^{\mathrm{A}}$ is equal to 1. 
+
+Therefore, not all methods that has a risks equal to or exceeding 1 are useless. 
+Although the class of methods with risks equal to or exceeding 1 certainly contains trivial ones as in the first two examples.\footnote{In light of this, Remark 2 of \citet*{arias2017distribution} is inaccurate.}.
+\end{remark}
+
 
 \subsection{FWER-controlling procedures}
 \label{subsec:FWER-controlling-procedures}
@@ -100,45 +155,7 @@ While Sid\'ak's procedure and Hochberg's procedure control FWER at nominal level
 \subsection{The strong classification boundary}
 \label{subsec:strong-classification-boundary}
 
-We first elaborate on the relationship between the probability of exact recovery and risk of exact support recovery, as promised in Section \ref{subsec:risks}.
-\begin{lemma} \label{lemma:risk-exact-recovery-probability}
-Let $\mathcal{R} = \mathcal{R}_p$ be the sequence of procedures for support recovery under the chi-square model \eqref{eq:model-chisq}. 
-%The probability of exact recovery $\P[\widehat{S} = S]$, and risk of exact support recovery $\mathrm{risk}^{\mathrm{Exact}}$, defined in \eqref{eq:risk-exact}, are related as follows,
-In this case, as $p\to\infty$, we have
-\begin{equation} \label{eq:exact-recovery-implies-risk-0}
-    \P[\widehat{S} = S] \to 1 \iff \mathrm{risk}^{\mathrm{Exact}}\to0,
-\end{equation}
-and
-\begin{equation} \label{eq:failure-recovery-implies-risk-1}
-    \P[\widehat{S} = S] \to 0 \implies \liminf\mathrm{risk}^{\mathrm{Exact}}\ge1,
-\end{equation}
-where the dependence on $p$ was suppressed for notational convenience.
-\end{lemma}
-
-\begin{proof}[Proof of Lemma \ref{lemma:risk-exact-recovery-probability}]
-Notice that $\{\widehat{S}=S\}$ implies $\{\widehat{S}\subseteq S\} \cap \{\widehat{S}\supseteq S\}$, therefore we have for every fixed $p$,
-\begin{equation} \label{eq:risk-exact-recovery-probability-proof-1}
-    \mathrm{risk}^{\mathrm{Exact}} 
-    = 2 - \P[\widehat{S} \subseteq S] - \P[S \subseteq \widehat{S}] \\
-    \le 2 - 2\P[\{\widehat{S}=S\}].
-\end{equation}
-On the other hand, since $\{\widehat{S}\neq S\}$ implies $\{\widehat{S}\not\subseteq S\} \cup \{\widehat{S}\not\supseteq S\}$, we have for every fixed $p$,
-\begin{equation} \label{eq:risk-exact-recovery-probability-proof-2}
-    1 - \P[\{\widehat{S}=S\}]
-    = \P[\{\widehat{S}\neq S\}]
-    \le 2 - \P[\widehat{S} \subseteq S] - \P[S \subseteq \widehat{S}]
-    = \mathrm{risk}^{\mathrm{Exact}}. 
-\end{equation}
-Relation \eqref{eq:exact-recovery-implies-risk-0} follows from \eqref{eq:risk-exact-recovery-probability-proof-1} and \eqref{eq:risk-exact-recovery-probability-proof-2}, and Relation \eqref{eq:failure-recovery-implies-risk-1} from \eqref{eq:risk-exact-recovery-probability-proof-2}.
-\end{proof}
-
-\begin{remark}
-By virtue of Lemma \ref{lemma:risk-exact-recovery-probability}, it is sufficient to study the probability of exact support recovery $\P[\{\widehat{S}=S\}]$ in place of $\mathrm{risk}^{\mathrm{Exact}}$, if we are interested in the asymptotic properties of the risk defined in \eqref{def:exact-recovery-success-failure}.
-The converse, however, is not true.
-An example where $\liminf\mathrm{risk}^{\mathrm{Exact}}\ge1$ but $\P[\widehat{S} = S] \not\to 0$ is given in Remark \ref{rmk:asymptotic-risks}.
-\end{remark}
-
-We now state our first main result, characterizing the phase-transition phenomenon in the exact support recovery problem under the chi-square model.
+We are ready to state our first main result, characterizing the phase-transition phenomenon in the exact support recovery problem under the chi-square model.
 
 \begin{theorem} \label{thm:chi-squred-strong-boundary}
 Consider the high-dimensional chi-squared model \eqref{eq:model-chisq} with signal sparsity and size as described in \eqref{eq:signal-sparsity} and \eqref{eq:signal-size}.
@@ -146,15 +163,15 @@ The function
 \begin{equation} \label{eq:strong-classification-boundary-chisquared}
     g(\beta) = \left(\sqrt{1-\beta} + \sqrt{2-\beta}\right)^2
 \end{equation}
-characterizes the phase transition of exact support recovery problem.
+characterizes the phase transition of exact support recovery problems.
 Specifically, if $\underline{r} > {{g}}(\beta)$, then Bonferroni's procedure $\widehat{S}_p$ (defined in \eqref{eq:Bonferroni-procedure}) with FWER levels $\alpha=\alpha_p$ satisfying
 \begin{equation} \label{eq:FWER-rate-to-zero}
     \alpha\to 0,\quad \text{and} \quad \alpha p^\delta\to\infty \text{  for any } \delta>0,
 \end{equation}
 achieves asymptotic perfect support recovery in the sense of \eqref{eq:exact-recovery-success}. 
 
-Conversely, if $\overline{r} < {{g}}(\beta)$, for any procedure $\widehat{S}$, we have $\P[\widehat{S}=S]\to0$.
-Therefore, in view of Lemma \ref{lemma:risk-exact-recovery-probability}, exact support recovery asymptotically fails for any and all procedures in the sense of \eqref{eq:exact-recovery-failure}.
+Conversely, if $\overline{r} < {{g}}(\beta)$, then for any thresholding procedure $\widehat{S}$, we have $\P[\widehat{S}=S]\to0$.
+Therefore, in view of Lemma \ref{lemma:risk-exact-recovery-probability}, exact support recovery asymptotically fails for all thresholding procedures in the sense of \eqref{eq:exact-recovery-failure}.
 \end{theorem}
 
 The strong classification boundary is shown in Figure \ref{fig:phase-chi-squared}
@@ -169,12 +186,16 @@ The strong classification boundary is shown in Figure \ref{fig:phase-chi-squared
       \label{fig:phase-chi-squared}
 \end{figure}
 
+\begin{remark}
 It is interesting to note that signal sizes in the chi-squared model grows at the same rate as the Laplace model.
 The asymmetry in the chi-squared model can be seen in \eqref{eq:strong-classification-boundary-chisquared}: as $\beta\to0$, the boundary approaches $3+2\sqrt{2} \approx 5.828$ instead of $2$ as in the case model of additive errors with Laplace errors; the required signal size is much larger.
+\end{remark}
 
-A remarkable feature of the boundary \eqref{eq:strong-classification-boundary-chisquared} is that it is independent of the degrees of freedom $\nu$.
+\begin{remark}
+A remarkable feature of the boundary \eqref{eq:strong-classification-boundary-chisquared} is that the degree-of-freedom parameter $\nu$ does not play a role.
 In simulations, we find the approximation by the asymptotic boundary to be quite accurate even in moderate dimensions, and largely unaffected by the degrees of freedom.
 See Figure \ref{fig:phase-simulated-chi-squared} for numerical illustrations.
+\end{remark}
 
 \subsection{FDR-controlling procedures}
 \label{subsec:FDR-controlling-procedures}
@@ -200,5 +221,5 @@ Specifically, if $\underline{r} > {h}(\beta)$, then the Benjamini-Hochberg proce
 \end{equation}
 achieves asymptotically approximate support recovery in the sense of \eqref{eq:approx-recovery-success}. 
 
-Conversely, if $\overline{r} < {h}(\beta)$, approximate support recovery asymptotically fails in the sense of \eqref{eq:approx-recovery-failure} for any and all procedures.
+Conversely, if $\overline{r} < {h}(\beta)$, then approximate support recovery asymptotically fails in the sense of \eqref{eq:approx-recovery-failure} for all thresholding procedures.
 \end{theorem}

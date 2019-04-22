@@ -1,7 +1,7 @@
 
 \subsection{Signal sizes and odds ratio in 2-by-2 contingency tables}
 
-\begin{proof}[Proof of Proposition \ref{prop:signal-size-odds-ratio} and Corollary \ref{cor:signal-limits-OR}]
+\begin{proof}[Proof of Theorem \ref{thm:signal-size-odds-ratio} and Corollary \ref{cor:signal-limits-OR}]
 We parametrize the 2-by-2 multinomial distribution with the parameter $\delta$, 
 $$
 \mu_{11} = \phi_1\theta_1+\delta,\quad \mu_{12} = \phi_1\theta_2-\delta,\quad 
@@ -272,8 +272,9 @@ On the other hand, for any threshold $u\le t_p$ we must have $\widehat{S}(u)\sup
 Since either $u\ge t_p$ or  $u\le t_p$ must take place, putting \eqref{eq:weak-boundary-proof-FDP} and \eqref{eq:weak-boundary-proof-NDP} together, we have
 \begin{equation} \label{eq:weak-boundary-proof-converse-1}
     \text{FDP} + \text{NDP} 
-    \ge \frac{|\widehat{S}(u)\setminus{S}|}{|\widehat{S}(u)\setminus{S}|+|{S}|} \wedge \frac{|{S}\setminus\widehat{S}(u)|}{|{S}|}.
+    \ge \frac{|\widehat{S}(u)\setminus{S}|}{|\widehat{S}(u)\setminus{S}|+|{S}|} \wedge \frac{|{S}\setminus\widehat{S}(u)|}{|{S}|},
 \end{equation}
+for any $u$.
 Therefore it suffices to show that for a suitable choice of $u$, the RHS of \eqref{eq:weak-boundary-proof-converse-1} converges to 1.
 
 Let $t^* = 2q\log{p}$, where $r<q<\beta$, we obtain an estimate of the tail probability

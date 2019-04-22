@@ -1,19 +1,31 @@
 
 Multiple testing
 
-While additive error models have been studied extensively, other models have not been as vigorously explored.
 \begin{equation} \label{eq:model-chisq}
-    x(i) \sim \chi_\nu^2\left(\lambda(i)\right), \quad i=1,\ldots,p.
+    %x(i) \distras{\mathrm{ind.}} \chi_\nu^2\left(\lambda(i)\right), \quad i=1,\ldots,p.
+    x(i) \sim \chi_\nu^2\left(\lambda(i)\right), \quad i=1,\ldots,p,
 \end{equation}
-Models such as \eqref{eq:model-chisq} arise naturally in high-dimensional screening problems for categorical covariates.
+where the $x(i)$'s are mutually independent.
+
+Models such as \eqref{eq:model-chisq} naturally arise in high-dimensional screening problems for categorical covariates.
 A prototypical example is genome-wide association studies (GWAS).
 
-Section \ref{subsec:motivation}.
 
 
-Our contribution is three-fold.
+Model \eqref{eq:model-chisq} also arises from two-sided tests in additive error models,
+\begin{equation} \label{eq:model-additive}
+    x(i) = \mu(i) + \epsilon(i), \quad i=1,\ldots,p,
+\end{equation}
+where the errors $\epsilon$ have independent standard normal distributions.
+Under two-sided alternatives, the most powerful unbiased test calls for selecting locations where observations have large absolute values, which is equivalent to selecting large $x^2(i)$'s.
+Squaring both sides of \eqref{eq:model-additive}, and we arrive at Model \eqref{eq:model-chisq} with non-centrality parameters $\lambda(i) = \mu^2(i)$, and degrees-of-freedom parameter $\nu =1$.
 
-First, we show that several well-known family-wise error rate controlling procedures, including Bonferroni's procedure, are asymptotically optimal to first order for \emph{exact} support recovery problems when the statistics are independently chi-square distributed.
+While additive error models \eqref{eq:model-additive} have been extensively studied under one-sided alternatives \cite{arias2017distribution, butucea2018variable, gao2018fundamental}, two-sided-alternative cases have been largely neglected.
+As it turns out, there is no simple equivalence of these two types of alternatives in support recovery problems.
+A price has to be paid for the additional uncertainty going from one-sided to two-sided alternatives.
+
+The contribution of this work is three-fold.
+First, we show that several common family-wise error rate controlling procedures, including Bonferroni's procedure, are asymptotically optimal to first order for \emph{exact} support recovery problems when the statistics are independently chi-square distributed.
 Second, we show that the Benjamini-Hochberg procedure is asymptotically optimal to first order for \emph{approximate} support recovery problems in the high-dimensional chi-square models.
 These two results, establishing the relationship between dimensionality and signal sizes in support recovery problems, are made precise in Theorems \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary}.
 
@@ -21,7 +33,7 @@ Unlike in additive error models, the notion of signal size in chi-square models 
 Our third contribution demystifies this notion in the context of association tests, by characterizing of the relationship between signal sizes and marginal frequencies, odds ratio, and sample sizes, for association tests on 2-by-2 contingency tables.
 % Specifically, the amount of signal, when rare variants are present, is weaker compared to the signal when the marginal distributions are balanced.
 % In other words, reliable detection of the effects by rare variants would require more samples compared to common variants, even at the same odds ratio.
-This result, establishing the relationship between sample sizes and signal sizes, is made quantitative in Proposition \ref{prop:signal-size-odds-ratio}.
+This result, establishing the relationship between sample sizes and signal sizes, is made quantitative in Theorem \ref{thm:signal-size-odds-ratio}.
 
 Together, these results allows us to work out the signal sizes, and in turn, the sample sizes needed to achieve a desired accuracy of support recovery, from the problem dimensionality and assumed sparsity levels.
 
@@ -84,7 +96,7 @@ Similarly, \emph{false non-discovery rate} (FNR), which measures the power of th
 \end{equation}
 Following \cite{arias2017distribution}, we define the risk for \emph{approximate} support recovery as
 \begin{equation} \label{eq:risk-approximate}
-    \mathrm{risk}^{\mathrm{Approx}}(\mathcal{R}) = \mathrm{FDR}(\mathcal{R}) + \mathrm{FNR}(\mathcal{R}).
+    \mathrm{risk}^{\mathrm{A}}(\mathcal{R}) = \mathrm{FDR}(\mathcal{R}) + \mathrm{FNR}(\mathcal{R}).
 \end{equation}
 
 A more stringent criteria for false discovery in multiple testing problems is family-wise error rate (FWER), defined to be the probability of reporting at least one finding not contained in the true index set.
@@ -98,26 +110,16 @@ Correspondingly, a more stringent criteria for false non-discovery is family-wis
 \end{equation}
 Analogous to the risk for approximate support recovery, we define the risk for \emph{exact} support recovery as
 \begin{equation} \label{eq:risk-exact}
-    \mathrm{risk}^{\mathrm{Exact}}(\mathcal{R}) = \mathrm{FWER}(\mathcal{R}) + \mathrm{FWNR}(\mathcal{R}).
+    \mathrm{risk}^{\mathrm{E}}(\mathcal{R}) = \mathrm{FWER}(\mathcal{R}) + \mathrm{FWNR}(\mathcal{R}).
 \end{equation}
 An intimately related measure of success in the exact support recovery problem is the probability of exact recovery 
 \begin{equation} \label{eq:risk-prob}
     \P[\widehat{S} = S] = 1 - \P[\widehat{S} \neq S].
 \end{equation}
-The relationship between $\P[\widehat{S} = S]$ and $\mathrm{risk}^{\mathrm{Exact}}$ will be elaborated on in Section \ref{sec:chisq-boundaries}, where we study the performance of procedures in terms of the two risk metrics defined above.
-\begin{remark} \label{rmk:asymptotic-risks}
-While a procedure that never rejects and one that always rejects have both risks $\mathrm{risk}^{\mathrm{Approx}}$ and $\mathrm{risk}^{\mathrm{Exact}}$ equal to 1, the converse is not true.
+The relationship between $\P[\widehat{S} = S]$ and $\mathrm{risk}^{\mathrm{E}}$ will be elaborated on in Section \ref{sec:chisq-boundaries}, where we study the performance of procedures in terms of the two risk metrics defined above.
 
-For example, a procedure may select the true index set $S$ with probability $1/2$, but selects the complement $S^c$ the other half of the time. 
-In this case the procedure will have $\mathrm{risk}^{\mathrm{Approx}}$ equal to 1.
-Similarly, it is possible that a procedure selects the true index set with probability $1/2$, but makes one false inclusion and one false omission simultaneously the other half of the time. 
-In this case the procedure will have $\mathrm{risk}^{\mathrm{Exact}}$ equal to 1.
- 
-Therefore, not all methods that has a risks equal to or exceeding 1 are useless\footnote{In light of this, Remark 2 of \citet*{arias2017distribution} is inaccurate.}.
-Although the class of methods with risks equal to or exceeding 1 certainly contains trivial ones as in the first two examples.
-\end{remark}
-
-\subsection{Thresholding procedures and their optimality}
+\subsection{Thresholding procedures}
+\label{subsec:thresholding-procedures}
 
 We shall study the performance of five procedures in Section \ref{sec:chisq-boundaries}.
 All of them fall under the broad class of thresholding procedures, defined as follows.
@@ -129,33 +131,19 @@ $S:=\{i\, :\, \lambda(i)\neq0\}$ is one that takes on the form
 \end{equation}
 where the threshold $t(x)$ may depend on the data $x$.
 \end{definition}
-Examples of thresholding procedures include ones that control FWER -- Bonferroni's, Sid\'ak's \citep{vsidak1967rectangular}, Holm's \citep{holm1979simple}, and Hochberg's procedure \citep{hochberg1988sharper} -- as well as ones that target FDR, such as Benjamini-Hochberg's procedure \cite{benjamini1995controlling} and Cand\'es-Barber's procedure \cite{barber2015controlling}.
+Examples of thresholding procedures include ones that aim to control FWER -- Bonferroni's, Sid\'ak's \citep{vsidak1967rectangular}, Holm's \citep{holm1979simple}, and Hochberg's procedure \citep{hochberg1988sharper} -- as well as ones that target FDR, such as Benjamini-Hochberg's procedure \cite{benjamini1995controlling} and Cand\'es-Barber's procedure \cite{barber2015controlling}.
 
-A special case of thresholding procedures is one which has oracle information of the sparsity $s = |S|$ of the problem. 
-In this case, a natural estimator for $S$ would be based on the set of top $s$ order statistics.
-\begin{definition}[Oracle thresholding]
-We call $\widehat{S}^* = \{j\,|\, x(j)\ge x_{[s]}\}$ the oracle data thresholding procedure, where $x_{[1]} \ge \ldots \ge x_{[p]}$ are the order statistics of $x$.
-\end{definition}
-The oracle thresholding procedure is intimately linked with the so-called monotone likelihood ratio (MLR) property of distribution families.
-\begin{definition}[Monotone Likelihood Ratio]
-A family of positive densities on $\R$, $\{f_\lambda, \lambda \in U\}$, is said to have the MLR property if, for all $\lambda_0, \lambda_1\in U\subseteq\R$ such that $\lambda_0 < \lambda_1$, the likelihood ratio $\left(f_{\lambda_1}(x)/f_{\lambda_0}(x)\right)$ is an increasing function of $x$.
-\end{definition}
-The oracle thresholding procedure is in fact \emph{finite-sample optimal}, for independent observations from MLR distribution families. 
-This is recently shown in \cite{gao2018fundamental}, Lemma 5.1.
+While it may seem natural to restrict the discussion to threshold procedures, they may not always be optimal.
+In particular, in the additive error model, it was shown in \cite{chen2018scan} that thresholding procedures are in fact sub-optimal when errors have heavy (regularly-varying) tails.
+\citet{gao2018fundamental} recently characterized the optimality condition for thresholding procedures in exact support recovery problems.
+However, general optimality properties of thresholding procedures in support recovery problems is an open problem that invites a separate discussion.
 
-Returning to the discussion of support recovery in the chi-square model \eqref{eq:model-chisq}, it can be shown the chi-square distributions $\{\chi^2_\nu(\lambda), \lambda\ge 0\}$ is indeed an MLR family.
-This fact is shown in, for example, Theorem 2.36 a) of \cite{witting2013mathematische}; we include its proof in Appendix \fbox{reference} for completeness.
-
-In view of the MLR property of chi-square models and the optimality of the oracle thresholding procedure for MLR families, it suffices to restrict attention to the class of thresholding procedures when studying support recovery problems in Model \eqref{eq:model-chisq}.
+The lower bounds that we develop in Theorems \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary} below only apply to thresholding procedures.
 
 \subsection{Related work}
 
 Review \cite{jin2014optimality, jin2016rare, butucea2018variable, arias2017distribution, gao2018fundamental, ji2012ups, rabinovich2017optimal}.
 
-\begin{equation} \label{eq:model-additive}
-    x(i) = \mu(i) + \epsilon(i), \quad i=1,\ldots,p.
-\end{equation}
-where the second term $\epsilon$ is a $p$-dimensional random error vector. 
 The signal, $\mu = (\mu(i))_{i=1}^p$, is a vector with $s$ non-zero components supported on the set $S=\{i:\mu(i)\neq 0\}$
 
 
