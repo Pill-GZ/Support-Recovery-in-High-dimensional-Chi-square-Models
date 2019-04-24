@@ -1,5 +1,5 @@
 
-We shall work under the asymptotic regime where the dimensionality $p$ tends to infinity.
+We shall work under the asymptotic regime where the problem dimension $p$ tends to infinity.
 Specifically, we will work with the triangular array of chi-square models \eqref{eq:model-chisq} indexed by $p$.
 Let the non-centrality parameter vectors $\lambda = \lambda_p$ have 
 \begin{equation} \label{eq:signal-sparsity}
@@ -18,24 +18,24 @@ Here $\beta$ parametrizes the problem sparsity, whereas $\underline{r}$ and $\ov
 
 We define the criteria for success and failure of exact support recovery under this asymptotic regime.
 \begin{definition} \label{def:exact-recovery-success-failure}
-We say the exact support recovery succeeds asymptotically if 
+We say a sequence of procedures $\mathcal{R} = \mathcal{R}_p$ succeeds asymptotically in the exact support recovery problem if 
 \begin{equation} \label{eq:exact-recovery-success}
-    \mathrm{risk}^{\mathrm{E}}\to0, \quad \text{as}\quad p\to\infty.
+    \mathrm{risk}^{\mathrm{E}}(\mathcal{R}) \to 0, \quad \text{as}\quad p\to\infty.
 \end{equation}
 We say the exact support recovery fails asymptotically if 
 \begin{equation} \label{eq:exact-recovery-failure}
-    \liminf\mathrm{risk}^{\mathrm{E}}\ge1, \quad \text{as}\quad p\to\infty.
+    \liminf\mathrm{risk}^{\mathrm{E}}(\mathcal{R}) \ge 1, \quad \text{as}\quad p\to\infty.
 \end{equation}
 \end{definition}
 Similarly, we define the criteria for asymptotic success and failure for approximate support recovery as follows.
 \begin{definition} \label{def:approx-recovery-success-failure}
-We say the approximate support recovery succeeds asymptotically if 
+We say a sequence of procedures $\mathcal{R} = \mathcal{R}_p$ succeeds asymptotically in the approximate support recovery problem if 
 \begin{equation} \label{eq:approx-recovery-success}
-    \mathrm{risk}^{\mathrm{A}}\to0, \quad \text{as}\quad p\to\infty.
+    \mathrm{risk}^{\mathrm{A}}(\mathcal{R}) \to 0, \quad \text{as}\quad p\to\infty.
 \end{equation}
 We say the approximate support recovery fails asymptotically if 
 \begin{equation} \label{eq:approx-recovery-failure}
-    \liminf\mathrm{risk}^{\mathrm{A}}\ge1, \quad \text{as}\quad p\to\infty.
+    \liminf\mathrm{risk}^{\mathrm{A}}(\mathcal{R}) \ge 1, \quad \text{as}\quad p\to\infty.
 \end{equation}
 \end{definition}
 The performance of procedures in terms of the criteria in Definitions \ref{def:exact-recovery-success-failure} and \ref{def:approx-recovery-success-failure} will be analyzed in Sections \ref{subsec:strong-classification-boundary} and \ref{subsec:weak-classification-boundary}, respectively.
@@ -81,7 +81,7 @@ Relation \eqref{eq:exact-recovery-implies-risk-0} follows from \eqref{eq:risk-ex
 \end{proof}
 
 \begin{remark}
-By virtue of Lemma \ref{lemma:risk-exact-recovery-probability}, it is sufficient to study the probability of exact support recovery $\P[\{\widehat{S}=S\}]$ in place of $\mathrm{risk}^{\mathrm{E}}$, if we are interested in the asymptotic properties of the risk defined in \eqref{def:exact-recovery-success-failure}.
+By virtue of Lemma \ref{lemma:risk-exact-recovery-probability}, it is sufficient to study the probability of exact support recovery $\P[\{\widehat{S}=S\}]$ in place of $\mathrm{risk}^{\mathrm{E}}$, if we are interested in the asymptotic properties of the risk defined in the sense of \eqref{eq:exact-recovery-success} and \eqref{eq:exact-recovery-failure}.
 \end{remark}
 
 The converse of \eqref{eq:failure-recovery-implies-risk-1}, however, is not true.
@@ -91,10 +91,10 @@ The converse of \eqref{eq:failure-recovery-implies-risk-1}, however, is not true
 While a procedure that never rejects and one that always rejects have risk $\mathrm{risk}^{\mathrm{E}}$ equal to 1, the converse is not true.
 For example, it is possible that a procedure selects the true index set $S$ with probability $1/2$, but makes one false inclusion and one false omission simultaneously the other half of the time. 
 In this case the procedure will have 
-$$\mathrm{risk}^{\mathrm{E}} = 1, \quad \text{but} \quad \P[\widehat{S}=S] = 1/2.$$
+$$\mathrm{risk}^{\mathrm{E}} = 1, \quad \text{and} \quad \P[\widehat{S}=S] = 1/2.$$
  
 The same argument applies to $\mathrm{risk}^{\mathrm{A}}$. 
-A procedure may select the true index set $S$ with probability $1/2$, but makes enough mistakes other half of the time such that $\mathrm{risk}^{\mathrm{A}}$ is equal to 1. 
+A procedure may select the true index set $S$ with probability $1/2$, but makes enough false inclusions and omissions other half of the time such that $\mathrm{risk}^{\mathrm{A}}$ is equal to 1. 
 
 Therefore, not all methods that has a risks equal to or exceeding 1 are useless. 
 Although the class of methods with risks equal to or exceeding 1 certainly contains trivial ones as in the first two examples.\footnote{In light of this, Remark 2 of \citet*{arias2017distribution} is inaccurate.}.
@@ -104,8 +104,7 @@ Although the class of methods with risks equal to or exceeding 1 certainly conta
 \subsection{FWER-controlling procedures}
 \label{subsec:FWER-controlling-procedures}
 
-We review four thresholding procedures which aim at controlling family-wise error rates.
-We start with the well-known Bonferroni's procedure.
+We review four thresholding procedures which aim at controlling family-wise error rates, starting with the well-known Bonferroni's procedure.
 \begin{definition}[Bonferroni's procedure]
 Suppose the errors $\epsilon(j)$'s have a common marginal distribution $F$, Bonferroni's procedure with level $\alpha$ is the thresholding procedure that uses the threshold
 \begin{equation} \label{eq:Bonferroni-procedure}
