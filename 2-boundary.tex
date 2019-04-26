@@ -92,7 +92,6 @@ While a procedure that never rejects and one that always rejects have risk $\mat
 For example, it is possible that a procedure selects the true index set $S$ with probability $1/2$, but makes one false inclusion and one false omission simultaneously the other half of the time. 
 In this case the procedure will have 
 $$\mathrm{risk}^{\mathrm{E}} = 1, \quad \text{and} \quad \P[\widehat{S}=S] = 1/2.$$
- 
 The same argument applies to $\mathrm{risk}^{\mathrm{A}}$. 
 A procedure may select the true index set $S$ with probability $1/2$, but makes enough false inclusions and omissions other half of the time such that $\mathrm{risk}^{\mathrm{A}}$ is equal to 1. 
 
@@ -179,22 +178,35 @@ The strong classification boundary is shown in Figure \ref{fig:phase-chi-squared
       \centering
       \includegraphics[width=0.6\textwidth]{./phase_diagram_chisquared.eps}
       % \includegraphics[width=0.35\textwidth]{./phase_diagram_chisquared.eps}
-      \caption{The boundary described in Theorems \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary}. 
-      Remarkbly, the boundary is unaffected by the degrees-of-freedom parameter.
-      For the detection boundary, see \citep{donoho2004higher}.} 
+      \caption{The phase transitions of the exact and approximate support recovery problems, described in Theorems \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary}, and of the signal detection problem, described in \citep{donoho2004higher}. 
+      The risk of exact support recovery \eqref{eq:risk-exact} can be made to vanish above the strong classification boundary \eqref{eq:strong-classification-boundary-chisquared} in the \emph{classifiable} region; conversely, the risk has limit inferior at least one below the boundary.
+      Similarly, the risk of approximate support recovery \eqref{eq:risk-approximate} can be made to vanish above the weak classification boundary \eqref{eq:weak-classification-boundary-chisquared} in the \emph{weakly classifiable} region; conversely, the risk has limit inferior at least one below the boundary.
+      Both boundaries are unaffected by the degrees-of-freedom parameter in the model.} 
       \label{fig:phase-chi-squared}
 \end{figure}
 
 \begin{remark}
-It is interesting to note that signal sizes in the chi-squared model grows at the same rate as the Laplace model.
-The asymmetry in the chi-squared model can be seen in \eqref{eq:strong-classification-boundary-chisquared}: as $\beta\to0$, the boundary approaches $3+2\sqrt{2} \approx 5.828$ instead of $2$ as in the case model of additive errors with Laplace errors; the required signal size is much larger.
-\end{remark}
-
-\begin{remark}
-A remarkable feature of the boundary \eqref{eq:strong-classification-boundary-chisquared} is that the degree-of-freedom parameter $\nu$ does not play a role.
+Remarkably, the degree-of-freedom parameter $\nu$ does not affect the boundary \eqref{eq:strong-classification-boundary-chisquared}.
 In simulations, we find the approximation by the asymptotic boundary to be quite accurate even in moderate dimensions, and largely unaffected by the degrees of freedom.
 See Figure \ref{fig:phase-simulated-chi-squared} for numerical illustrations.
 \end{remark}
+
+As alluded to in Section \ref{subsec:motivation-additive} in the introduction, Theorem \ref{thm:chi-squred-strong-boundary} also allows us to compare the difficulties of one-sided versus two-sided additives for additive models under Gaussian errors.
+
+\begin{remark}
+The exact support recovery problem under the Gaussian additive error model \eqref{eq:model-additive} was studied \cite{gao2018fundamental}.
+where the same parametrization of sparsity \eqref{eq:signal-sparsity} was adopted. 
+The signal sizes of the non-zero mean shifts in $\mu(i)$ were parametrized in a similiar fashion as \eqref{eq:signal-size} between $\sqrt{2\underline{r}\log{p}}$ and $\sqrt{2\overline{r}\log{p}}$;
+it was assumed that $0<\underline{r}\le\overline{r}$, and only one-sided alternatives were considered.
+Interestingly, under one-sided alternatives in the additive model, a phase transition in the $r$-$\beta$ plane also exists for the exact support recovery problem.
+However, its boundary becomes
+\begin{equation} \label{eq:strong-classification-boundary-additive}
+    \widetilde{g}(\beta) = \left(1 + \sqrt{1-\beta}\right)^2,
+\end{equation}
+which is strictly less than the required signal sizes in the two-sided case in \eqref{eq:strong-classification-boundary-chisquared}, except in the extremely sparse case $\beta = 1$.
+In particular, as the problem becomes denser ($\beta\to0$), the required signal size in the one-sided additive model \eqref{eq:strong-classification-boundary-additive} approaches $2$, while the required signal size in the chi-square (two-sided additive) model \eqref{eq:strong-classification-boundary-chisquared} approaches $3+2\sqrt{2} \approx 5.828$; almost a 3-fold increase.
+\end{remark}
+
 
 \subsection{FDR-controlling procedures}
 \label{subsec:FDR-controlling-procedures}
@@ -222,3 +234,7 @@ achieves asymptotically approximate support recovery in the sense of \eqref{eq:a
 
 Conversely, if $\overline{r} < {h}(\beta)$, then approximate support recovery asymptotically fails in the sense of \eqref{eq:approx-recovery-failure} for all thresholding procedures.
 \end{theorem}
+
+\begin{remark}
+the detection boundary and weak classification boundary under one-sided alternatives are identical to that in the two-sided problems. (see Theorem \ref{thm:chi-squred-weak-boundary} below).
+\end{remark}

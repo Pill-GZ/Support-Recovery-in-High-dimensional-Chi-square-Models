@@ -1,19 +1,12 @@
 
-Multiple testing
-
-\begin{equation} \label{eq:model-chisq}
-    %x(i) \distras{\mathrm{ind.}} \chi_\nu^2\left(\lambda(i)\right), \quad i=1,\ldots,p.
-    x(i) \sim \chi_\nu^2\left(\lambda(i)\right), \quad i=1,\ldots,p,
-\end{equation}
-where the $x(i)$'s are independent.
-
-Models such as \eqref{eq:model-chisq} naturally arise in high-dimensional screening problems for categorical covariates.
+We are motivated by high-dimensional screening problems for categorical covariates.
 A prototypical example is genome-wide association studies (GWAS).
 
-\subsection{Application: genome-wide association studies}
-\label{subsec:motivation}
+\subsection{Genome-wide association studies}
+\label{subsec:motivation-chisq}
 
-In a typical case-control design of GWAS, we have $n$ subjects consisting of $n_1$ cases possessing the defined trait, and $n_2$ controls without the trait.
+In a typical GWAS for qualitative traits with a case-control design, $n$ subjects are recruited consisting of $n_1$ cases possessing the defined trait, and $n_2$ controls without the trait.
+
 Frequencies of single-nucleotide polymorphisms (SNPs) at an array of $p$ genomic marker locations are compared between the case group and the control group.
 The counts of observed genotypes at a particular genomic location, if two variants are present, can be tabulated as follows.
 \begin{center}
@@ -37,26 +30,35 @@ where $E_{jk}$'s are the expected number of observations in respective cells, es
 %E_{jk} = \Big(\sum_{l}O_{jl}\Big)\Big(\sum_{l}O_{lk}\Big)\Big/n.
 
 Under the mild assumption that the counts $O_{jk}$'s follow a multinomial distribution, the statistic $x$ in \eqref{eq:chisq-statistic} can be shown to have a $\chi^2$-distributed asymptotically (as $n$ diverges) with $\nu=1$ degree of freedom, when the two marginals are truly independent.
-If dependence exists, $x$ will have an approximate non-central $\chi^2(\lambda)$ distribution -- again, with $\nu=1$ degree of freedom -- where the non-centrality parameter $\lambda$ depends on the underlying multinomial probabilities.
-More generally, if we have a $J$ outcomes and $K$ genetic variants, assuming a $J\times K$ multinomial distribution, the statistic will follow approximately a $\chi^2_{\nu}(\lambda)$ distribution with $\nu = (J-1)(K-1)$ degrees of freedom.
+If dependence exists, $x$ will have an approximate non-central $\chi^2(\lambda)$ distribution (again, with $\nu=1$ degree of freedom) where the non-centrality parameter $\lambda$ depends on the underlying probabilities.
 
+More generally, if we have a $J$ outcomes and $K$ genetic variants, assuming a $J\times K$ multinomial distribution, the statistic will follow approximately a $\chi^2_{\nu}(\lambda)$ distribution with $\nu = (J-1)(K-1)$ degrees of freedom for large sample sizes.
 The same asymptotic distributional approximations are shared by the likelihood ratio statistic, and many other statistics of association tests, under slightly different modelling assumptions \cite{gao2019upass}.
-These association tests are performed at each of the $p$ genomic locations, yielding $p$ statistics having approximately (non)central $\chi^2_{\nu}$ distributions,
+
+These association tests are performed at each of the $p$ SNP marker locations throughout the whole genome, yielding $p$ statistics having approximately (non)central $\chi^2_{\nu}$ distributions,
 \begin{equation} \label{eq:model-chisquare-approx}
     x(i) \mathrel{\dot\sim} \chi_{\nu(i)}^2\left(\lambda(i)\right), \quad i=1,\ldots,p.
 \end{equation}
-Here $\lambda = (\lambda(i))_{i=1}^p$ is the $p$-dimensional non-centrality parameter, $\lambda(i)=0$ indicating independence of the $i$-th SNP with the outcomes, and $\lambda(i)\neq0$ indicating association with the outcomes.
+Since dependence between the genetic variants (known as linkage disequilibrium in the genetics literature) decay rapidly as a function of the distance between the markers, the correlations of the resulting statistics also decay quickly, resulting in observations that are locally dependent.
+Here $\lambda = (\lambda(i))_{i=1}^p$ is the $p$-dimensional non-centrality parameter, with $\lambda(i)=0$ indicating independence of the $i$-th SNP with the outcomes, and $\lambda(i)\neq0$ indicating associations.
 
-In genetic association studies where the number of genomic locations $p$ can be in the millions, it is often believed that $\lambda$ is sparse, or approximately sparse.
+In genetic association studies where the number of genomic locations $p$ are in the order of $10^5$ or even $10^6$, it is often believed that $\lambda$ is sparse, or approximately sparse.
 That is, it is believed that only a small set of genetic variants have large influences on the outcome of the disease or trait of interest.
 
 Under the stylized assumption of exact sparsity, $\lambda$ is assumed to have $s$ non-zero components, where $s$ is much smaller than the problem dimension $p$. 
-The goal of researchers is usually two-fold: to test if $\lambda(i)=0$ for all $i$, i.e., determine if there are any genetic variation associated with the disease; and if there are associations, to estimate the set $S=\{i:\lambda(i)\neq 0\}$, i.e., locate the associated variants.
+The goal of researchers is usually two-fold: 1) to test if $\lambda(i)=0$ for all $i$, and 2) to estimate the set $S=\{i:\lambda(i)\neq 0\}$.
+That is, we look to determine if there are any genetic variation associated with the disease; and if there are associations, we wish to locate the associated variants.
 
 The latter, referred to as the \emph{support recovery problem}, is the focus of this work.
-We shall study in detail the theoretical limits in support recovery problems when statistics have approximately chi-square distributions \eqref{eq:model-chisquare-approx}, as well as practical procedures to attain these performance limits.
+We will study in detail the theoretical limits in support recovery problems in an idealized model where the statistics follow independent chi-square distributions,
+\begin{equation} \label{eq:model-chisq}
+    %x(i) \distras{\mathrm{ind.}} \chi_\nu^2\left(\lambda(i)\right), \quad i=1,\ldots,p.
+    x(i) \sim \chi_\nu^2\left(\lambda(i)\right), \quad i=1,\ldots,p.
+\end{equation}
+We will also look for practical procedures that attain these performance limits, as soon as the problems become theoretically feasible.
 
-\subsection{Application: two-sided alternatives in additive error models}
+\subsection{Two-sided alternatives in additive error models}
+\label{subsec:motivation-additive}
 
 Model \eqref{eq:model-chisq} arises in situations more general than marginal screenings of categorical variables.
 In particular, it plays an important role in analyzing two-sided tests for additive error models,
@@ -141,8 +143,8 @@ $S:=\{i\, :\, \lambda(i)\neq0\}$ is one that takes on the form
 where the threshold $t(x)$ may depend on the data $x$.
 \end{definition}
 Examples of thresholding procedures include ones that aim to control FWER -- Bonferroni's \cite{dunn1961multiple}, Sid\'ak's \citep{vsidak1967rectangular}, Holm's \citep{holm1979simple}, and Hochberg's procedure \citep{hochberg1988sharper} -- as well as ones that target FDR, such as Benjamini-Hochberg's procedure \cite{benjamini1995controlling} and Cand\'es-Barber's procedure \cite{barber2015controlling}.
+Indeed, thresholding procedures \eqref{eq:thresholding-procedure} is such a general class that it contains most of the statistical procedures in the multiple testing literature \cite{roquain2011type}.
 
-Indeed, \eqref{eq:thresholding-procedure} is such a general class that it contains most of the statistical procedures in the multiple testing literature \cite{roquain2011type}.
 We shall restrict our discussion to the class of thresholding procedures.
 In particular, the lower bounds that we develop in Theorems \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary} below are only meant to apply to such procedures.
 
