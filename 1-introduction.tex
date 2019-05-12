@@ -1,14 +1,21 @@
 
+Multiple testing arises in a wide array of applied settings, ranging from anomaly
+detection in sensor arrays to the selection of genes that are differentially expressed. 
+This is particularly true in so-called discovery science, where the scientist proceeds by formulating hypotheses, testing each one of them on data, and following up on the most promising ones. 
+Each step along the way is fraught with pitfalls, and even if the experiment was correctly designed and carried out, the scientist still needs to contend with the multitude of tests that were performed.
+
 We are motivated by high-dimensional screening problems for categorical covariates.
+
 A prototypical example is genome-wide association studies (GWAS).
 
 \subsection{Genome-wide association studies}
 \label{subsec:motivation-chisq}
 
-In a typical GWAS for qualitative traits with a case-control design, $n$ subjects are recruited consisting of $n_1$ cases possessing the defined trait, and $n_2$ controls without the trait.
+Broadly speaking, genome-wide association studies aim to discover genetic variations that are linked to traits or diseases of interested, by testing for associations between genetic compositions of subjects and their phenotypes.
+For example, in a typical GWAS for qualitative traits with a case-control design, a total of $n$ subjects are recruited consisting of $n_1$ subjects possessing the defined trait, and $n_2$ subjects without the trait.
+The genetic compositions of these subjects are then sequenced for variations known as single-nucleotide polymorphisms (SNPs) at an array of $p$ genomic marker locations, and compared between the case group and the control group.
 
-Frequencies of single-nucleotide polymorphisms (SNPs) at an array of $p$ genomic marker locations are compared between the case group and the control group.
-The counts of observed genotypes at a particular genomic location, if two variants are present, can be tabulated as follows.
+Focusing on one particular genomic location, the counts of observed genotypes, if two variants are present, can be tabulated as follows.
 \begin{center}
     \begin{tabular}{cccc}
     \hline
@@ -29,25 +36,23 @@ A common test of association is Pearson's Chi-square test, with statistic
 where $E_{jk}$'s are the expected number of observations in respective cells, estimated empirically with $E_{jk} = (O_{j1}+O_{j2})(O_{1k}+O_{2k})/n$.
 %E_{jk} = \Big(\sum_{l}O_{jl}\Big)\Big(\sum_{l}O_{lk}\Big)\Big/n.
 
-Under the mild assumption that the counts $O_{jk}$'s follow a multinomial distribution, the statistic $x$ in \eqref{eq:chisq-statistic} can be shown to have a $\chi^2$-distributed asymptotically (as $n$ diverges) with $\nu=1$ degree of freedom, when the two marginals are truly independent.
-If dependence exists, $x$ will have an approximate non-central $\chi^2(\lambda)$ distribution (again, with $\nu=1$ degree of freedom) where the non-centrality parameter $\lambda$ depends on the underlying probabilities.
-
+Under the mild assumption that the counts $O_{jk}$'s follow a multinomial distribution, the statistic $x$ in \eqref{eq:chisq-statistic} can be shown to have an approximate $\chi^2(\lambda)$ distribution with $\nu=1$ degree of freedom at large sample sizes. 
+When genotypes and phenotypes are independent, we have a non-centrality parameter $\lambda=0$; if dependence exists, we have $\lambda\neq0$ and its value depends on the underlying multinomial probabilities.
 More generally, if we have a $J$ outcomes and $K$ genetic variants, assuming a $J\times K$ multinomial distribution, the statistic will follow approximately a $\chi^2_{\nu}(\lambda)$ distribution with $\nu = (J-1)(K-1)$ degrees of freedom for large sample sizes.
-The same asymptotic distributional approximations are shared by the likelihood ratio statistic, and many other statistics of association tests, under slightly different modelling assumptions \cite{gao2019upass}.
 
+The same asymptotic distributional approximations are also applies to the likelihood ratio statistic, and many others under slightly different modeling assumptions \cite{gao2019upass}.
 These association tests are performed at each of the $p$ SNP marker locations throughout the whole genome, yielding $p$ statistics having approximately (non)central $\chi^2_{\nu}$ distributions,
 \begin{equation} \label{eq:model-chisquare-approx}
     x(i) \mathrel{\dot\sim} \chi_{\nu(i)}^2\left(\lambda(i)\right), \quad i=1,\ldots,p.
 \end{equation}
-Since dependence between the genetic variants (known as linkage disequilibrium in the genetics literature) decay rapidly as a function of the distance between the markers, the correlations of the resulting statistics also decay quickly, resulting in observations that are locally dependent.
 Here $\lambda = (\lambda(i))_{i=1}^p$ is the $p$-dimensional non-centrality parameter, with $\lambda(i)=0$ indicating independence of the $i$-th SNP with the outcomes, and $\lambda(i)\neq0$ indicating associations.
+Since dependence among the genetic markers at different locations (known as linkage disequilibrium in the genetics literature) decay rapidly as a function of the physical distance between them on the genome, the correlations of the resulting statistics also decay rapidly, resulting in statistics that are roughly independent except in very short ranges.
 
-In genetic association studies where the number of genomic locations $p$ are in the order of $10^5$ or even $10^6$, it is often believed that $\lambda$ is sparse, or approximately sparse.
+In genetic association studies where the number of genomic locations $p$ are in the order of $10^5$ or even $10^6$, it is often assumed that $\lambda$ is sparse, or approximately sparse.
 That is, it is believed that only a small set of genetic variants have large influences on the outcome of the disease or trait of interest.
-
 Under the stylized assumption of exact sparsity, $\lambda$ is assumed to have $s$ non-zero components, where $s$ is much smaller than the problem dimension $p$. 
 The goal of researchers is usually two-fold: 1) to test if $\lambda(i)=0$ for all $i$, and 2) to estimate the set $S=\{i:\lambda(i)\neq 0\}$.
-That is, we look to determine if there are any genetic variation associated with the disease; and if there are associations, we wish to locate the associated variants.
+In other words, we look to determine if there are any genetic variation associated with the disease; and if there are associations, we wish to locate the associated variants.
 
 The latter, referred to as the \emph{support recovery problem}, is the focus of this work.
 We will study in detail the theoretical limits in support recovery problems in an idealized model where the statistics follow independent chi-square distributions,
@@ -55,13 +60,12 @@ We will study in detail the theoretical limits in support recovery problems in a
     %x(i) \distras{\mathrm{ind.}} \chi_\nu^2\left(\lambda(i)\right), \quad i=1,\ldots,p.
     x(i) \sim \chi_\nu^2\left(\lambda(i)\right), \quad i=1,\ldots,p.
 \end{equation}
-We will also look for practical procedures that attain these performance limits, as soon as the problems become theoretically feasible.
+We will also look for practical procedures that attain the performance limits, as soon as the problems become theoretically feasible.
 
-\subsection{Two-sided alternatives in additive error models}
+\subsection{Two-sided alternatives of additive error models}
 \label{subsec:motivation-additive}
 
-Model \eqref{eq:model-chisq} arises in situations more general than marginal screenings of categorical variables.
-In particular, it plays an important role in analyzing two-sided tests for additive error models,
+Model \eqref{eq:model-chisq} also plays an important role in analyzing two-sided tests for additive error models,
 \begin{equation} \label{eq:model-additive}
     x(i) = \mu(i) + \epsilon(i), \quad i=1,\ldots,p,
 \end{equation}
@@ -93,7 +97,7 @@ Together, these results allows us to work out the signal sizes, and in turn, the
 \subsection{Statistical risks in support recovery problems}
 \label{subsec:risks}
 
-Recall that in support recovery problems, our goal is to come up with a good procedure, denoted $\mathcal R$, to produce a set estimate $\widehat{S}$ of the true index set of relevant variables  $S=\{i:\lambda(i)\neq 0\}$.
+Recall that in support recovery problems, our goal is to come up with a procedure, denoted $\mathcal R$, to produce a set estimate $\widehat{S}$ of the true index set of relevant variables  $S=\{i:\lambda(i)\neq 0\}$.
 The set estimate depends on the procedure $\mathcal{R}$, which in turn, takes as input the data or test statistics $x$.
 We suppress this dependence by writing $\widehat{S}$ in place of $\widehat{S}(\mathcal{R}(x))$ for notational convenience when it does not lead to ambiguity.
 
@@ -150,9 +154,10 @@ In particular, the lower bounds that we develop in Theorems \ref{thm:chi-squred-
 
 \begin{remark}
 While it is intuitively appealing to consider only threshold procedures, such procedures are not always optimal.
-In particular, \citet{chen2018scan} showed that thresholding procedures are in fact sub-optimal when errors have heavy (regularly-varying) tails in the additive models \eqref{eq:model-additive}. 
+In particular, \citet{chen2018scan} showed that thresholding procedures are in fact sub-optimal in the additive models \eqref{eq:model-additive} when errors have heavy (regularly-varying) tails. 
 \citet{gao2018fundamental} recently characterized the conditions under which thresholding procedures are optimal in exact support recovery problems.
-The optimality of thresholding procedures in approximate support recovery problems is an open problem that invites a separate discussion.
+The optimality of thresholding procedures in approximate support recovery problems is an open problem that invites a separate (technical) discussion. 
+We content ourselves with making optimality statements concerning only thresholding procedures in the current work.
 \end{remark}
 
 
