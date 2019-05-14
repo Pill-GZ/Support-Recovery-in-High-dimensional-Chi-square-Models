@@ -1,17 +1,18 @@
 
+Multiple testing problems are a staple of modern data-driven studies, where a large number of hypotheses are formulated and screened for their plausibility simultaneously.
+This multiplicity of tests brings along a multitude of challenges, and have been a subject of extensive study in recent years.
+% in the literature of high-dimensional statistics.
 
-Multiple testing routinely arise in modern data-driven studies, where a large number of hypotheses are formulated and screened for their plausibility simultaneously.
 
-While multiple testing problems has been a well-studied a problem in high-dimensional statistics, little attention has been paid to 
+We are motivated in particular by the high-dimensional variable screening problems for categorical data. 
+A prototypical example is genome-wide association studies (GWAS), where a large number of categorical genetic factors are examined for their impact on the phenotypic traits.
+These categorical covariate screening problems naturally give rise to the high-dimensional chi-square models, introduced through the language of GWAS next.
 
-We are motivated by high-dimensional screening problems for categorical data.
-
-\subsection{Genome-wide association studies}
+\subsection{Genome-wide association studies and the chi-square model}
 \label{subsec:motivation-chisq}
 
-A prototypical example where categorical variable screening problems arise is in genome-wide association studies (GWAS).
-Broadly speaking, GWAS aim to discover genetic variations that are linked to traits or diseases of interested, by testing for associations between the subjects' genetic compositions and their phenotypes.
-For example, in a GWAS of qualitative traits with case-control design, a total of $n$ subjects are recruited consisting of $n_1$ subjects possessing the defined trait, and $n_2$ subjects without the trait.
+Broadly speaking, GWAS aim to discover genetic variations that are linked to traits or diseases of interested, by testing for associations between the subjects' genetic compositions and their phenotypes \citep{bush2012genome}.
+In a typical GWAS with case-control design, a total of $n$ subjects are recruited consisting of $n_1$ subjects possessing the defined trait, and $n_2$ subjects without the trait.
 The genetic compositions of these subjects are then sequenced for variations known as single-nucleotide polymorphisms (SNPs) at an array of $p$ genomic marker locations, and compared between the case group and the control group.
 
 Focusing on one specific genomic location, the counts of observed genotypes, if two variants are present, can be tabulated as follows.
@@ -35,24 +36,27 @@ A common test of association is Pearson's Chi-square test, with statistic
 where $E_{jk}$'s are the expected number of observations in respective cells, estimated empirically with $E_{jk} = (O_{j1}+O_{j2})(O_{1k}+O_{2k})/n$.
 %E_{jk} = \Big(\sum_{l}O_{jl}\Big)\Big(\sum_{l}O_{lk}\Big)\Big/n.
 
-Under the mild assumption that the counts $O_{jk}$'s follow a multinomial distribution, the statistic $x$ in \eqref{eq:chisq-statistic} can be shown to have an approximate $\chi^2(\lambda)$ distribution with $\nu=1$ degree of freedom at large sample sizes. 
+Under the mild assumption that the counts $O_{jk}$'s follow a multinomial distribution, the statistic $x$ in \eqref{eq:chisq-statistic} can be shown to have an approximate $\chi^2(\lambda)$ distribution with $\nu=1$ degree of freedom at large sample sizes \citep{agresti2018introduction}. 
 When genotypes and phenotypes are independent, the non-centrality parameter $\lambda$ is identically zero; and if dependence exists, we have $\lambda\neq0$ where its value depends on the underlying multinomial probabilities.
 More generally, if we have a $J$ phenotypes and $K$ genetic variants, assuming a $J\times K$ multinomial distribution, the statistic will follow approximately a $\chi^2_{\nu}(\lambda)$ distribution with $\nu = (J-1)(K-1)$ degrees of freedom, when sample sizes are large.
 
 The same asymptotic distributional approximations are also applies to the likelihood ratio statistic, and many other statistics under slightly different modeling assumptions \cite{gao2019upass}.
 These association tests are performed at each of the $p$ SNP marker locations throughout the whole genome, yielding $p$ statistics having approximately (non-)central $\chi^2_{\nu}$ distributions,
 \begin{equation} \label{eq:model-chisquare-approx}
-    x(i) \mathrel{\dot\sim} \chi_{\nu(i)}^2\left(\lambda(i)\right), \quad i=1,\ldots,p.
+    x(i) \mathrel{\dot\sim} \chi_{\nu(i)}^2\left(\lambda(i)\right), \quad i=1,\ldots,p,
 \end{equation}
-Here $\lambda = (\lambda(i))_{i=1}^p$ is the $p$-dimensional non-centrality parameter, with $\lambda(i)=0$ indicating independence of the $i$-th SNP with the outcomes, and $\lambda(i)\neq0$ indicating associations.
+where $\lambda = (\lambda(i))_{i=1}^p$ is the $p$-dimensional non-centrality parameter.
+%, with $\lambda(i)=0$ indicating independence of the $i$-th SNP with the outcomes, and $\lambda(i)\neq0$ indicating associations.
 
-The number of genomic locations $p$ in genetic association studies are usually in the order of $10^5$ or even $10^6$, and it is often believed that only a small set of genetic variants have large influences on the outcome of the disease or trait of interest.
+With the number of genomic locations $p$ in genetic association studies usually in the order of $10^5$ or even $10^6$, it is often believed that only a small set of genetic variants have large influences on the outcome of the disease or trait of interest .
 Under the stylized assumption of exact sparsity, $\lambda$ is assumed to have $s$ non-zero components, where $s$ is much smaller than the problem dimension $p$. 
 The goal of researchers is two-fold: 1) to test if $\lambda(i)=0$ for all $i$, and 2) to estimate the set $S=\{i:\lambda(i)\neq 0\}$.
 In other words, we look to determine if there are any genetic variation associated with the disease; and if there are associations, we wish to locate the associated variants.
 
 The latter, referred to as the \emph{support recovery problem}, is the focus of this work.
-We will study in detail the theoretical limits in support recovery problems in an idealized model where the statistics follow independent\footnote{In practice, dependence among the genetic markers at different locations (known as linkage disequilibrium) decay rapidly as a function of their physical distances on the genome, the correlations of the resulting statistics are roughly independent except at very short distances.} chi-square distributions,
+We will study in detail the theoretical limits in support recovery problems in an idealized model where the statistics follow independent
+% \footnote{In practice, dependence among the genetic markers at different locations (known as linkage disequilibrium) decay rapidly as a function of their physical distances on the genome, the correlations of the resulting statistics are roughly independent except at short distances.}
+chi-square distributions,
 \begin{equation} \label{eq:model-chisq}
     %x(i) \distras{\mathrm{ind.}} \chi_\nu^2\left(\lambda(i)\right), \quad i=1,\ldots,p.
     x(i) \sim \chi_\nu^2\left(\lambda(i)\right), \quad i=1,\ldots,p.
@@ -63,33 +67,36 @@ We will also look for practical procedures that attain the performance limits, a
 \subsection{Two-sided alternatives of additive error models}
 \label{subsec:motivation-additive}
 
-Chi-square models \eqref{eq:model-chisq} play an important role in analyzing variable screening problems when performing omnidirectional tests, as we have seen in association screenings of categorical covariates.
-Another important, and closely related example is the multiple two-sided tests in additive error models,
+The chi-square model \eqref{eq:model-chisq} arise in problems much more general than association screenings.
+In particular, it plays an important role in analyzing variable screening problems with omnidirectional tests.
+An important example is multiple two-sided tests in additive error models,
 \begin{equation} \label{eq:model-additive}
     x(i) = \mu(i) + \epsilon(i), \quad i=1,\ldots,p,
 \end{equation}
 where the errors $\epsilon$ are assumed to have standard normal distributions.
+
 Under two-sided alternatives, unbiased tests call for rejecting the hypothesis $\mu(i)=0$ at locations where observations have large absolute values, or equivalently, large $x^2(i)$'s.
 Taking squares on both sides of \eqref{eq:model-additive}, and we arrive at Model \eqref{eq:model-chisq} with non-centrality parameters $\lambda(i) = \mu^2(i)$ and degrees-of-freedom parameter $\nu =1$.
-In this case, the support recovery problem becomes locating the set of observations with mean shifts, $S=\{i:\mu(i)\neq 0\}$, where the mean shifts could take place in both directions.
+In this case, the support recovery problem becomes to locate the set of observations with mean shifts, $S=\{i:\mu(i)\neq 0\}$, where the mean shifts could take place in both directions.
 
-For example in 
-In the more challenging application of anomaly detection on Internet traffic streams, traffic millions of IP addresses need to be scanned in real time to identify culprits and victims of attacks blackouts.
-A key feature in these examples is that the directions of the signals are unknown a priori.
 While theoretical limits of support recovery problems in additive error models \eqref{eq:model-additive} have been extensively studied (see, e.g., \cite{arias2017distribution, butucea2018variable, gao2018fundamental}), such studies were focused exclusively on one-sided alternatives.
-Since there are no simple equivalences of the two types of hypotheses, results obtained under one type of alternative unfortunately does not apply to the other.
+In many applications, however, restricting ourselves to one-sided alternatives is insufficient.
+For example, in fMRI studies, average brain activities at each of the tens of thousands of voxels may be either higher or lower in the case group compared to the controls \citep{narayan2015two}. 
+In the challenging application of anomaly detection on Internet traffic streams, millions of IP addresses need to be scanned in real time to identify both volumetric attacks and blackouts \citep{kallitsis2016amon}.
+In general, both the locations and the directions of the signals are unknown, and many interesting results obtained under one-sided alternatives unfortunately do not apply.
 
-In this work, we study model \eqref{eq:model-chisq} to directly tackle the omnidirectional alternatives, which are arguably more realistic in discovery sciences where little to no prior knowledge is available.
-In particular, we will be able to quantify if, and how much of a price has to be paid for the additional uncertainty going from one-sided to two-sided alternatives in model \eqref{eq:model-additive}.
+Studying model \eqref{eq:model-chisq} will allow us to tackle the omnidirectional alternatives, which are arguably more realistic in discovery sciences where little to no prior knowledge is available.
+In comparing with existing results, we will also be able to quantify if, and how much of a price has to be paid for the additional uncertainty going from one-sided to two-sided alternatives in model \eqref{eq:model-additive}.
 
 \subsection{Contributions}
 
 The contribution of this work is three-fold.
-First, we show that several common family-wise error rate controlling procedures, including Bonferroni's procedure \cite{dunn1961multiple}, are asymptotically optimal to first order for \emph{exact} support recovery problems when the statistics are independently chi-square distributed.
-Second, we show that the Benjamini-Hochberg (BH) procedure \cite{benjamini1995controlling} is asymptotically optimal to first order for \emph{approximate} support recovery problems in the high-dimensional chi-square models.
+
+First, we show that several common family-wise error rate controlling procedures, including Bonferroni's procedure \cite{dunn1961multiple}, are asymptotically optimal to first order for \emph{exact} support recovery problems in the chi-square model \eqref{eq:model-chisq}.
+Second, we show that the Benjamini-Hochberg (BH) procedure \cite{benjamini1995controlling} is asymptotically optimal to first order for \emph{approximate} support recovery problems.
 These two results, establishing the relationship between dimensionality and signal sizes in support recovery problems, are made precise in Theorems \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary}.
 
-Unlike in additive error models, the notion of signal size in chi-square models is not as transparent.
+Unlike in additive error models, the notion of signal size in chi-square models is often not as transparent.
 Our third contribution demystifies this notion in the context of association tests, by characterizing of the relationship between signal sizes and marginal frequencies, odds ratio, and sample sizes, for association tests on 2-by-2 contingency tables.
 % Specifically, the amount of signal, when rare variants are present, is weaker compared to the signal when the marginal distributions are balanced.
 % In other words, reliable detection of the effects by rare variants would require more samples compared to common variants, even at the same odds ratio.
@@ -166,16 +173,18 @@ We content ourselves with making optimality statements concerning only threshold
 
 \subsection{More related work}
 
-Review \cite{jin2014optimality, jin2016rare, butucea2018variable, arias2017distribution, gao2018fundamental, ji2012ups, rabinovich2017optimal}.
-
-
-For approximate support recovery problems, \citet*{arias2017distribution} established the asymptotic optimality of the Benjamini-Hochberg procedure \cite{benjamini1995controlling}, and the Cand\'es-Barber procedure \cite{barber2015controlling} for independent additive errors;
+Performance limits of statistical procedures in the additive error model \eqref{eq:model-additive} under one-sided alternatives is a well-studied topic.
+For approximate support recovery, measured in terms of the risk of approximate support recovery \eqref{eq:risk-approximate}, \citet*{arias2017distribution} established the asymptotic optimality of the Benjamini-Hochberg procedure \cite{benjamini1995controlling}, and the Cand\'es-Barber procedure \cite{barber2015controlling} for independent additive errors;
 \citet{rabinovich2017optimal} further established the rate-optimality of both procedures under the same regime.
 
-When the goal is the more stringent asymptotically exact support recovery, it was recently shown that several FWER-controlling procedures are optimal, even under severe dependence of the errors \cite{gao2018fundamental}.
+When the goal is the more stringent exact support recovery, measured in terms of \eqref{eq:risk-exact}, it was recently shown in \citet{gao2018fundamental} that several FWER-controlling procedures are optimal, even under severe dependence of the errors.
+Similar results were also obtained under the Hamming loss in the additive error models \cite{butucea2018variable}, and in the regression context \cite{ji2012ups,jin2014optimality}.
 
-The sparse signal detection problem in the chi-square model \eqref{eq:model-chisq} was first studied by \cite{donoho2004higher}.
+On the other hand, the high-dimensional chi-square model \eqref{eq:model-chisq} is somewhat less studied.
+The sparse signal detection problem in the chi-square model was studied in \cite{donoho2004higher},
+while the support recovery problems remain unexplored.
+\citet{sun2007oracle} studied general strategies of multiple testing problems, which includes the two-sided alternatives in the normal model as a major example; the optimality claims for their proposed likelihood ratio thresholding procedure requires consistent estimation of the non-null distributions and the mixture proportions .
 
-
-\cite{gao2019upass}
+Asymptotic power approximations of association tests on contingency tables can be found in texts on asymptotic statistics, e.g., .
+\cite{gao2019upass} analyzed asymptotic equivalences of several common association tests.
 

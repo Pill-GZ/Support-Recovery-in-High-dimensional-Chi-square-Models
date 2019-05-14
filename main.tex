@@ -19,6 +19,7 @@
 %\bibliographystyle{plain}
 \usepackage{array,booktabs}
 %\usepackage[margin=1.25in]{geometry}
+\usepackage{relsize}
 
 %
 % My definitions:
@@ -75,7 +76,8 @@
 \begin{document}
 
 \begin{frontmatter}
-\title{Multiple Testing for Categorical Data}%\thanksref{T1}}
+\title{High-dimensional Chi-square Models \\
+  \smaller{}and Multiple Testing for Categorical Data} %\thanksref{T1}} 
 \runtitle{Multiple Testing for Categorical Data}
 %\thankstext{T1}{Footnote to the title with the `thankstext' command.}
 
@@ -97,8 +99,8 @@
 \end{aug}
 
 \begin{abstract}
-We study high-dimensional multiple testing problems where test statistics have approximate chi-square distributions, typified by categorical variable screenings such as genome-wide association studies (GWAS).
-We characterize two new phase transition phenomena in the chi-square models, deriving the statistical signal sizes necessary and sufficient for statistical procedures to 1) approximately, and 2) exactly select the set of relevant features in large dimensions.
+We study high-dimensional multiple testing problems where test statistics have approximate chi-square distributions, typified by categorical variable screenings.
+We first characterize two new phase transition phenomena in the chi-square models, deriving the statistical signal sizes necessary and sufficient for statistical procedures to 1) approximately, and 2) exactly select the set of relevant features in large dimensions.
 Remarkably, the degrees-of-freedom parameter is irrelevant for the boundaries of both phase transitions.
 Several well-known procedures are shown to attain these boundaries.
 
@@ -106,13 +108,13 @@ We then elucidate on the nature of statistical signal sizes in the context of as
 Specifically, we characterize the relationship between statistical signal size and marginal frequencies, odds ratio, and sample sizes. % in common association tests for binary traits.
 % Specifically, detection of rare genetic variants associated with the outcomes requires more samples compared to common variants. 
 % Specifically, the difficulty in detecting associations between genetic variants and phenotype traits is quantified in terms of the statistical signal sizes.
-We further demonstrate, perhaps surprisingly, that balanced designs in case-control studies may \emph{not} deliver the highest power. % for detecting rare genetic variants with high odds ratios.
+We further demonstrate, perhaps surprisingly, that balanced designs in case-control studies may \emph{not} deliver the best power. % for detecting rare genetic variants with high odds ratios.
 % Specifically, the amount of signal per sample is inherently smaller when rare variants are present. 
 % In other words, 
 % Further, case prevalence in the recruited subjects plays a role, while case prevalence in the population is irrelevant.
 
 We provide explicit formulas for power calculations, as well as software tools for finding the optimal study designs.
-These results allow us to perform power analysis for high-dimensional screening problems for categorical covariates, such as GWAS.
+These results allow us to perform power analysis for high-dimensional screening problems for categorical covariates, such as genome-wide association studies (GWAS).
 \end{abstract}
 
 \begin{keyword}[class=MSC]
