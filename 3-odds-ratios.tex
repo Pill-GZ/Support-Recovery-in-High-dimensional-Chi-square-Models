@@ -1,4 +1,8 @@
 
+Theorems \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary} were stated in terms of the problem dimension $p$, and sparsity and signal sizes of the non-centrality parameter $\lambda$.
+In practice, however, the problem dimensions and sparsity levels are usually determined by the physical process.
+In order to land in the weakly classifiable or classifiable regions, one can only hope to increase the signal sizes.
+
 We clarify in this section the relationship between odds ratios, commonly referred to as effect sizes, and statistical signal sizes, which directly relates to power of statistical tests.
 
 Consider a 2-by-2 multinomial distribution with marginals probabilities $(\phi_1, \phi_2 = 1-\phi_1)$ and $(\theta_1, \theta_2 = 1-\theta_1)$.
@@ -45,7 +49,7 @@ or equivalently, an odds ratio of 1.
 When data are sampled from the multinomial distribution, however, the chi-square test defined in \eqref{eq:chisq-statistic} turns out be to asymptotically equivalent to the likelihood ratio test.
 Hence, optimal statistical power may be studied via either of these two tests.
 
-Specifically, with a sequence of local alternatives $\mu^{(1)}, \mu^{(2)}, \ldots$, such that $\sqrt{n}(\mu^{(n)}_{jk} - \phi_j\theta_k)$ converges to a constant table $\delta = (\delta_{11}, \delta_{12}, \delta_{21}, \delta_{22})$, the likelihood ratio statistic, and the chi-squared statistic, converge in distribution to the non-central chi-squared distribution with non-centrality parameter 
+Specifically, with a sequence of local alternatives $\mu^{(1)}, \mu^{(2)}, \ldots$, such that $\sqrt{n}(\mu^{(n)}_{jk} - \phi_j\theta_k)$ converges to a constant table $\delta = (\delta_{jk})$, the likelihood ratio statistic, and the chi-squared statistic, converge in distribution to the non-central chi-squared distribution with non-centrality parameter 
 $$\lambda = \sum_{j=1}^2 \sum_{k=1}^2 {\delta_{jk}^2}/{(\phi_j\theta_k)}.$$
 Therefore, for large samples from a fixed distribution $\mu$, the statistics would be well approximated by a $\chi^2_\nu(\lambda)$ distribution, where $\nu=1$ and
 \begin{equation} 
@@ -62,7 +66,7 @@ Power calculations would therefore only depend on the distributions through $\la
 
 The relationship between the signal size $w^2$ and the odds ratio $\text{R}$ is characterized in the following Proposition.
 
-\begin{theorem} \label{thm:signal-size-odds-ratio}
+\begin{proposition} \label{prop:signal-size-odds-ratio}
 Consider 2-by-2 multinomial distribution with marginals $(\phi_1, \phi_2 = 1-\phi_1)$ and $(\theta_1, \theta_2 = 1-\theta_1)$.
 Let signal size $w^2$ be defined as in \eqref{eq:signal-size-chisq}, and odds ratio $\text{R}$ be defined as in \eqref{eq:odds-ratio}. 
 Then we have $w^2 = 0$ if $R=1$, and
@@ -72,7 +76,7 @@ Then we have $w^2 = 0$ if $R=1$, and
 \end{equation}
 if $R\neq1$, and $R>0$, 
 with constants $A = \phi_1\theta_1\phi_2\theta_2$, $B = \phi_1\theta_1+\phi_2\theta_2$, and $C = \phi_1\theta_2+\phi_2\theta_1$.
-\end{theorem}
+\end{proposition}
 
 We emphasize that only the proportion of cases and controls \emph{in the study}, the distribution of alleles \emph{in the study}, and the odds ratio are relevant for power analysis.
 The prevalence of the cases and the distributions of alleles in the general population are \emph{irrelevant}.
@@ -85,7 +89,7 @@ Notice that while the odds ratio $R$ can be unbounded for any arbitrary marginal
       \includegraphics[width=0.49\textwidth]{./singal-vs-odds-p05}
       \includegraphics[width=0.49\textwidth]{./singal-vs-odds-p0333}            
       % \includegraphics[width=0.35\textwidth]{./phase_diagram_chisquared.eps}
-      \caption{Signal size in chi-square tests as functions of odds ratio in 2-by-2 multinomial distributions, for selected marginal probabilities; see Relation \eqref{eq:signal-size-odds-ratio} in Theorem \ref{thm:signal-size-odds-ratio}.
+      \caption{Signal size in chi-square tests as functions of odds ratio in 2-by-2 multinomial distributions, for selected marginal probabilities; see Relation \eqref{eq:signal-size-odds-ratio} in Proposition \ref{prop:signal-size-odds-ratio}.
       For fixed marginal distributions, extreme odds ratios imply stronger signals at a given sample size.
       However, the signal sizes are bounded above by constants that depend on the marginal distributions; see Relation \eqref{eq:signal-size-upper-bound}.
       % Unbalanced marginal distributions -- or rare variants -- lead to smaller signal sizes at a given odds ratio.
@@ -131,7 +135,7 @@ Just as the multinomial distribution is fully parametrized by the marginals and 
     \end{tabular}
 \end{center}
 
-Theorem \ref{thm:signal-size-odds-ratio} may then be re-stated in terms of the new trio $(f, \phi_1, R)$.
+Proposition \ref{prop:signal-size-odds-ratio} may then be re-stated in terms of the new trio $(f, \phi_1, R)$.
 
 % Note that all these quantities refer to what is in the study, and differ from their counterparts in the general population.
 

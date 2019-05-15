@@ -1,7 +1,7 @@
 
 \subsection{Signal sizes and odds ratio in 2-by-2 contingency tables}
 
-\begin{proof}[Proof of Theorem \ref{thm:signal-size-odds-ratio} and Corollary \ref{cor:signal-limits-OR}]
+\begin{proof}[Proof of Proposition \ref{prop:signal-size-odds-ratio} and Corollary \ref{cor:signal-limits-OR}]
 We parametrize the 2-by-2 multinomial distribution with the parameter $\delta$, 
 $$
 \mu_{11} = \phi_1\theta_1+\delta,\quad \mu_{12} = \phi_1\theta_2-\delta,\quad 
@@ -367,9 +367,7 @@ where $\overline{F_0}$ and $\overline{F_a}$ are the survival functions of $\chi_
 \end{equation}
 uniformly in $t$.
 
-Denote the order statistics of $x$ as $x_{[1]}\ge\ldots\ge x_{[p]}$, and let $i^* := \max\{i\,|\,\overline{F_0}(x_{[i]})\le \alpha i/p\}$.
-Notice that the BH procedure at FDR level $\alpha$ rejects all hypotheses whose observations exceed $x_{[i^*]}$. 
-That is, the BH procedure is the thresholding procedure with threshold set at $x_{[i^*]}$.
+Recall that the BH procedure is the thresholding procedure with threshold set at $x_{[i^*]}$, where $i^* := \max\{i\,|\,\overline{F_0}(x_{[i]})\le \alpha i/p\}$, and $x_{[1]}\ge\ldots\ge x_{[p]}$ are the order statistics.
 
 By the definition of $\widehat{G}$ we know that $\widehat{G}(x_{[i]}) = i/p$.
 Therefore, by the deinition of $i^*$ we have
