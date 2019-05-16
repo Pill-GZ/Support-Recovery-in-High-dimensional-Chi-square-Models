@@ -80,7 +80,7 @@ Taking squares on both sides of \eqref{eq:model-additive}, and we arrive at Mode
 In this case, the support recovery problem becomes to locate the set of observations with mean shifts, $S=\{i:\mu(i)\neq 0\}$, where the mean shifts could take place in both directions.
 
 While theoretical limits of support recovery problems in additive error models \eqref{eq:model-additive} have been extensively studied (see, e.g., \cite{arias2017distribution, butucea2018variable, gao2018fundamental}), such studies were focused exclusively on one-sided alternatives.
-In many applications, however, restricting ourselves to one-sided alternatives is insufficient.
+On the other hand, in many applications, restricting ourselves to one-sided alternatives is insufficient.
 For example, in fMRI studies, average brain activities at each of the tens of thousands of voxels may be either higher or lower in the case group compared to the controls \citep{narayan2015two}. 
 In the challenging application of anomaly detection on Internet traffic streams, millions of IP addresses need to be scanned in real time to identify both volumetric attacks and blackouts \citep{kallitsis2016amon}.
 In general, both the locations and the directions of the signals are unknown, and many interesting results obtained under one-sided alternatives unfortunately do not apply.
@@ -94,7 +94,11 @@ The contribution of this work is three-fold.
 
 First, we show that several common family-wise error rate controlling procedures, including Bonferroni's procedure \cite{dunn1961multiple}, are asymptotically optimal to first order for \emph{exact} support recovery problems in the chi-square model \eqref{eq:model-chisq}.
 Second, we show that the Benjamini-Hochberg (BH) procedure \cite{benjamini1995controlling} is asymptotically optimal to first order for \emph{approximate} support recovery problems.
+The degree-of-freedom parameter does not affect the asymptotic boundaries in both cases.
+
 These two results, establishing the relationship between dimensionality and signal sizes in support recovery problems, are made precise in Theorems \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary}.
+The optimality results also show that the exact support recovery problems can be substantially harder in the two-sided case compared to the one-sided alternative case in additive models, while the approximate support recovery problems are of equal difficulty.
+
 
 Unlike in additive error models, the notion of signal size in chi-square models is often not as transparent.
 Our third contribution demystifies this notion in the context of association tests, by characterizing of the relationship between signal sizes and marginal frequencies, odds ratio, and sample sizes, for association tests on 2-by-2 contingency tables.
@@ -160,11 +164,11 @@ Examples of thresholding procedures include ones that aim to control FWER -- Bon
 Indeed, thresholding procedures \eqref{eq:thresholding-procedure} is such a general class that it contains most of the statistical procedures in the multiple testing literature \cite{roquain2011type}.
 
 We shall restrict our discussion to the class of thresholding procedures.
-In particular, the lower bounds that we develop in Theorems \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary} below are only meant to apply to such procedures.
+Specifically, the lower bounds that we develop in Theorems \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary} below are only meant to apply to such procedures.
 
 \begin{remark}
 While it is intuitively appealing to consider only threshold procedures, such procedures are not always optimal.
-In particular, \citet{chen2018scan} showed that thresholding procedures are in fact sub-optimal in the additive models \eqref{eq:model-additive} when errors have heavy (regularly-varying) tails. 
+Recently, \citet{chen2018scan} showed that thresholding procedures are in fact sub-optimal in the additive models \eqref{eq:model-additive} when errors have heavy (regularly-varying) tails. 
 \citet{gao2018fundamental} recently characterized the conditions under which thresholding procedures are optimal in exact support recovery problems.
 The optimality of thresholding procedures in approximate support recovery problems is an open problem that invites a separate discussion. 
 We content ourselves with making optimality statements concerning only thresholding procedures in the current work.
@@ -180,12 +184,11 @@ For approximate support recovery, measured in terms of the risk of approximate s
 When the goal is the more stringent exact support recovery, measured in terms of \eqref{eq:risk-exact}, it was recently shown in \cite{gao2018fundamental} that several well-known FWER-controlling procedures are optimal, even under severe dependence of the errors.
 Similar results were obtained under the Hamming loss for more complicated procedures in the additive error models \cite{butucea2018variable} and in the regression context \cite{ji2012ups,jin2014optimality}.
 
-On the other hand, the high-dimensional chi-square model \eqref{eq:model-chisq} is less studied.
-The sparse signal detection problem in the chi-square model was studied in \cite{donoho2004higher},
+The sparse signal detection problem in the high-dimensional chi-square model \eqref{eq:model-chisq} was studied in \cite{donoho2004higher},
 while the support recovery problems remain unexplored.
 \citet{sun2007oracle} studied general strategies of multiple testing problems, which includes the two-sided alternatives in the normal model as a najor example; their proposed likelihood ratio thresholding procedure requires consistent estimation of the non-null distributions and the mixture proportions.
 
-Asymptotic power approximations of association tests on contingency tables can be found in texts on asymptotic statistics, e.g., \cite{ferguson2017course}.
-A companion paper \cite{gao2019upass} analyzed asymptotic equivalences of several additional common association tests, and implements the power calculations in a software tool for visualization and forensics of reported findings in genetics.
+Asymptotic power approximations of association tests on contingency tables can be found in, e.g., \cite{ferguson2017course}, and many other texts on asymptotic statistics.
+A companion paper to the current work \cite{gao2019upass} analyzed asymptotic equivalences of several additional common association tests, and implements the power calculations in a software tool for visualization and forensics of reported findings in genetics.
 
 
