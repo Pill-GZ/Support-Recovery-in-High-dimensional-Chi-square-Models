@@ -175,25 +175,13 @@ Therefore, in view of Lemma \ref{lemma:risk-exact-recovery-probability}, exact s
 
 The strong classification boundary is shown in Figure \ref{fig:phase-chi-squared}
 
-\begin{figure}
-      \centering
-      \includegraphics[width=0.7\textwidth]{./phase_diagram_chisquared.eps}
-      % \includegraphics[width=0.35\textwidth]{./phase_diagram_chisquared.eps}
-      \caption{The phase diagram of the high-dimensional chi-square model \eqref{eq:model-chisq}, illustrating the boundaries of the exact and approximate support recovery problems (Theorems \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary}), and the signal detection problem (described in \citep{donoho2004higher}). 
-      The risk of exact support recovery \eqref{eq:risk-exact} can be made to vanish above the strong classification boundary \eqref{eq:strong-classification-boundary-chisquared} in the \emph{classifiable} region; conversely, the risk has liminf at least one.
-      Similarly, the risk of approximate support recovery \eqref{eq:risk-approximate} can be made to vanish above the weak classification boundary \eqref{eq:weak-classification-boundary-chisquared} in the \emph{weakly classifiable} region; conversely, the risk has liminf at least one.
-      Both boundaries are unaffected by the degrees-of-freedom parameter in the model.
-      } 
-      \label{fig:phase-chi-squared}
-\end{figure}
-
 \begin{remark}
 Remarkably, the degree-of-freedom parameter $\nu$ does not affect the boundary \eqref{eq:strong-classification-boundary-chisquared}.
 In simulations, we find the approximation by the asymptotic boundary to be quite accurate even in moderate dimensions, and largely unaffected by the degrees of freedom.
 See Section \ref{sec:numerical} for numerical illustrations.
 \end{remark}
 
-As alluded to in Section \ref{subsec:motivation-additive} in the introduction, Theorem \ref{thm:chi-squred-strong-boundary} also allows us to compare the difficulties of one-sided versus two-sided additives for additive models under Gaussian errors.
+As alluded to in the introduction, Theorem \ref{thm:chi-squred-strong-boundary} also allows us to compare the difficulties of one-sided versus two-sided additives for additive models under Gaussian errors.
 
 \begin{remark}
 The exact support recovery problem under one-sided alternatives in the Gaussian additive error model \eqref{eq:model-additive} was studied \cite{gao2018fundamental}.
@@ -205,7 +193,7 @@ However, the boundary the phase transition is
     \widetilde{g}(\beta) = \left(1 + \sqrt{1-\beta}\right)^2,
 \end{equation}
 which is strictly below that of two-sided case in \eqref{eq:strong-classification-boundary-chisquared}, except in the extremely sparse case $\beta = 1$.
-In particular, as the problem becomes denser ($\beta\to0$), the required signal size in the one-sided additive model \eqref{eq:strong-classification-boundary-additive} approaches 2 since $\widetilde{g}(\beta)\to2$, while the required signal size in the chi-square (two-sided altenative additive) model \eqref{eq:strong-classification-boundary-chisquared} is almost two times higher, since ${g}(\beta)\to2\to3+2\sqrt{2}\approx 5.828$.
+In particular, as the problem becomes denser ($\beta\to0$), the required signal size in the one-sided additive model $\widetilde{g}(\beta)$ tends $4$, while the required signal size in the chi-square (two-sided altenative additive) model ${g}(\beta)$ tends to $\to3+2\sqrt{2}\approx 5.828$, almost 50\% higher.
 \end{remark}
 
 \subsection{FDR-controlling procedures}

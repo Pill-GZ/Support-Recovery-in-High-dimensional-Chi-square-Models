@@ -1,20 +1,20 @@
 
-In large scale variable screening studies, we would like to find suitable designs such that combinations of the dimensionality $p$, sparsity $\beta$, and signal sizes $r$ of the problem land in the desirable region of discovery, as predicted by the results in Section \ref{sec:chisq-boundaries}.
+In large scale variable screening studies, we would like to find suitable designs such that combination of the dimensionality $p$, sparsity $\beta$, and signal sizes $r$ of the problem lands in the desired region of discovery, as predicted by the results in Section \ref{sec:chisq-boundaries}.
 
-In practice, however, not all three of the parameters $(p, \beta, r)$ can be manipulated.
-In particular, the problem dimensions and sparsity levels are usually determined by the underlying physical process.
+In practice, however, not all three of the parameters $(p, \beta, r)$ can be altered as we wish.
+In particular, the problem dimensions and sparsity levels are usually determined by the underlying physical processes.
 In the GWAS example, the number of genomic marker locations is determined by the design of the chip used for sequencing, while the number of relevant genomic locations is a consequence of the biological process.
-Therefore, in order to achieve a desired level of error control, one can only hope to influence the statistical signal sizes.
+Therefore, in order to achieve a desired level of error control, we can only hope to influence the statistical signal sizes.
 
-We discuss in this section how to attain the necessary statistical signal sizes in the case of association tests on 2-by-2 contingency tables, and clarify the relationship between statistical signal sizes and odds ratios in these tests.
+We discuss in this section on how to attain the necessary statistical signal sizes in the case of association tests on 2-by-2 contingency tables, and clarify the relationship between statistical signal sizes and odds ratios in such tests.
 
 \subsection{Odds ratios and statistical power}
 \label{subsec:odds-and-power}
 
-Although the non-centrality parameter $\lambda$ serves as a natural parameter for signal sizes in chi-square (and other omnidirectional) tests, its meaning is perhaps not as transparent.
-A question frequently asked by practitioners is how signal sizes relate to odds ratios, commonly referred to as effect sizes in association tests.
+Unlike in additive models where the parameter $\mu$ has the interpretation of signal-to-noise ratios, the meaning of the signal sizes $\lambda$ in chi-square (and other omnidirectional) tests is perhaps not as transparent.
+A question frequently asked by practitioners is how `statistical signal sizes' relate to odds ratios in association tests, commonly referred to as `effect sizes'.
 
-Consider a 2-by-2 multinomial distribution with marginals probabilities $(\phi_1, \phi_2)$ and $(\theta_1, \theta_2)$, where $\phi_1 + \phi_2 = 1$ and $\theta_1 + \theta_2 = 1$.
+Consider a 2-by-2 multinomial distribution with marginal probabilities of phenotypes $(\phi_1, \phi_2)$ and genotypes $(\theta_1, \theta_2)$.
 \begin{center}
     \begin{tabular}{cccc}
     \hline
@@ -46,11 +46,12 @@ Therefore, for large samples from a fixed distribution $\mu$, the statistics wou
 \begin{equation} 
     \lambda := n\sum_{j=1}^2 \sum_{k=1}^2 \frac{(\mu_{jk} - \phi_j\theta_k)^2}{\phi_j\theta_k}.
 \end{equation}
-Since $\lambda$ is linear in the number of samples $n$, we define 
+%Since $\lambda$ is linear in the number of samples $n$, 
+We define 
 \begin{equation} \label{eq:signal-size-chisq}
     w^2:=\lambda/n
 \end{equation} 
-as the signal size per sample.
+as the \emph{signal size per sample}.
 Power of association tests at $\alpha$ level is approximately $\P[\chi^2_{\nu}(\lambda)>\chi^2_{\nu,\alpha}]$, where $\chi^2_{\nu,\alpha}$ is the upper $\alpha$-quantile of a central Chi-squared distribution.
 Power calculations would therefore only depend on the distributions through $\lambda=nw^2$, and statistical power is increasing in the signal sizes per sample $w^2$.
 The relationship between the $w^2$ and the odds ratio $\text{R}$ is characterized in the following proposition.
@@ -64,11 +65,12 @@ Then we have $w^2 = 0$ if $R=1$, and
     \frac{1}{4A(\text{R}-1)^2}\left(B+CR-\sqrt{(B+CR)^2-4A(R-1)^2}\right)^2,
 \end{equation}
 if $R\neq1$, and $R>0$, 
-with constants $A = \phi_1\theta_1\phi_2\theta_2$, $B = \phi_1\theta_1+\phi_2\theta_2$, and $C = \phi_1\theta_2+\phi_2\theta_1$.
+where $A = \phi_1\theta_1\phi_2\theta_2$, $B = \phi_1\theta_1+\phi_2\theta_2$, and $C = \phi_1\theta_2+\phi_2\theta_1$.
 \end{proposition}
 
 We illustrate Relation \eqref{eq:signal-size-odds-ratio} for selected values of marginals $\theta_1$ and $\phi_1$ in Figure \ref{fig:signal-vs-odds}.
-Notice that while the odds ratio $R$ can be unbounded for any arbitrary marginal distributions, the signal sizes $w^2$ are bounded from above by constants that depend only on the marginals $\phi_1$ and $\theta_1$.
+In general, odds ratios further away from one leads to stronger statistical signals per sample.
+Although the odds ratio $R$ can be arbitrarily close to 0 or $\infty$ for any marginal distributions, the signal sizes $w^2$ are bounded from above by constants that depend only on the marginals $\phi_1$ and $\theta_1$.
 This is quantified in the next corollary.
 
 \begin{figure}
@@ -77,8 +79,8 @@ This is quantified in the next corollary.
       \includegraphics[width=0.49\textwidth]{./singal-vs-odds-p0333}            
       % \includegraphics[width=0.35\textwidth]{./phase_diagram_chisquared.eps}
       \caption{Signal size in chi-square tests as functions of odds ratio in 2-by-2 multinomial distributions, for selected marginal probabilities; see Relation \eqref{eq:signal-size-odds-ratio} in Proposition \ref{prop:signal-size-odds-ratio}.
-      For fixed marginal distributions, extreme odds ratios imply stronger signals at a given sample size.
-      However, the signal sizes are bounded above by constants that depend on the marginal distributions; see Relation \eqref{eq:signal-size-upper-bound}.
+      For fixed marginal distributions, extreme odds ratios imply stronger statistical signals at a given sample size.
+      However, the signal sizes are bounded above by constants that depend on the marginal distributions; see Relations \eqref{eq:signal-size-upper-bound-1} and \eqref{eq:signal-size-upper-bound-2}.
       % Unbalanced marginal distributions -- or rare variants -- lead to smaller signal sizes at a given odds ratio.
       } 
       \label{fig:signal-vs-odds}
