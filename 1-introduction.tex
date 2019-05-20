@@ -37,7 +37,7 @@ where $E_{jk}$'s are the expected number of observations in respective cells, es
 %E_{jk} = \Big(\sum_{l}O_{jl}\Big)\Big(\sum_{l}O_{lk}\Big)\Big/n.
 
 Under the mild assumption that the counts $O_{jk}$'s follow a multinomial distribution, the statistic $x$ in \eqref{eq:chisq-statistic} can be shown to have an approximate $\chi^2(\lambda)$ distribution with $\nu=1$ degree of freedom at large sample sizes \citep{agresti2018introduction}. 
-When genotypes and phenotypes are independent, the non-centrality parameter $\lambda$ is identically zero; and if dependence exists, we have $\lambda\neq0$ where its value depends on the underlying multinomial probabilities.
+Independence of the genotypes and phenotypes implies a non-centrality parameter $\lambda$ value of zero; and if dependence exists, we have $\lambda\neq0$ where its value depends on the underlying multinomial probabilities.
 More generally, if we have a $J$ phenotypes and $K$ genetic variants, assuming a $J\times K$ multinomial distribution, the statistic will follow approximately a $\chi^2_{\nu}(\lambda)$ distribution with $\nu = (J-1)(K-1)$ degrees of freedom, when sample sizes are large.
 
 The same asymptotic distributional approximations are also applies to the likelihood ratio statistic, and many other statistics under slightly different modeling assumptions \cite{gao2019upass}.
@@ -48,10 +48,10 @@ These association tests are performed at each of the $p$ SNP marker locations th
 where $\lambda = (\lambda(i))_{i=1}^p$ is the $p$-dimensional non-centrality parameter.
 %, with $\lambda(i)=0$ indicating independence of the $i$-th SNP with the outcomes, and $\lambda(i)\neq0$ indicating associations.
 
-With the number of genomic locations $p$ in genetic association studies usually in the order of $10^5$ or even $10^6$, it is often believed that only a small set of genetic variants have large influences on the outcome of the disease or trait of interest .
-Under the stylized assumption of exact sparsity, $\lambda$ is assumed to have $s$ non-zero components, where $s$ is much smaller than the problem dimension $p$. 
+While the number of genomic locations $p$ can be in the order of $10^5$ or even $10^6$, it is often believed that only a small set of genetic variants have large influences on the outcome of the disease or trait of interest.
+Under the stylized assumption of sparsity, $\lambda$ is assumed to have $s$ non-zero components, with $s$ much smaller than the problem dimension $p$. 
 The goal of researchers is two-fold: 1) to test if $\lambda(i)=0$ for all $i$, and 2) to estimate the set $S=\{i:\lambda(i)\neq 0\}$.
-In other words, we look to determine if there are any genetic variation associated with the disease; and if there are associations, we wish to locate the associated variants.
+In other words, we look to determine if there are any genetic variations associated with the disease; and if there are associations, to find their locations.
 
 The latter, referred to as the \emph{support recovery problem}, is the focus of this work.
 We will study in detail the theoretical limits in support recovery problems in an idealized model where the statistics follow independent
@@ -64,12 +64,11 @@ chi-square distributions,
 We will also look for practical procedures that attain the performance limits, as soon as the problems become theoretically feasible.
 
 
-\subsection{Two-sided alternatives of additive error models}
+\subsection{Two-sided alternatives in additive error models}
 \label{subsec:motivation-additive}
 
-The chi-square model \eqref{eq:model-chisq} arise in problems much more general than association screenings.
-In particular, it plays an important role in analyzing variable screening problems with omnidirectional tests.
-An important example is multiple two-sided tests in additive error models,
+The chi-square model \eqref{eq:model-chisq} is in fact quite genreal, and plays an important role in analyzing variable screening problems with omnidirectional tests.
+A primal example is multiple two-sided tests in additive error models,
 \begin{equation} \label{eq:model-additive}
     x(i) = \mu(i) + \epsilon(i), \quad i=1,\ldots,p,
 \end{equation}
@@ -182,7 +181,7 @@ We shall restrict our discussion to the class of thresholding procedures.
 Specifically, the lower bounds that we develop in Theorems \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary} below are only meant to apply to such procedures.
 
 \begin{remark}
-While it is intuitively appealing to consider only threshold procedures, such procedures are not always optimal.
+Although it is intuitively appealing to consider only threshold procedures, such procedures are not always optimal.
 Recently, \citet{chen2018scan} showed that thresholding procedures are in fact sub-optimal in the additive models \eqref{eq:model-additive} when errors have heavy (regularly-varying) tails. 
 \citet{gao2018fundamental} recently characterized the conditions under which thresholding procedures are optimal in exact support recovery problems.
 The optimality of thresholding procedures in approximate support recovery problems is an open problem that invites a separate discussion. 
@@ -199,8 +198,7 @@ For approximate support recovery, measured in terms of the risk of approximate s
 When the goal is the more stringent exact support recovery, measured in terms of \eqref{eq:risk-exact}, it was recently shown in \cite{gao2018fundamental} that several well-known FWER-controlling procedures are optimal, even under severe dependence and general distributional assumptions.
 Similar results were obtained in terms of the Hamming loss, for specific procedures in the additive models \cite{butucea2018variable} and in the regression context \cite{ji2012ups,jin2014optimality} under Gaussian errors.
 
-The sparse signal detection problem in the high-dimensional chi-square model \eqref{eq:model-chisq} was studied in \cite{donoho2004higher},
-while the support recovery problems remain unexplored.
+The sparse signal detection problem in the high-dimensional chi-square model \eqref{eq:model-chisq} was studied in \cite{donoho2004higher}; the support recovery problems, to the best of our knowledge, remain unexplored.
 \citet{sun2007oracle} studied general strategies of multiple testing problems, which includes the two-sided alternatives in the normal model as a major example; their proposed likelihood ratio thresholding procedure requires consistent estimation of the non-null distributions and the mixture proportions.
 
 Asymptotic power approximations of association tests on contingency tables can be found in, e.g., \cite{ferguson2017course}, and many other texts on asymptotic statistics.
