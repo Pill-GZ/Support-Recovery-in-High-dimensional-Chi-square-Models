@@ -159,17 +159,21 @@ For rare and adversarial mutations ($f\approx0$ and $R\gg1$), the optimal $\phi_
 Therefore for studies with a fixed budget $n$, controls should constitute the majority of the subjects in order to maximize power.
 On the other hand for rare and protective mutations ($f\approx0$ and $R\approx0$), $\phi_1^*$ is close 1, and cases should be the majority.
 
-\subsection{Power analysis in large scale marginal screening studies}
+\subsection{Power analysis in large-scale marginal screening studies}
 
 Returning to the problem of marginal screenings for categorical covariates, we demonstrate with an example how results in Sections \ref{sec:chisq-boundaries} and \ref{sec:signal-size-odds-ratio} can be used for planning prospective studies.
 
 \begin{example}
-In a GWAS study with $p = 10^5$ genomic marker locations\footnote{In practice, dependence among the genetic markers at different locations (known as linkage disequilibrium) decay rapidly as a function of their physical distances on the genome, the correlations of the resulting statistics are roughly independent except at short distances.}, 100 locales are believed to be associated with the trait of interest.
-Specifically, these genetic variants are expected to have risk allele frequencies of $0.01$, and odds ratios of at least $1.5$.
-In our parametrization of the signal sparsity \eqref{eq:signal-sparsity}, $\beta = 1 - \log(s)/\log(p) = 0.6$.
+In a GWAS study with $p = 10^6$ genomic marker locations\footnote{In practice, dependence among the genetic markers at different locations (known as linkage disequilibrium) decay rapidly as a function of their physical distances on the genome, the correlations of the resulting statistics are roughly independent except at short distances.}, 100 locales are believed to be associated with the trait of interest.
+Specifically, the relevant genetic variants are expected to have risk allele frequencies of $0.01$, and odds ratios of at least $1.2$.
+In our parametrization of the signal sparsity \eqref{eq:signal-sparsity}, the sparsity parameter $\beta = 1 - \log(s)/\log(p) = 0.67$.
 
 By Corollary \ref{cor:optimal-design}, the optimal design has a fraction of cases of $\phi^* = 0.478$, yielding a statistical signal size per sample of $w^2\approx9.00\time10^{-5}$ according to Proposition \ref{prop:signal-size-odds-ratio}.
 
-If we wish to achieve family-wise error rate control, while discovering all the relevant genetic factors, Theorem \ref{thm:chi-squred-strong-boundary} predicts that the signal size $\lambda$ has to be at least $g(\beta) = \left(\sqrt{1-\beta} + \sqrt{2-\beta}\right)^2 \approx 3.30$.
-This calls for a sample size of $n = \lambda / w^2 \approx 36667$, with $17527$ in the case group, and $19140$ being the controls.
+If we wish to achieve exact support recovery in the sense of \eqref{eq:exact-recovery-success}, Theorem \ref{thm:chi-squred-strong-boundary} predicts that the signal size parameter $r$ has to be at least $g(\beta) \approx 3.30$.
+This calls for a sample size of $n = \lambda / w^2 = 2r\log(p)/w^2 \approx 922,793$.
+In a typically GWAS, a pair of alleles are sequenced for every marker location, therefore bringing the required number of subjects in the study to $n / 2 = 461,397$.
+
+Non-asymptotic power calculations \cite{gao2019upass} predict $n / 2 = 458,386$ subjects, at the parameters described above ($p=10^6$, $s=100$, $f=0.01$, $R=1.2$) and $\mathrm{FWER}=\mathrm{FWNR}=0.05$.
+Our asymptotic approximations are off by a mere $0.65\%$, at this $\mathrm{FWER}$ and $\mathrm{FWNR}$ levels.
 \end{example}
