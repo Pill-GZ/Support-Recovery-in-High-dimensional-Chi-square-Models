@@ -53,7 +53,7 @@ We define
 as the \emph{signal size per sample}.
 Power of association tests at $\alpha$ level is approximately $\P[\chi^2_{\nu}(\lambda)>\chi^2_{\nu,\alpha}]$, where $\chi^2_{\nu,\alpha}$ is the upper $\alpha$-quantile of a central Chi-squared distribution.
 Power calculations would therefore only depend on the distributions through $\lambda=nw^2$. Statistical power would be increasing in the signal sizes per sample $w^2$.
-The relationship between the $w^2$ and the odds ratio $\text{R}$ is characterized in the following proposition.
+The statistical signal size $w^2$ is jointly determined by the odds ratio (i.e., `effect size') and the marginal probabilities.
 
 \begin{proposition} \label{prop:signal-size-odds-ratio}
 Consider 2-by-2 multinomial distribution with marginals $(\phi_1, \phi_2)$ and $(\theta_1, \theta_2)$.
@@ -100,20 +100,24 @@ Corollary \ref{cor:signal-limits-OR} immediately implies that balanced designs w
 For example, in a study where $1/3$ of the recruited subjects carrying a genetic variant that is positively correlated with the trait, a design with $1/3$ cases has $w^2$ approximately equal to 1 at large odds ratios.
 This is much more efficient than a balanced design, where $w^2$ can only reach up to $1/2$; c.f., dashed curve ($\theta_1=1/3,\phi_1=1/2$) in the left panel, and solid curve ($\theta_1=1/3,\phi_1=1/3$) in the right panel of Fig. \ref{fig:signal-vs-odds}.
 
-\subsection{Optimal study designs}
+\subsection{Optimal study designs and rare variants}
 \label{subsec:optimal-design} 
+
+For a study with a fixed budget, that is, a fixed total number of subjects $n$ to recruit, the researcher is free to choose the fraction of cases $\phi_1$ to be included in the study.
+A natural question is how the budget should be allocated to maximize the statistical power of discovery, or equivalently, one that maximizes $\lambda$ or $w^2$.
+
 
 In principal, Relation \eqref{eq:signal-size-odds-ratio} can be optimized with respect to the fraction of cases $\phi_1$ in order to find optimal designs, if the rest of the parameters are known and held constant.
 In practice this is not the case.
-While the marginal distributions of phenotypes $(\phi_1, \phi_2)$ may be controlled by recruiting subjects with a certain case-to-control ratio, the marginal distributions of genotypes $(\theta_1, \theta_2)$ are often unknown prior to data collection, and can change with the case-to-control ratio.
+While $(\phi_1, \phi_2)$ may be controlled by by the researcher, the marginal distributions of genotypes $(\theta_1, \theta_2)$ are often unknown prior to data collection, and can change with the case-to-control ratio.
 
-Fortunately, the conditional distributions of genotypes in the healthy control groups are often known from existing studies in GWAS catalogs \cite{macarthur2016new}.
-Assume (after appropriate relabelling, hence without loss of generality) that the first variant is associated with an increased risk of disease, and is henceforth referred to as the risk allele.
-We denote the conditional frequency of the risk allele in the control group as
+Fortunately, the conditional distributions of genotypes in the healthy control groups are often available from existing studies, and are reported in GWAS catalogs such as \cite{macarthur2016new}.
+% Assume (after appropriate relabelling, hence without loss of generality) that the first variant is associated with an increased risk of disease, and is henceforth referred to as the risk variant.
+We denote the conditional frequency of the first genetic variant in the control group as $(f, 1-f)$ where
 $$
 f := \mu_{21} / \phi_2.
 $$
-The multinomial distribution is fully parametrized by the conditional frequency of allele in the control group $f$, proportion of cases in the study $\phi_1$, and the odds ratio $R$.
+The multinomial distribution is fully parametrized by the conditional frequency of variant in the control group $f$, proportion of cases in the study $\phi_1$, and the odds ratio $R$.
 \begin{center}
     \begin{tabular}{cccc}
     \hline
@@ -121,7 +125,7 @@ The multinomial distribution is fully parametrized by the conditional frequency 
     \cline{2-3}
     Probabilities & Variant 1 & Variant 2 & Total by phenotype \\
     \hline
-    Cases & $\frac{\phi_1fR}{(fR+1-f)}$ & $\frac{\phi_1(1-f)}{(fR+1-f)}$ & $\phi_1$ \\
+    Cases & $\frac{\phi_1fR}{fR+1-f}$ & $\frac{\phi_1(1-f)}{fR+1-f}$ & $\phi_1$ \\
     Controls & $f(1-\phi_1)$ & $(1-f)(1-\phi_1)$ & $1-\phi_1$ \\
     \hline
     \end{tabular}
@@ -135,7 +139,37 @@ In the 2-by-2 multinomial distribution with marginals $(\phi_1, \phi_2 = 1-\phi_
 Relation \eqref{eq:signal-size-odds-ratio} holds with $\theta_1 = {\phi_1fR}/{(fR+1-f)} + f(1-\phi_1)$ and $\theta_2 = 1-\theta_1$.
 \end{corollary} 
 
-% Genetic variants with very low risk alleles frequencies (RAF) in the control group (i.e., $f\approx 0$) are known as rare variants.
+The choice of $\phi_1$ now has a practical solution.
 
+\begin{corollary} \label{cor:optimal-design}
+In the context of Corollary \ref{cor:signal-size-odds-ratio-conditional-frequency},
+the optimal design $(\phi^*_1, \phi^*_2)$ that maximizes the signal size per sample $w^2$ is prescribed by
+\begin{equation} \label{eq:optimal-design}
+    \phi_1^* = \frac{fR+1-f}{fR+1-f+\sqrt{R}}, \quad\text{and}\quad 
+    \phi_2^* = 1-\phi_1^*.
+\end{equation}
+\end{corollary} 
 
+Of particular interest in the genetics literature are genetic variants with very low risk alleles frequencies in the control group (i.e., $f\approx 0$), known as rare variants.
+In such cases, Equation \eqref{eq:optimal-design} can be approximated by
+\begin{equation} \label{eq:optimal-design-approx}
+    \phi_1^* \approx \frac{1}{1 + \sqrt{R}}.
+\end{equation}
+For rare and adversarial mutations ($f\approx0$ and $R\gg1$), the optimal $\phi_1^*$ is close 0. 
+Therefore for studies with a fixed budget $n$, controls should constitute the majority of the subjects in order to maximize power.
+On the other hand for rare and protective mutations ($f\approx0$ and $R\approx0$), $\phi_1^*$ is close 1, and cases should be the majority.
 
+\subsection{Power analysis in large scale marginal screening studies}
+
+Returning to the problem of marginal screenings for categorical covariates, we demonstrate with an example how results in Sections \ref{sec:chisq-boundaries} and \ref{sec:signal-size-odds-ratio} can be used for planning prospective studies.
+
+\begin{example}
+In a GWAS study with $p = 10^5$ genomic marker locations\footnote{In practice, dependence among the genetic markers at different locations (known as linkage disequilibrium) decay rapidly as a function of their physical distances on the genome, the correlations of the resulting statistics are roughly independent except at short distances.}, 100 locales are believed to be associated with the trait of interest.
+Specifically, these genetic variants are expected to have risk allele frequencies of $0.01$, and odds ratios of at least $1.5$.
+In our parametrization of the signal sparsity \eqref{eq:signal-sparsity}, $\beta = 1 - \log(s)/\log(p) = 0.6$.
+
+By Corollary \ref{cor:optimal-design}, the optimal design has a fraction of cases of $\phi^* = 0.478$, yielding a statistical signal size per sample of $w^2\approx9.00\time10^{-5}$ according to Proposition \ref{prop:signal-size-odds-ratio}.
+
+If we wish to achieve family-wise error rate control, while discovering all the relevant genetic factors, Theorem \ref{thm:chi-squred-strong-boundary} predicts that the signal size $\lambda$ has to be at least $g(\beta) = \left(\sqrt{1-\beta} + \sqrt{2-\beta}\right)^2 \approx 3.30$.
+This calls for a sample size of $n = \lambda / w^2 \approx 36667$, with $17527$ in the case group, and $19140$ being the controls.
+\end{example}
