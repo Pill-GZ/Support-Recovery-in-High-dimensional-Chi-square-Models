@@ -111,7 +111,7 @@ In principal, Relation \eqref{eq:signal-size-odds-ratio} can be optimized with r
 In practice this is not the case.
 While $(\phi_1, \phi_2)$ may be controlled by by the researcher, the marginal distributions of genotypes $(\theta_1, \theta_2)$ are often unknown prior to data collection, and can change with the case-to-control ratio.
 
-Fortunately, the conditional distributions of genotypes in the healthy control groups are often available from existing studies, and are reported in GWAS catalogs such as \cite{macarthur2016new}.
+Fortunately, the conditional distributions of genotypes in the healthy control groups are often reported in existing studies, and are available in GWAS catalogs such as \cite{macarthur2016new}.
 % Assume (after appropriate relabelling, hence without loss of generality) that the first variant is associated with an increased risk of disease, and is henceforth referred to as the risk variant.
 We denote the conditional frequency of the first genetic variant in the control group as $(f, 1-f)$ where
 $$
@@ -159,21 +159,26 @@ For rare and adversarial mutations ($f\approx0$ and $R\gg1$), the optimal $\phi_
 Therefore for studies with a fixed budget $n$, controls should constitute the majority of the subjects in order to maximize power.
 On the other hand for rare and protective mutations ($f\approx0$ and $R\approx0$), $\phi_1^*$ is close 1, and cases should be the majority.
 
-\subsection{Power analysis in large-scale marginal screening studies}
+\subsection{Power analysis in large-scale association screening studies}
 
-Returning to the problem of marginal screenings for categorical covariates, we demonstrate with an example how results in Sections \ref{sec:chisq-boundaries} and \ref{sec:signal-size-odds-ratio} can be used for planning prospective studies.
+Returning to the problem of high-dimensional marginal screenings for categorical covariates, we demonstrate with an example how results in Sections \ref{sec:chisq-boundaries} and \ref{sec:signal-size-odds-ratio} may be used for planning of prospective studies.
 
 \begin{example}
-In a GWAS study with $p = 10^6$ genomic marker locations\footnote{In practice, dependence among the genetic markers at different locations (known as linkage disequilibrium) decay rapidly as a function of their physical distances on the genome, the correlations of the resulting statistics are roughly independent except at short distances.}, 100 locales are believed to be associated with the trait of interest.
+In a GWAS with $p = 10^6$ genomic markers, reserachers wish to locate 100 locations that are believed to be associated with the trait of interest\footnote{In practice, dependence among the genetic markers at different locations (known as linkage disequilibrium) decay rapidly as a function of their physical distances on the genome, the correlations of the resulting statistics are roughly independent except at short distances.}.
 Specifically, the relevant genetic variants are expected to have risk allele frequencies of $0.01$, and odds ratios of at least $1.2$.
-In our parametrization of the signal sparsity \eqref{eq:signal-sparsity}, the sparsity parameter $\beta = 1 - \log(s)/\log(p) = 0.67$.
+By Corollary \ref{cor:optimal-design}, the optimal design has a fraction of cases $\phi^* = 0.478$, yielding the statistical signal size per sample $w^2\approx9.00\times10^{-5}$ according to Proposition \ref{prop:signal-size-odds-ratio}.
 
-By Corollary \ref{cor:optimal-design}, the optimal design has a fraction of cases of $\phi^* = 0.478$, yielding a statistical signal size per sample of $w^2\approx9.00\time10^{-5}$ according to Proposition \ref{prop:signal-size-odds-ratio}.
-
-If we wish to achieve exact support recovery in the sense of \eqref{eq:exact-recovery-success}, Theorem \ref{thm:chi-squred-strong-boundary} predicts that the signal size parameter $r$ has to be at least $g(\beta) \approx 3.30$.
-This calls for a sample size of $n = \lambda / w^2 = 2r\log(p)/w^2 \approx 922,793$.
-In a typically GWAS, a pair of alleles are sequenced for every marker location, therefore bringing the required number of subjects in the study to $n / 2 = 461,397$.
-
-Non-asymptotic power calculations \cite{gao2019upass} predict $n / 2 = 458,386$ subjects, at the parameters described above ($p=10^6$, $s=100$, $f=0.01$, $R=1.2$) and $\mathrm{FWER}=\mathrm{FWNR}=0.05$.
-Our asymptotic approximations are off by a mere $0.65\%$, at this $\mathrm{FWER}$ and $\mathrm{FWNR}$ levels.
+If we wish to achieve exact support recovery in the sense of \eqref{eq:exact-recovery-success}, Theorem \ref{thm:chi-squred-strong-boundary} predicts that the signal size parameter $r$ has to be at least $g(\beta) \approx 3.30$, where $\beta = 1 - \log(s)/\log(p) \approx 0.67$ in our parametrization of the signal sparsity \eqref{eq:signal-sparsity}.
+This signal size calls for a sample size of $n = \lambda / w^2 = 2r\log(p)/w^2 \approx 922,793$.
+In a typically GWAS, a pair of alleles are sequenced for every marker location, bringing the required number of subjects in the study to $n / 2 = 461,397$.
 \end{example}
+
+In comparison, a more accurate power calculation, detailed in \cite{gao2019upass}, predicts that $n / 2 = 458,386$ subjects are needed, under the set of parameters ($p=10^6$, $s=100$, $f=0.01$, $R=1.2$) and $\mathrm{FWER}=\mathrm{FWNR}=0.05$.
+The asymptotic approximation is off by a mere $0.65\%$.
+
+The accuracy of the asymptotic approximations, by nature of the statements in Theorem \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary}, depends on how close the error metrics are to zero.
+For example, the number of subjects needed for $\mathrm{FWER}=\mathrm{FWNR}=0.01$ is $499,598$, an $8\%$ increase over the asymptotic prediction; at $\mathrm{FWER}=\mathrm{FWNR}=0.1$, this number becomes $398,996$, some $14\%$ lower than the asymptotic result.
+
+An user-friendly web application implementing these calculations is provided in \cite{gao2019upass}.
+In general, we recommend using the more precise results over the back-of-envolope asymptotics for planning prospective studies and performing systematic reviews of existing ones.
+Nevertheless, the simplicity of, and the insights derived from the asymptotic results cannot be supplanted.

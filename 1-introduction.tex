@@ -4,8 +4,8 @@ This multiplicity of tests brings along a multitude of challenges, and have been
 % in the literature of high-dimensional statistics.
 
 
-We are motivated in particular by the high-dimensional variable screening problems for categorical data. 
-A prototypical example is genome-wide association studies (GWAS), where a large number of categorical genetic factors are examined for their impact on the phenotypic traits.
+We are motivated in particular by problems in high-dimensional variable screenings for categorical data. 
+A prototypical example in genetics application is genome-wide association studies (GWAS), where a large number of categorical genetic factors are examined for their impact on the phenotypic traits.
 These categorical covariate screening problems naturally give rise to the high-dimensional chi-square models, introduced through the language of GWAS next.
 
 \subsection{Genome-wide association studies and the chi-square model}
@@ -82,8 +82,8 @@ For example, in fMRI studies, average brain activities at each of the tens of th
 In the challenging application of anomaly detection on Internet traffic streams, millions of IP addresses need to be scanned in real time to identify both volumetric attacks and blackouts \citep{kallitsis2016amon}.
 In general, both the locations and the directions of the signals are unknown, and many interesting results obtained under one-sided alternatives unfortunately do not apply.
 
-Studying model \eqref{eq:model-chisq} will allow us to tackle the omnidirectional alternatives, which are arguably more realistic in discovery sciences where little to no prior knowledge is available.
-In comparing with results on one-sided alternatives in the additive model \eqref{eq:model-additive}, we will also be able to quantify if, and how much of a price has to be paid for the additional uncertainty of the two-sided alternatives .
+Studying model \eqref{eq:model-chisq} will allow us to tackle the omnidirectional alternatives, which are arguably the more realistic in discovery sciences where little to no prior knowledge is available.
+In comparing with results on one-sided alternatives, we will also be able to quantify if, and how much of a price has to be paid for the additional uncertainty of the two-sided alternatives in the additive model \eqref{eq:model-additive}.
 
 \subsection{Contributions}
 
@@ -91,10 +91,10 @@ The contribution of this work is three-fold.
 
 First, we show that several common family-wise error rate controlling procedures, including Bonferroni's procedure \cite{dunn1961multiple}, are asymptotically optimal to first order for \emph{exact} support recovery problems in the chi-square model \eqref{eq:model-chisq}.
 Second, we show that the Benjamini-Hochberg (BH) procedure \cite{benjamini1995controlling} is asymptotically optimal to first order for \emph{approximate} support recovery problems.
+These two results are made precise in Theorems \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary}.
 
-These two results, under appropriate parametrizations of the signal sizes and sparsity levels in $\lambda$, establish the phase transitions of support recovery problems in the chi-square model.
-They previewed in Figure \ref{fig:phase-chi-squared}, and made precise in Theorems \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary}.
-The results also reveal that the exact support recovery problems in the additive models can be substantially harder under the two-sided alternatives compared to the one-sided case, while the approximate support recovery problems are not.
+Under appropriate parametrizations of the signal sizes and sparsity levels in $\lambda$, the results establish the phase transitions of support recovery problems in the chi-square model, previewed in Figure \ref{fig:phase-chi-squared}.
+They also reveal that the exact support recovery problem can be substantially harder under the omnidirectional alternatives, while the difficulties of approximate support recovery problems remain unchanged.
 Remarkably, the degree-of-freedom parameter does not affect the asymptotic boundaries in both problems.
 
 
@@ -102,23 +102,24 @@ Remarkably, the degree-of-freedom parameter does not affect the asymptotic bound
       \centering
       \includegraphics[width=0.7\textwidth]{./phase_diagram_chisquared.eps}
       % \includegraphics[width=0.35\textwidth]{./phase_diagram_chisquared.eps}
-      \caption{The phase diagram of the high-dimensional chi-square model \eqref{eq:model-chisq}, illustrating the boundaries of the exact (Theorem \ref{thm:chi-squred-strong-boundary}) and approximate support recovery problems (Theorem \ref{thm:chi-squred-weak-boundary}), and the signal detection problem (described in \citep{donoho2004higher}). 
+      \caption{The phase diagram of the high-dimensional chi-square model \eqref{eq:model-chisq}, illustrating the boundaries of the exact support recovery problem (Theorem \ref{thm:chi-squred-strong-boundary}), approximate support recovery problem (Theorem \ref{thm:chi-squred-weak-boundary}), and the signal detection problem (described in \citep{donoho2004higher}). 
       The risk of exact support recovery \eqref{eq:risk-exact} can be made to vanish above the strong classification boundary \eqref{eq:strong-classification-boundary-chisquared} in the \emph{classifiable} region with, e.g., Bonferroni's procedure; conversely, the risk has liminf at least one.
-      Similarly, the risk of approximate support recovery \eqref{eq:risk-approximate} can be made to vanish above the weak classification boundary \eqref{eq:weak-classification-boundary-chisquared} in the \emph{weakly classifiable} region with Benjamini-Hochberg's procedure; conversely, the risk has liminf at least one.
+      Similarly, the risk of approximate support recovery \eqref{eq:risk-approximate} can be made to vanish above the weak classification boundary \eqref{eq:weak-classification-boundary-chisquared} in or above the \emph{weakly classifiable} region with Benjamini-Hochberg's procedure; conversely, the risk has liminf at least one.
       Both boundaries are unaffected by the degrees-of-freedom parameter in the model.
-      In comparison, the strong classification boundary for one-side alternatives in the additive model \eqref{eq:model-additive} under Gaussian noise (dashed line) is substantially lower than in the chi-square model; the weak classification and detection boundaries are identical to that in chi-square models.} 
+      In comparison, for one-side alternatives in the additive model \eqref{eq:model-additive} under Gaussian noise, the strong classification boundary (dashed line) can be substantially lower than that in the chi-square model; the weak classification and detection boundaries are identical to those in the chi-square models .} 
       \label{fig:phase-chi-squared}
 \end{figure}
 
 
-Unlike in additive error models, the notion of signal size in chi-square models is often not as transparent.
-Our third contribution demystifies this notion in the context of association tests.
-We do so by characterizing of the relationship between signal sizes and marginal frequencies, odds ratio, and sample sizes for association tests on 2-by-2 contingency tables.
+The notion of signal sizes in the chi-square models, unlike in additive error models, is perhaps not as easy to interpret.
+Our third contribution demystifies this notion of signal sizes in the context of association tests.
+We do so by characterizing of the relationship between signal sizes, marginal frequencies, odds ratio, and sample sizes for association tests on 2-by-2 contingency tables.
 % Specifically, the amount of signal, when rare variants are present, is weaker compared to the signal when the marginal distributions are balanced.
 % In other words, reliable detection of the effects by rare variants would require more samples compared to common variants, even at the same odds ratio.
-The relationship between sample sizes and signal sizes, is made quantitative in Proposition \ref{prop:signal-size-odds-ratio}.
+This result, establishing the relationship between sample sizes and signal sizes, is made quantitative in Proposition \ref{prop:signal-size-odds-ratio}.
 
-Together, these results allows us to work out the signal sizes, and in turn, the sample sizes needed to achieve a desired accuracy of support recovery, from the problem dimensionality and assumed sparsity levels.
+Together, these results quantify the difficulties of support recovery tasks, and in particular, association screenings in high-dimensions.
+Practical issues are also addressed to make for simple and effective power analysis in such problems.
 
 \subsection{Statistical risks in support recovery problems}
 \label{subsec:risks}
