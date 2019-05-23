@@ -67,7 +67,9 @@ if $R\neq1$, and $R>0$,
 where $A = \phi_1\theta_1\phi_2\theta_2$, $B = \phi_1\theta_1+\phi_2\theta_2$, and $C = \phi_1\theta_2+\phi_2\theta_1$.
 \end{proposition}
 
-We illustrate Relation \eqref{eq:signal-size-odds-ratio} for selected values of marginals $\theta_1$ and $\phi_1$ in Figure \ref{fig:signal-vs-odds}.
+Proof of Proposition \ref{prop:signal-size-odds-ratio} is found in Appendix \ref{subsec:proof-signal-size-odds-ratio}. 
+
+We plot Relation \eqref{eq:signal-size-odds-ratio} for selected values of marginals $\theta_1$ and $\phi_1$ in Figure \ref{fig:signal-vs-odds}.
 Observe that odds ratios further away from one corresponds to stronger statistical signals per sample, ceteris paribus.
 This valley pattern is in general not symmetric around 1, except for balanced marginal distributions ($\phi_1=1/2$ or $\theta_1=1/2$).
 While the odds ratio $R$ can be arbitrarily close to 0 or diverge to $+\infty$ for any marginal distribution, the signal sizes $w^2$ are bounded from above by constants that depend only on the marginals.
@@ -96,6 +98,8 @@ and
     \lim_{\text{R}\to+\infty} w^2(\text{R}) = \min\left\{\frac{\phi_1\theta_2}{\phi_2\theta_1}, \frac{\phi_2\theta_1}{\phi_1\theta_2}\right\}.
 \end{equation}
 \end{corollary}
+Proof of Corollary \ref{cor:signal-limits-OR} is found in Appendix \ref{subsec:proof-signal-size-odds-ratio}. 
+
 Corollary \ref{cor:signal-limits-OR} immediately implies that balanced designs with roughly equal number of cases and controls are not necessarily the most informative.
 For example, in a study where $1/3$ of the recruited subjects carrying a genetic variant that is positively correlated with the trait, a design with $1/3$ cases has $w^2$ approximately equal to 1 at large odds ratios.
 This is much more efficient than a balanced design, where $w^2$ can only reach up to $1/2$; c.f., dashed curve ($\theta_1=1/3,\phi_1=1/2$) in the left panel, and solid curve ($\theta_1=1/3,\phi_1=1/3$) in the right panel of Fig. \ref{fig:signal-vs-odds}.
@@ -150,14 +154,16 @@ the optimal design $(\phi^*_1, \phi^*_2)$ that maximizes the signal size per sam
 \end{equation}
 \end{corollary} 
 
+Proof of Corollary \ref{cor:optimal-design} is found in Appendix \ref{subsec:proof-signal-size-odds-ratio}. 
+
 Of particular interest in the genetics literature are genetic variants with very low risk alleles frequencies in the control group (i.e., $f\approx 0$), known as rare variants.
 In such cases, Equation \eqref{eq:optimal-design} can be approximated by
 \begin{equation} \label{eq:optimal-design-approx}
     \phi_1^* \approx \frac{1}{1 + \sqrt{R}}.
 \end{equation}
-For rare and adversarial mutations ($f\approx0$ and $R\gg1$), the optimal $\phi_1^*$ is close 0. 
+To illustrate, for rare and adversarial factors ($f\approx0$ and $R\gg1$), the optimal $\phi_1^*$ is close 0.
 Therefore for studies with a fixed budget $n$, controls should constitute the majority of the subjects in order to maximize power.
-On the other hand for rare and protective mutations ($f\approx0$ and $R\approx0$), $\phi_1^*$ is close 1, and cases should be the majority.
+On the other hand for rare and protective factors ($f\approx0$ and $R\approx0$), $\phi_1^*$ is close 1, and cases should be the majority.
 
 \subsection{Power analysis in large-scale association screening studies}
 

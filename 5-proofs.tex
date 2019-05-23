@@ -105,23 +105,27 @@ Then
 \end{lemma}
 
 \begin{proof}[Proof of Lemma \ref{lemma:chisq-quantiles}]
-The case where $\nu=1$ follows from the well-known Normal quantiles $\Phi^\leftarrow(1-1/p)\sim\sqrt{2\log{p}}$.
-The case where $\nu\ge2$ follows from the following estimates of higher quantiles of chi-square distributions (see, e.g., \citep{inglot2010inequalities}),
-\begin{equation}
-    \nu +  2\log(1/y) -5/2 \le u(y) \le \nu +  2\log(1/y) + 2\sqrt{k\log(1/y)}, \quad \text{for all }y\le0.17.
-\end{equation}
+The case where $\nu=1$ follows from the well-known Normal quantiles 
+$$
+F^\leftarrow(1 - 1/p) = \Phi^\leftarrow(1-1/(2p))\sim\sqrt{2\log{(2p)}}\sim\sqrt{2\log{p}}.
+$$
+The case where $\nu\ge2$ follows from the following estimates of high quantiles of chi-square distributions (see, e.g., \citep{inglot2010inequalities}),
+$$
+    \nu +  2\log(1/y) -5/2 \le u(y) \le \nu +  2\log(1/y) + 2\sqrt{\nu\log(1/y)}, \quad \text{for all }y\le0.17.
+$$
 \end{proof}
 
 
 \subsection{Proof of Theorem \ref{thm:chi-squred-strong-boundary}}
+\label{subsec:proof-chi-squred-strong-boundary}
 
 \begin{proof}
 We first prove the sufficient condition.
-Some algebraic manipulation reveals that $\underline{r} > {{g}}(\beta)$ implies
+The condition $\underline{r} > {{g}}(\beta)$ implies, after some algebraic manipulation
 $$
 \frac{1}{2\sqrt{\underline{r}}} - \frac{\sqrt{\underline{r}}}{2} < -\sqrt{1-\beta}.
 $$
-Therefore, we can pick $q>1$ such that 
+Therefore, we can pick $q>1$ so small such that 
 $$
 \frac{q}{2\sqrt{\underline{r}}} - \frac{\sqrt{\underline{r}}}{2} < -\sqrt{1-\beta}.
 $$
@@ -136,8 +140,8 @@ Hence, $t_p\sim 2\log{p}$.
 Setting the $t^* = t^*_p = 2q\log{p}$, we have $t_p < t^*_p$ for large $p$.
 
 
-Now on the one hand, $\text{FWER} = 1 - \P[\widehat{S}_p \subseteq S_p]$ vanishes under the Bonferroni procedure with $\alpha\to0$.
-On the other hand, for large $p$, the probability of no missed detection is bounded from below,
+On the one hand, $\text{FWER} = 1 - \P[\widehat{S}_p \subseteq S_p]$ vanishes under the Bonferroni procedure with $\alpha\to0$.
+On the other hand, for large $p$, the probability of no missed detection is bounded from below by
 \begin{equation} \label{eq:chi-square-sufficient-1}
     \P[\widehat{S}_p \supseteq S_p] 
     = \P[\min_{i\in S} x(i) \ge t_p] 
@@ -169,7 +173,7 @@ We first normalize the maxima by the chi-square quantiles $u_p = F^{\leftarrow}(
 \begin{equation}
  \P[\widehat{S}_p = S_p] \le \P\left[\max_{i\in S^c}x(i) < \min_{i\in S}x(i)\right]
   % &= \P\left[\frac{\max_{i\in S^c}x(i)}{u_p} < \frac{\min_{i\in S}x(i)}{u_p}\right] \nonumber \\
-  % &\le  \P\left[\frac{\max_{i\in S^c}\chi_\nu^2(\lambda(j))}{u_p} < \frac{\min_{i\in S}\chi_\nu^2(\lambda(j))}{u_p}\right] \nonumber \\
+  % &\le  \P\left[\frac{\max_{i\in S^c}\chi_\nu^2(\lambda(i))}{u_p} < \frac{\min_{i\in S}\chi_\nu^2(\lambda(i))}{u_p}\right] \nonumber \\
   = \P\left[ \frac{M_{S^c}}{u_p} < \frac{m_S}{u_p} \right], \label{eq:chi-square-necessary-0}
 \end{equation}
 where $M_{S^c} = \max_{i\in S^c}\chi_\nu^2(\lambda(i))$ and $m_{S} = \min_{i\in S}\chi_\nu^2(\lambda(i))$.
@@ -181,20 +185,16 @@ By relative stability of chi-square distributions (Lemma \ref{lemma:rapid-variat
 where we used the expression for chi-square quantiles (Lemma \ref{lemma:chisq-quantiles}).
 Meanwhile, for any $i\in S$, by stochastic monotonicity of chi-square distributions (Lemma \ref{lemma:stochastic-monotonicity}) and the fact that signal sizes are bounded above by $\overline{\Delta}$, we have
 \begin{equation*}
-    \frac{\chi_\nu^2(\lambda(i))}{u_p} \stackrel{\mathrm{d}}{\le} \frac{\chi_\nu^2(\overline{\Delta})}{u_p}.
+    {\chi_\nu^2(\lambda(i))} \stackrel{\mathrm{d}}{\le}
+    {\chi_\nu^2(\overline{\Delta})} \stackrel{\mathrm{d}}{=} 
+    {Z_1^2 + \ldots + Z_{\nu-1}^2 + (Z_\nu + \sqrt{\overline{\Delta}})^2}.
 \end{equation*}
-The last expression is further bounded above by
+Dividing by $u_p$, and taking minimum over $S$, we obtain
 \begin{align}
-    \frac{\chi_\nu^2(\overline{\Delta})}{u_p} 
-    &\stackrel{\mathrm{d}}{\le} \frac{Z_1^2 + \ldots + Z_{\nu-1}^2 + (Z_\nu + \sqrt{\overline{\Delta}})^2}{2\log{p}} \nonumber \\
-    &= \frac{\chi_{\nu-1}^2(0) + Z_\nu^2+ 2Z_\nu\sqrt{\overline{\Delta}} + \overline{\Delta}}{2\log{p}} \nonumber \\
-    &\stackrel{\mathrm{d}}{\le} r + 2\sqrt{\overline{r}} \frac{Z_\nu}{\sqrt{2\log{p}}}. \label{eq:chi-square-necessary-2}
-\end{align}
-Taking minimum of \eqref{eq:chi-square-necessary-2} over $S$, we have
-\begin{align}
-    \frac{m_S}{u_p} &= \min_{i\in S} \frac{\chi_\nu^2(\lambda(j))}{u_p} 
-    \stackrel{\mathrm{d}}{\le} r + \min_{i\in S} 2\sqrt{\overline{r}} \frac{Z_\nu(i)}{\sqrt{2\log{p}}} \nonumber \\
-    &\stackrel{\P}{\longrightarrow} r + 2\sqrt{\overline{r}}\sqrt{1-\beta}. \label{eq:chi-square-necessary-3}
+    \frac{m_S}{u_p} =& \min_{i\in S} \frac{\chi_\nu^2(\lambda(i))}{u_p} 
+    \stackrel{\mathrm{d}}{\le} \min_{i\in S} \frac{\chi_\nu^2(\overline{\Delta})}{u_p} \\
+    \stackrel{\mathrm{d}}{\le}& \min_{i\in S}\frac{Z_1^2(i) + \ldots + Z_{\nu-1}^2(i) + Z_\nu^2(i)}{u_p} + \min_{i\in S}\frac{2\sqrt{\overline{\Delta}}Z_\nu(i)}{u_p} + \frac{\overline{\Delta}}{u_p} \\
+    \stackrel{\P}{\to}& \;0 + 2\sqrt{\overline{r}}\sqrt{1-\beta} + \overline{r}. \label{eq:chi-square-necessary-3}
 \end{align}
 Since $\overline{r} < g(\beta)$, the last expression is strictly less than 1.
 In view of \eqref{eq:chi-square-necessary-0}, \eqref{eq:chi-square-necessary-1} and \eqref{eq:chi-square-necessary-3}, we conclude that exact recovery cannot succeed with any positive probability.
@@ -202,11 +202,12 @@ The proof of the necessary condition is complete.
 \end{proof}
 
 \subsection{Proof of Theorem \ref{thm:chi-squred-weak-boundary}}
+\label{subsec:proof-chi-squred-weak-boundary}
 
 The structure of the proof follow closely that of Theorem 2 and Theorem 3 in \citet{arias2017distribution}.
 
 \begin{proof}
-Denote $F_0$ as the distribution of $\chi^2_\nu(0)$, and $F_a$ as the distribution of $\chi^2_\nu(\Delta)$.
+Denote the distributions of $\chi^2_\nu(0)$ and $\chi^2_\nu(\Delta)$ as $F_0$ and $F_a$.
 
 We first show the necessary condition, i.e., when $r<\beta$, approximate support recovery cannot be achieved with any thresholding procedure.
 In particular, we show that the liminf of the sum of FDP and NDP is at least 1.
@@ -397,6 +398,7 @@ The proof for the sufficient condition is complete.
 \end{proof}
 
 \subsection{Signal sizes and odds ratio in 2-by-2 contingency tables}
+\label{subsec:proof-signal-size-odds-ratio}
 
 \begin{proof}[Proof of Proposition \ref{prop:signal-size-odds-ratio} and Corollary \ref{cor:signal-limits-OR}]
 We parametrize the 2-by-2 multinomial distribution with the parameter $\delta$, 

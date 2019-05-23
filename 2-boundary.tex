@@ -173,27 +173,29 @@ Conversely, if $\overline{r} < {{g}}(\beta)$, then for any thresholding procedur
 Therefore, in view of Lemma \ref{lemma:risk-exact-recovery-probability}, exact support recovery asymptotically fails for all thresholding procedures in the sense of \eqref{eq:exact-recovery-failure}.
 \end{theorem}
 
-The strong classification boundary is shown in Figure \ref{fig:phase-chi-squared}
+Proof of Theorem \ref{thm:chi-squred-strong-boundary} is found in Appendix \ref{subsec:proof-chi-squred-strong-boundary}. 
+The strong classification boundary is illustrated in Figure \ref{fig:phase-chi-squared}.
 
-\begin{remark}
-Remarkably, the degree-of-freedom parameter $\nu$ does not affect the boundary \eqref{eq:strong-classification-boundary-chisquared}.
-In simulations, we find the approximation by the asymptotic boundary to be quite accurate even in moderate dimensions, and largely unaffected by the degrees of freedom.
-See Section \ref{sec:numerical} for numerical illustrations.
-\end{remark}
+As alluded to in the introduction, Theorem \ref{thm:chi-squred-strong-boundary} also allows us to compare the difficulties of one-sided versus two-sided additives in additive models under Gaussian errors.
 
-As alluded to in the introduction, Theorem \ref{thm:chi-squred-strong-boundary} also allows us to compare the difficulties of one-sided versus two-sided additives for additive models under Gaussian errors.
-
-\begin{remark}
+\begin{remark} \label{rmk:strong-classification-boundary-1}
 The exact support recovery problem under one-sided alternatives in the Gaussian additive error model \eqref{eq:model-additive} was studied \cite{gao2018fundamental}.
 The same parametrization of sparsity \eqref{eq:signal-sparsity} was used.
 The signal sizes of the non-zero mean shifts in $\mu(i)$ were parametrized in a similar fashion as \eqref{eq:signal-size} between $\sqrt{2\underline{r}\log{p}}$ and $\sqrt{2\overline{r}\log{p}}$, where $0<\underline{r}\le\overline{r}$.
-Interestingly, under one-sided alternatives in the additive model, a phase transition in the $r$-$\beta$ plane also exists for the exact support recovery problem.
-However, the boundary the phase transition is
+Under one-sided alternatives in the additive model, a phase transition in the $r$-$\beta$ plane also exists for the exact support recovery problem. The boundary the phase transition is found to be
 \begin{equation} \label{eq:strong-classification-boundary-additive}
     \widetilde{g}(\beta) = \left(1 + \sqrt{1-\beta}\right)^2,
 \end{equation}
 which is strictly below that of two-sided case in \eqref{eq:strong-classification-boundary-chisquared}, except in the extremely sparse case $\beta = 1$.
-In particular, as the problem becomes denser ($\beta\to0$), the required signal size in the one-sided additive model $\widetilde{g}(\beta)$ tends $4$, while the required signal size in the chi-square (two-sided altenative additive) model ${g}(\beta)$ tends to $\to3+2\sqrt{2}\approx 5.828$, almost 50\% higher.
+In particular, as the problem becomes denser ($\beta\to0$), the required signal size in the one-sided additive model $\widetilde{g}(\beta)$ tends $4$, while the required signal size in the chi-square (two-sided alternative additive) model ${g}(\beta)$ tends to $\to3+2\sqrt{2}\approx 5.828$, almost 50\% higher.
+In finite dimensions, however, this difference is not very pronounced; see Remark \ref{rmk:strong-classification-boundary-2}.
+\end{remark}
+
+\begin{remark} \label{rmk:strong-classification-boundary-2}
+Theorem \ref{thm:chi-squred-strong-boundary} predicts the same asymptotic boundary \eqref{eq:strong-classification-boundary-chisquared} for all values of the degree-of-freedom parameter $\nu$.
+In simulations, we find the asymptotic predictions to be quite accurate when $\nu>3$, even in moderate dimensions $p=100$. 
+For $\nu\le3$, the phase transitions take place somewhat below ${g}$, and closer to $\widetilde{g}$, in finite samples.
+See Section \ref{sec:numerical} for numerical illustrations.
 \end{remark}
 
 \subsection{FDR-controlling procedures}
@@ -235,6 +237,8 @@ achieves asymptotically approximate support recovery in the sense of \eqref{eq:a
 
 Conversely, if $\overline{r} < {h}(\beta)$, then approximate support recovery asymptotically fails in the sense of \eqref{eq:approx-recovery-failure} for all thresholding procedures.
 \end{theorem}
+
+Proof of Theorem \ref{thm:chi-squred-weak-boundary} is found in Appendix \ref{subsec:proof-chi-squred-weak-boundary}. 
 
 \begin{remark}
 The approximate support recovery problem in the additive error model \eqref{eq:model-additive} under one-sided alternatives was studied in \cite{arias2017distribution}, where a phase transition boundary was described in the sense of Definition \ref{def:approx-recovery-success-failure}.
