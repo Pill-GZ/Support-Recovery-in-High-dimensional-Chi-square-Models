@@ -108,8 +108,7 @@ This is much more efficient than a balanced design, where $w^2$ can only reach u
 \label{subsec:optimal-design} 
 
 For a study with a fixed budget, that is, a fixed total number of subjects $n$ to recruit, the researcher is free to choose the fraction of cases $\phi_1$ to be included in the study.
-A natural question is how the budget should be allocated to maximize the statistical power of discovery, or equivalently, one that maximizes $\lambda$ or $w^2$.
-
+A natural question is how the budget should be allocated to maximize the statistical power of discovery, or equivalently, the signal sizes $\lambda$ or $w^2$.
 
 In principal, Relation \eqref{eq:signal-size-odds-ratio} can be optimized with respect to the fraction of cases $\phi_1$ in order to find optimal designs, if the rest of the parameters are known and held constant.
 In practice this is not the case.
@@ -147,11 +146,12 @@ The choice of $\phi_1$ now has a practical solution.
 
 \begin{corollary} \label{cor:optimal-design}
 In the context of Corollary \ref{cor:signal-size-odds-ratio-conditional-frequency},
-the optimal design $(\phi^*_1, \phi^*_2)$ that maximizes the signal size per sample $w^2$ is prescribed by
+the optimal design $(\phi^*_1, \phi^*_2)$ that maximizes the signal size per sample $w^2$ (when $R\neq1$) is prescribed by
 \begin{equation} \label{eq:optimal-design}
     \phi_1^* = \frac{fR+1-f}{fR+1-f+\sqrt{R}}, \quad\text{and}\quad 
-    \phi_2^* = 1-\phi_1^*.
+    \phi_2^* = 1-\phi_1^*,
 \end{equation}
+when the denominator in \eqref{eq:optimal-design} is not zero; $\phi_1^*=\phi_2^*=1/2$ otherwise.
 \end{corollary} 
 
 Proof of Corollary \ref{cor:optimal-design} is found in Appendix \ref{subsec:proof-signal-size-odds-ratio}. 
@@ -162,8 +162,8 @@ In such cases, Equation \eqref{eq:optimal-design} can be approximated by
     \phi_1^* \approx \frac{1}{1 + \sqrt{R}}.
 \end{equation}
 To illustrate, for rare and adversarial factors ($f\approx0$ and $R\gg1$), the optimal $\phi_1^*$ is close 0.
-Therefore for studies with a fixed budget $n$, controls should constitute the majority of the subjects in order to maximize power.
-On the other hand for rare and protective factors ($f\approx0$ and $R\approx0$), $\phi_1^*$ is close 1, and cases should be the majority.
+Therefore for studies targeting such variants, controls should constitute the majority of the subjects in order to maximize power.
+On the other hand for rare and protective factors ($f\approx0$ and $R\approx0$), the optimal $\phi_1^*$ is close 1, and cases should be the majority.
 
 \subsection{Power analysis in large-scale association screening studies}
 
@@ -186,5 +186,5 @@ The accuracy of the asymptotic approximations, by nature of the statements in Th
 For example, the number of subjects needed for $\mathrm{FWER}=\mathrm{FWNR}=0.01$ is $499,598$, an $8\%$ increase over the asymptotic prediction; at $\mathrm{FWER}=\mathrm{FWNR}=0.1$, this number becomes $398,996$, some $14\%$ lower than the asymptotic result.
 
 An user-friendly web application implementing these calculations is provided in \cite{gao2019upass}.
-In general, we recommend using the more precise results over the back-of-envolope asymptotics for planning prospective studies and performing systematic reviews of existing ones.
-Nevertheless, the simplicity of, and the insights derived from the asymptotic results cannot be supplanted.
+In general, we recommend using the more precise results over the back-of-envelope asymptotics for planning prospective studies and performing systematic reviews of existing ones.
+Nevertheless, the simplicity of, and the insights gained from the asymptotic results cannot be supplanted.

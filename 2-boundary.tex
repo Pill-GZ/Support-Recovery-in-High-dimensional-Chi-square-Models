@@ -5,7 +5,7 @@ Let the non-centrality parameter vectors $\lambda = \lambda_p$ have
 \begin{equation} \label{eq:signal-sparsity}
     |S_p| = \left\lfloor p^{1-\beta} \right\rfloor
 \end{equation}
-non-zero entries, where the sizes of the non-zero parameters $\lambda(i),\,i\in S_p$ are in the range between
+non-zero entries, where the sizes of the non-zero parameters $\lambda(i)$ for all signals $i\in S_p$ are in the range between
 \begin{equation} \label{eq:signal-size}
     \underline{\Delta} = 2\underline{r}\log{p}
     \quad\text{and}\quad
@@ -84,11 +84,9 @@ Relation \eqref{eq:exact-recovery-implies-risk-0} follows from \eqref{eq:risk-ex
 By virtue of Lemma \ref{lemma:risk-exact-recovery-probability}, it is sufficient to study the probability of exact support recovery $\P[\{\widehat{S}=S\}]$ in place of $\mathrm{risk}^{\mathrm{E}}$, if we are interested in the asymptotic properties of the risk defined in the sense of \eqref{eq:exact-recovery-success} and \eqref{eq:exact-recovery-failure}.
 \end{remark}
 
-The converse of \eqref{eq:failure-recovery-implies-risk-1}, however, is not true.
-
 \begin{remark} \label{rmk:asymptotic-risks}
-%The converse is not true.
-While a procedure that never rejects and one that always rejects have risk $\mathrm{risk}^{\mathrm{E}}$ equal to 1, the converse is not true.
+%The converse of \eqref{eq:failure-recovery-implies-risk-1} is not true.
+While a trivial procedure that never rejects and one that always rejects have risk $\mathrm{risk}^{\mathrm{E}}$ equal to 1, the converse is not true.
 For example, it is possible that a procedure selects the true index set $S$ with probability $1/2$, but makes one false inclusion and one false omission simultaneously the other half of the time. 
 In this case the procedure will have 
 $$\mathrm{risk}^{\mathrm{E}} = 1, \quad \text{and} \quad \P[\widehat{S}=S] = 1/2.$$
@@ -96,7 +94,7 @@ The same argument applies to $\mathrm{risk}^{\mathrm{A}}$.
 A procedure may select the true index set $S$ with probability $1/2$, but makes enough false inclusions and omissions other half of the time such that $\mathrm{risk}^{\mathrm{A}}$ is equal to 1. 
 
 Therefore, not all methods that has a risks equal to or exceeding 1 are useless. 
-Although the class of methods with risks equal to or exceeding 1 certainly contains trivial ones as in the first two examples.\footnote{In light of this, Remark 2 of \citet*{arias2017distribution} is inaccurate.}.
+Although the class of methods with risks equal to or exceeding 1 certainly contains the trivial ones that we mentioned.\footnote{In light of this, Remark 2 of \citet*{arias2017distribution} is inaccurate.}
 \end{remark}
 
 
@@ -151,10 +149,19 @@ $$
 It can be shown that Bonferroni's procedure and Holm's procedure both control FWER at their nominal levels, regardless of dependence in the data.
 While Sid\'ak's procedure and Hochberg's procedure control FWER at nominal levels when data are independent.
 
+A final ingredient we need, before stating our first main result, is the rate at which the nominal levels of the FWER-controlling procedures go to zero.
+\begin{definition} \label{def:slowly-vanishing}
+We say the nominal level of errors $\alpha = \alpha_p$ vanishes slowly, if
+\begin{equation} \label{eq:slowly-vanishing-error}
+    \alpha\to 0,\quad \text{and} \quad \alpha p^\delta\to\infty \text{  for any } \delta>0.
+\end{equation}
+\end{definition}
+As an example, the sequence of nominal levels $\alpha_p = 1/\log{(p)}$ is slowly vanishing, while the sequence $\alpha_p = 1/\sqrt{p}$ is not.
+
 \subsection{The strong classification boundary}
 \label{subsec:strong-classification-boundary}
 
-We now state our first main result, characterizing the phase-transition phenomenon in the exact support recovery problem under the chi-square model.
+Our first main result characterizes the phase-transition phenomenon in the exact support recovery problem under the chi-square model.
 
 \begin{theorem} \label{thm:chi-squred-strong-boundary}
 Consider the high-dimensional chi-squared model \eqref{eq:model-chisq} with signal sparsity and size as described in \eqref{eq:signal-sparsity} and \eqref{eq:signal-size}.
@@ -163,11 +170,7 @@ The function
     g(\beta) = \left(\sqrt{1-\beta} + \sqrt{2-\beta}\right)^2
 \end{equation}
 characterizes the phase transition of exact support recovery problems.
-Specifically, if $\underline{r} > {{g}}(\beta)$, then Bonferroni's procedure $\widehat{S}_p$ (defined in \eqref{eq:Bonferroni-procedure}) with FWER levels $\alpha=\alpha_p$ satisfying
-\begin{equation} \label{eq:FWER-rate-to-zero}
-    \alpha\to 0,\quad \text{and} \quad \alpha p^\delta\to\infty \text{  for any } \delta>0,
-\end{equation}
-achieves asymptotic perfect support recovery in the sense of \eqref{eq:exact-recovery-success}. 
+Specifically, if $\underline{r} > {{g}}(\beta)$, then Bonferroni's, Sid\'ak's, Holm's, and Hochberg's procedures with slowly vanishing FWER levels all achieve asymptotic perfect support recovery in the sense of \eqref{eq:exact-recovery-success}. 
 
 Conversely, if $\overline{r} < {{g}}(\beta)$, then for any thresholding procedure $\widehat{S}$, we have $\P[\widehat{S}=S]\to0$.
 Therefore, in view of Lemma \ref{lemma:risk-exact-recovery-probability}, exact support recovery asymptotically fails for all thresholding procedures in the sense of \eqref{eq:exact-recovery-failure}.
@@ -182,19 +185,19 @@ As alluded to in the introduction, Theorem \ref{thm:chi-squred-strong-boundary} 
 The exact support recovery problem under one-sided alternatives in the Gaussian additive error model \eqref{eq:model-additive} was studied \cite{gao2018fundamental}.
 The same parametrization of sparsity \eqref{eq:signal-sparsity} was used.
 The signal sizes of the non-zero mean shifts in $\mu(i)$ were parametrized in a similar fashion as \eqref{eq:signal-size} between $\sqrt{2\underline{r}\log{p}}$ and $\sqrt{2\overline{r}\log{p}}$, where $0<\underline{r}\le\overline{r}$.
-Under one-sided alternatives in the additive model, a phase transition in the $r$-$\beta$ plane also exists for the exact support recovery problem. The boundary the phase transition is found to be
+Under one-sided alternatives in the additive model, a phase transition in the $r$-$\beta$ plane also exists for the exact support recovery problem. The boundary the phase transition was found to be
 \begin{equation} \label{eq:strong-classification-boundary-additive}
     \widetilde{g}(\beta) = \left(1 + \sqrt{1-\beta}\right)^2,
 \end{equation}
-which is strictly below that of two-sided case in \eqref{eq:strong-classification-boundary-chisquared}, except in the extremely sparse case $\beta = 1$.
-In particular, as the problem becomes denser ($\beta\to0$), the required signal size in the one-sided additive model $\widetilde{g}(\beta)$ tends $4$, while the required signal size in the chi-square (two-sided alternative additive) model ${g}(\beta)$ tends to $\to3+2\sqrt{2}\approx 5.828$, almost 50\% higher.
+which is strictly below that of two-sided alternative case in \eqref{eq:strong-classification-boundary-chisquared}, except when the problem is extremely sparse ($\beta = 1$).
+In particular, as the problem becomes denser ($\beta\to0$), the required signal size in the one-sided additive model $\widetilde{g}(\beta)$ tends to $4$, while the required signal size in the chi-square (or two-sided alternative additive) model ${g}(\beta)$ tends to $\to3+2\sqrt{2}\approx 5.828$, almost 50\% higher.
 In finite dimensions, however, this difference is not very pronounced; see Remark \ref{rmk:strong-classification-boundary-2}.
 \end{remark}
 
 \begin{remark} \label{rmk:strong-classification-boundary-2}
 Theorem \ref{thm:chi-squred-strong-boundary} predicts the same asymptotic boundary \eqref{eq:strong-classification-boundary-chisquared} for all values of the degree-of-freedom parameter $\nu$.
-In simulations, we find the asymptotic predictions to be quite accurate when $\nu>3$, even in moderate dimensions $p=100$. 
-For $\nu\le3$, the phase transitions take place somewhat below ${g}$, and closer to $\widetilde{g}$, in finite samples.
+In simulations, we find the asymptotic predictions to be quite accurate when $\nu>3$, even in moderate dimensions. 
+For $\nu\le3$, the phase transitions take place somewhat below ${g}$, and closer to $\widetilde{g}$.
 See Section \ref{sec:numerical} for numerical illustrations.
 \end{remark}
 
@@ -229,11 +232,7 @@ The function
     h(\beta) = \beta
 \end{equation}
 characterizes the phase transition of approximate support recovery problem.
-Specifically, if $\underline{r} > {h}(\beta)$, then the Benjamini-Hochberg procedure $\widehat{S}_p$ (defined in \eqref{eq:BH-procedure}) with FDR levels $\alpha=\alpha_p$ satisfying
-\begin{equation} \label{eq:FDR-rate-to-zero}
-    \alpha\to 0,\quad \text{and} \quad \alpha p^\delta\to\infty \text{  for any } \delta>0.
-\end{equation}
-achieves asymptotically approximate support recovery in the sense of \eqref{eq:approx-recovery-success}. 
+Specifically, if $\underline{r} > {h}(\beta)$, then the Benjamini-Hochberg procedure $\widehat{S}_p$ (defined in \eqref{eq:BH-procedure}) with slowly vanishing FDR levels achieves asymptotically approximate support recovery in the sense of \eqref{eq:approx-recovery-success}. 
 
 Conversely, if $\overline{r} < {h}(\beta)$, then approximate support recovery asymptotically fails in the sense of \eqref{eq:approx-recovery-failure} for all thresholding procedures.
 \end{theorem}

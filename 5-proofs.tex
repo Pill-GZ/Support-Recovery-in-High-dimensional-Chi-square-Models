@@ -119,7 +119,7 @@ $$
 \subsection{Proof of Theorem \ref{thm:chi-squred-strong-boundary}}
 \label{subsec:proof-chi-squred-strong-boundary}
 
-\begin{proof}
+\begin{proof}[Proof of Theorem \ref{thm:chi-squred-strong-boundary}]
 We first prove the sufficient condition.
 The condition $\underline{r} > {{g}}(\beta)$ implies, after some algebraic manipulation
 $$
@@ -130,7 +130,7 @@ $$
 \frac{q}{2\sqrt{\underline{r}}} - \frac{\sqrt{\underline{r}}}{2} < -\sqrt{1-\beta}.
 $$
 The Bonferroni procedure sets the threshold at $t_p = F^\leftarrow(1-\alpha/p)$, which, by Lemma \ref{lemma:chisq-quantiles}, is asymptotic to $2\log{p} - 2\log{\alpha}$.
-By assumption on $\alpha$ in \eqref{eq:FWER-rate-to-zero}, for any $\delta>0$, we have $\alpha\gg p^{-\delta}$ for large $p$.
+By the assumption on $\alpha$ in \eqref{eq:slowly-vanishing-error}, for any $\delta>0$, we have $\alpha\gg p^{-\delta}$ for large $p$.
 Therefore, $-\log\alpha\ll\delta\log{p}$ eventually, and we have
 $$
 1 \le \limsup_{p\to\infty}\frac{2\log{p} - 2\log{\alpha}}{2\log{p}} \le 1+\delta,
@@ -166,7 +166,11 @@ is bounded from above by
 $$
 \P\Big[Z_\nu \le -\sqrt{2(1-\beta)\log{p}}\Big] = o\left(p^{-(1-\beta)}\right).
 $$
-This, combined with \eqref{eq:chi-square-sufficient-1}, completes the proof of the sufficient condition.
+This, combined with \eqref{eq:chi-square-sufficient-1}, completes the proof of the sufficient condition for the Bonferroni's procedure.
+
+Under the assumption of independence, Sid\'ak's, Holm's, and Hochberg's procedures are strictly more powerful than Bonferroni's procedure, while controlling FWER at the nominal levels.
+Therefore, the risks of exact support recovery for these procedures also vanishes.
+This completes the proof for the first part of Theorem \ref{thm:chi-squred-strong-boundary}.
 
 We now show the necessary condition. 
 We first normalize the maxima by the chi-square quantiles $u_p = F^{\leftarrow}(1-1/p)$, where $F$ is the distribution of a (central) chi-square random variable,
@@ -194,7 +198,7 @@ Dividing by $u_p$, and taking minimum over $S$, we obtain
     \frac{m_S}{u_p} =& \min_{i\in S} \frac{\chi_\nu^2(\lambda(i))}{u_p} 
     \stackrel{\mathrm{d}}{\le} \min_{i\in S} \frac{\chi_\nu^2(\overline{\Delta})}{u_p} \\
     \stackrel{\mathrm{d}}{\le}& \min_{i\in S}\frac{Z_1^2(i) + \ldots + Z_{\nu-1}^2(i) + Z_\nu^2(i)}{u_p} + \min_{i\in S}\frac{2\sqrt{\overline{\Delta}}Z_\nu(i)}{u_p} + \frac{\overline{\Delta}}{u_p} \\
-    \stackrel{\P}{\to}& \;0 + 2\sqrt{\overline{r}}\sqrt{1-\beta} + \overline{r}. \label{eq:chi-square-necessary-3}
+    \stackrel{\P}{\to}& \;0 - 2\sqrt{\overline{r}}\sqrt{1-\beta} + \overline{r}. \label{eq:chi-square-necessary-3}
 \end{align}
 Since $\overline{r} < g(\beta)$, the last expression is strictly less than 1.
 In view of \eqref{eq:chi-square-necessary-0}, \eqref{eq:chi-square-necessary-1} and \eqref{eq:chi-square-necessary-3}, we conclude that exact recovery cannot succeed with any positive probability.
@@ -204,12 +208,15 @@ The proof of the necessary condition is complete.
 \subsection{Proof of Theorem \ref{thm:chi-squred-weak-boundary}}
 \label{subsec:proof-chi-squred-weak-boundary}
 
-The structure of the proof follow closely that of Theorem 2 and Theorem 3 in \citet{arias2017distribution}.
+We first show the necessary condition. 
+That is, when $\overline{r} < \beta$, no thresholding procedure is able to achieve approximate support recovery.
+The main structure of the proof follows that of Theorem 1 in \citet{arias2017distribution}. 
+Our arguments, however, allow for unequal signal sizes; these arguments can in turn be used to generalize the results in \cite{arias2017distribution}.
 
-\begin{proof}
-Denote the distributions of $\chi^2_\nu(0)$ and $\chi^2_\nu(\Delta)$ as $F_0$ and $F_a$.
+\begin{proof}[Proof of necessary condition in Theorem \ref{thm:chi-squred-weak-boundary}]
+Denote the distributions of $\chi^2_\nu(0)$, $\chi^2_\nu(\underline{\Delta})$ and $\chi^2_\nu(\overline{\Delta})$ as $F_0$, $F_{\underline{a}}$, and $F_{\overline{a}}$ respectively.
 
-We first show the necessary condition, i.e., when $r<\beta$, approximate support recovery cannot be achieved with any thresholding procedure.
+We first show the necessary condition, i.e., when $\overline{r}<\beta$, approximate support recovery cannot be achieved with any thresholding procedure.
 In particular, we show that the liminf of the sum of FDP and NDP is at least 1.
 
 Recall that thresholding procedures are of the form
@@ -235,14 +242,15 @@ Since either $u\ge t_p$ or  $u\le t_p$ must take place, putting \eqref{eq:weak-b
 for any $u$.
 Therefore it suffices to show that for a suitable choice of $u$, the RHS of \eqref{eq:weak-boundary-proof-converse-1} converges to 1.
 
-Let $t^* = 2q\log{p}$, where $r<q<\beta$, we obtain an estimate of the tail probability
+Let $t^* = 2q\log{p}$, where $\overline{r}<q<\beta$, we obtain an estimate of the tail probability
 \begin{align}
     \overline{F_0}(t^*) 
     &= \P[\chi_\nu^2(0) > t^*] 
     = \frac{2^{1-\nu/2}}{\Gamma(\nu/2)} \int_{2q\log{p}}^\infty x^{\nu/2-1}e^{-x/2} \mathrm{d}x \nonumber \\
-    &\sim \frac{2^{1-\nu/2}}{\Gamma(\nu/2)} \left(2q\log{p}\right)^{\nu/2-1}p^{-q}. \label{eq:weak-boundary-proof-null-tail-prob}
+    &\sim \frac{2^{1-\nu/2}}{\Gamma(\nu/2)} \left(2q\log{p}\right)^{\nu/2-1}p^{-q}, \label{eq:weak-boundary-proof-null-tail-prob}
 \end{align}
-Observe that $|\widehat{S}(t^*)\setminus{S}| \sim \text{Binom}(p-s, \overline{F_0}(t^*))$, denote $X = X_p := {|\widehat{S}(t^*)\setminus{S}|}/{|S|}$, and we have 
+where $a_p\sim b_p$ is taken to mean $a_p/b_p\to 1$.
+Observe that $|\widehat{S}(t^*)\setminus{S}|$ has distribution $\text{Binom}(p-s, \overline{F_0}(t^*))$, denote $X = X_p := {|\widehat{S}(t^*)\setminus{S}|}/{|S|}$, and we have 
 $$
 \mu := \E\left[X\right] = \frac{(p-s)\overline{F_0}(t^*)}{s},
 \quad \text{and} \quad
@@ -265,26 +273,103 @@ $$
 = \frac{X}{X+1} \to 1 \quad \text{in probability}.
 $$
 
-On the other hand, we need to show that with the same choice of $u = t^*$,
+On the other hand, we show that with the same choice of $u = t^*$,
 $$
 \frac{|{S}\setminus\widehat{S}(t^*)|}{|{S}|}\to 1 \quad \text{in probability}.
 $$
-Since $|{S}\setminus\widehat{S}(t^*)| \sim \text{Binom}(s, {F_a}(t^*))$, it suffices to show that ${F_a}(t^*)$ converges to 1.
+By the stochastic monotonicity of chi-square distributions (Lemma \ref{lemma:stochastic-monotonicity}), the probability of missed detection for each signal is lower bounded by $\P[\chi^2_\nu(\lambda_i) \le t^*] \ge F_{\overline{a}}(t^*))$.
+Therefore, $|{S}\setminus\widehat{S}(t^*)| \stackrel{\mathrm{d}}{\ge} \text{Binom}(s, {F_{\overline{a}}}(t^*))$, and it suffices to show that ${F_{\overline{a}}}(t^*)$ converges to 1.
 This is indeed the case, since
-\begin{align}
-    {F_a}(t^*) 
-    &= \P[Z_1^2 + \ldots + Z_\nu^2 + 2\sqrt{2r\log{p}} Z_\nu + 2r\log{p} \le 2q\log{p}] \\
-    &\ge \P[Z_1^2 + \ldots + Z_\nu^2 \le (q-r)\log{p}, \; 2\sqrt{2r\log{p}} Z_\nu \le (q-r)\log{p}],
-\end{align}
+\begin{align*}
+    {F_{\overline{a}}}(t^*) 
+    &= \P[Z_1^2 + \ldots + Z_\nu^2 + 2\sqrt{2\overline{r}\log{p}} Z_\nu + 2\overline{r}\log{p} \le 2q\log{p}] \\
+    &\ge \P[Z_1^2 + \ldots + Z_\nu^2 \le (q-\overline{r})\log{p}, \; 2\sqrt{2\overline{r}\log{p}} Z_\nu \le (q-\overline{r})\log{p}],
+\end{align*}
 and both events in the last line have probability going to 1 as $p\to\infty$.
 The necessary condition is shown.
+\end{proof}
 
-We now turn to show the sufficient condition. 
-That is, when $r > \beta$, the Benjamini-Hochberg procedure with suitably chosen FDR level achieves asymptotic approximate support recovery.
+We now turn to the sufficient condition. 
+That is, when $\underline{r} > \beta$, the Benjamini-Hochberg procedure with slowly vanishing FDR levels achieves asymptotic approximate support recovery.
+
+The proof proceeds in two steps.
+We first make the connection between power of the BH procedure and stochastic ordering of the alternatives.
+It is formalized in the following lemma, which could be of independent interest.
+This result, though natural, seems new. 
+
+\begin{lemma}[Monotonicity of the BH procedure] \label{lemma:monotonicity-BH-procedure}
+Compare Alternatives 1 and 2 where we have $p$ independent observations $x(i)$, $i\in\{1,\ldots,p\}$,
+\begin{enumerate}
+    \item[Alt.1] the $p-s$ coordinates in the null part have common distribution $F_0$, and the $s$ signals have alternative distributions $F^{i}_1$, $i\in S$, respectively.
+    \item[Alt.2] the $p-s$ coordinates in the null part have common distribution $F_0$, and the $s$ signals have alternative distributions $F^{i}_2$, $i\in S$, respectively, where
+    $$ F^{i}_2(t) \le F^{i}_1(t), \quad \text{for all} \quad i\in S.$$
+\end{enumerate}
+If we apply the BH procedure at the same nominal level of FDR $\alpha$, then the FNR under Alternative 2 is bounded above by that under Alternative 1.
+\end{lemma}
+
+Loosely put, the power of the BH procedure is monotone increasing with respect to the stochastic ordering of the alternatives.
+
+\begin{proof}[Proof of Lemma \ref{lemma:monotonicity-BH-procedure}]
+We first re-express the BH procedure in a different form.
+Recall that on observing $x(i)$, $i\in\{1,\ldots,p\}$, the BH procedure is the thresholding procedure with threshold set at $x_{[i^*]}$, where $i^* := \max\{i\,|\,\overline{F_0}(x_{[i]})\le \alpha i/p\}$, and $x_{[1]}\ge\ldots\ge x_{[p]}$ are the order statistics.
+
 Let $\widehat{G}$ denote the empirical survival function
-\begin{equation} \label{eq:empirical-survival}
+\begin{equation} \label{eq:empirical-tail-distribution}
     \widehat{G}(t) = \frac{1}{p}\sum_{i\in[p]}\mathbbm{1}\{x(i) \ge t\}.
 \end{equation}
+By the definition, we know that $\widehat{G}(x_{[i]}) = i/p$.
+Therefore, by the definition of $i^*$, we have
+\begin{equation*} 
+    \overline{F_0}(x_{[i]}) > \alpha\widehat{G}(x_{[i]}) = \alpha i/p \quad \text{for all }i>i^*.
+\end{equation*}
+Since $\widehat{G}$ is constant on $(x_{[i^*+1]}, x_{[i^*]}]$, the fact that 
+$\overline{F_0}(x_{[i^*]}) \le \alpha\widehat{G}(x_{[i^*]})$ and $\overline{F_0}(x_{[i^*+1]}) > \alpha\widehat{G}(x_{[i^*+1]})$ implies that $\alpha\widehat{G}$ and $\overline{F_0}$ must ``intersect'' on the interval.
+We denote this ``intersection'' as
+\begin{equation} \label{eq:weak-boundary-proof-tau}
+    \tau = \inf\{t\,|\,\overline{F_0}(t)\le\alpha\widehat{G}(t)\}. 
+    %= \min\{t\,|\,\overline{F_0}(t)=\alpha\widehat{G}(t)\}.
+\end{equation}
+Note that $\tau$ cannot be equal to $x_{[i^*+1]}$ since $\overline{F}_0$ is C\`adl\`ag.
+Since there is no observation in $[\tau, x_{[i^*]})$, we can write the BH procedure as the thresholding procedure with threshold set at $\tau$.
+
+Now, denote the observations under Alternatives 1 and 2 as $x_1(i)$ and $x_2(i)$.
+Since $x_2(i)$ stochastically dominates $x_1(i)$ for all $i\in\{1,\ldots,p\}$, there exists a coupling $(\widetilde{x}_1, \widetilde{x}_2)$ of $x_1$ and $x_2$ such that 
+% $\widetilde{x}_1(i) = \widetilde{x}_2(i)$ for $i\in S^c$, and 
+$\widetilde{x}_1(i) \le \widetilde{x}_2(i)$ a.s. for all $i$.
+We will replace $x_1$ and $x_2$ with $\widetilde{x}_1$ and $\widetilde{x}_2$ in what follows.
+Since we will compare expectations with respect to $\widetilde{x}$'s in the last step, this replacement does not cause any trouble.
+To simplify notation, we still write $x_1$ and $x_2$ in place of $\widetilde{x}_1$ and $\widetilde{x}_2$.
+
+Let $\widehat{G}_k$ be the empirical survival function under Alternative $k$, i.e.,
+\begin{equation} \label{eq:empirical-survival}
+    \widehat{G}_k(t) = \frac{1}{p}\sum_{i\in[p]}\mathbbm{1}\{x_k(i) \ge t\}, \quad k\in\{1,2\}.
+\end{equation}
+We define the BH thresholds $\tau_1$ and $\tau_2$ by replacing $\widehat{G}$ in \eqref{eq:weak-boundary-proof-tau} with $\widehat{G}_1$ and $\widehat{G}_2$, respectively.
+Denote the set estimates of signal support $\widehat{S}_k = \{i\,|\,x_k(i)\ge\tau_k\}$ by the BH procedure.
+We claim that (perhaps surprisingly),
+\begin{equation} \label{eq:monotonicity-BH-procedure-thresholds}
+    \tau_2 \le \tau_1 \quad \text{with probability } 1.
+\end{equation}
+
+Indeed, by definition of the empirical survival function \eqref{eq:empirical-survival} and the fact that $x_1(i) \le x_2(i)$ almost surely for all $i$,  we have $\widehat{G}_1(t) \le \widehat{G}_2(t)$ for all $t$.
+Hence, $\overline{F_0}(t)\le\alpha\widehat{G}_1(t)$ implies $\overline{F_0}(t)\le\alpha\widehat{G}_2(t)$, and Relation \eqref{eq:monotonicity-BH-procedure-thresholds} follows from the definition of $\tau$ in \eqref{eq:weak-boundary-proof-tau}.
+
+Finally, when $\tau_2 \le \tau_1$, we have $\tau_2 \le \tau_1 \le x_1(i) \le x_2(i)$ with probability 1 for all $i\in\widehat{S}_1$.
+Therefore, it follows that $\widehat{S}_1 \subseteq \widehat{S}_2$ and hence $|S\setminus\widehat{S}_2| \le |S\setminus\widehat{S}_1|$ almost surely. 
+The conclusion in Lemma \ref{lemma:monotonicity-BH-procedure} follows from the last inequality.
+\end{proof}
+
+Lemma \ref{lemma:monotonicity-BH-procedure} allows us to reduce the alternative with unequal signal sizes to one with equal signal sizes in the proof of the sufficient condition. 
+
+\begin{proof}[Proof of sufficient condition in Theorem \ref{thm:chi-squred-weak-boundary}]
+The FDR vanishes by our choice of $\alpha$ and the FDR-controlling property of the BH procedure.
+It only remains to show that FNR also vanishes.
+
+To do so we compare the FNR under the alternative specified in Theorem \ref{thm:chi-squred-weak-boundary} to one with all of the signal sizes equal to $\underline{\Delta}$.
+Let $x(i)$ be vectors of independent observations with $p-s$ nulls having $\chi^2_\nu(0)$ distributions, and $s$ signals having $\chi^2_\nu(\underline{\Delta})$ distributions.
+By Lemma \ref{lemma:stochastic-monotonicity} Lemma \ref{lemma:monotonicity-BH-procedure}, it suffices to show that the FNR under the BH procedure in this setting vanishes.
+
+Let $\widehat{G}$ denote the empirical survival function as in \eqref{eq:empirical-tail-distribution}.
 Define the empirical survival functions for the null part and signal part
 \begin{equation} \label{eq:empirical-survival-null-signal}
     \widehat{W}_\text{null}(t) = \frac{1}{p-s}\sum_{i\not\in S}\mathbbm{1}\{x(i) \ge t\},
@@ -293,10 +378,10 @@ Define the empirical survival functions for the null part and signal part
 \end{equation}
 so that
 $$
-\widehat{G}(t) = \frac{p-s}{s}\widehat{W}_\text{null}(t) + \frac{s}{p}\widehat{W}_\text{signal}(t).
+\widehat{G}(t) = \frac{p-s}{p}\widehat{W}_\text{null}(t) + \frac{s}{p}\widehat{W}_\text{signal}(t).
 $$
 
-We need the following result to control the deviations of the empirical distributions.
+We need the following result to describe the deviations of the empirical distributions.
 \begin{lemma}[\cite{eicker1979asymptotic}] \label{lemma:empirical-process}
 Let $Z_1,\ldots,Z_k$ be i.i.d.\ with continuous survival function $Q$.
 Let $\widehat{Q}_k$ denote their empirical survival function and define 
@@ -313,32 +398,23 @@ $$
 uniformly in z.
 \end{lemma}
 
-Apply Lemma \ref{lemma:empirical-process} to $\widehat{G}$ we have
+Apply Lemma \ref{lemma:empirical-process} to $\widehat{G}$, we obtain
 $\widehat{G}(t) = G(t) + \widehat{R}(t)$.
 where 
 \begin{equation} \label{eq:empirical-process-mean}
-    G(t) = \frac{p-s}{s}\overline{F_0}(t) + \frac{s}{p}\overline{F_a}(t),
+    G(t) = \frac{p-s}{p}\overline{F_0}(t) + \frac{s}{p}\overline{F_a}(t),
 \end{equation}
-where $\overline{F_0}$ and $\overline{F_a}$ are the survival functions of $\chi_\nu^2(0)$ and $\chi_\nu^2(\Delta)$ respectively, and 
+where $\overline{F_0}$ and $\overline{F_{a}}$ are the survival functions of $\chi_\nu^2(0)$ and $\chi_\nu^2(\underline{\Delta})$ respectively, and 
 \begin{equation} \label{eq:empirical-process-residual}
     \widehat{R}(t) = O_\P\left(\xi_p\sqrt{\overline{F_0}(t)F_0(t)} + \frac{s}{p}\xi_s\sqrt{\overline{F_a}(t)F_a(t)}\right),
 \end{equation}
 uniformly in $t$.
 
-Recall that the BH procedure is the thresholding procedure with threshold set at $x_{[i^*]}$, where $i^* := \max\{i\,|\,\overline{F_0}(x_{[i]})\le \alpha i/p\}$, and $x_{[1]}\ge\ldots\ge x_{[p]}$ are the order statistics.
-
-By the definition of $\widehat{G}$ we know that $\widehat{G}(x_{[i]}) = i/p$.
-Therefore, by the deinition of $i^*$ we have
-\begin{equation}
-    \overline{F_0}(x_{[i]}) > \alpha\widehat{G}(x_{[i]}) = \alpha j/p \quad \text{for all }i>i^*.
-\end{equation}
-Since $\widehat{G}$ is constant between $x_{[i^*]}$ and $x_{[i^*+1]}$, the fact that 
-$\overline{F_0}(x_{[i^*]}) \le \alpha\widehat{G}(x_{[i^*]})$ and $\overline{F_0}(x_{[i^*+1]}) > \alpha\widehat{G}(x_{[i^*+1]})$ means that $\alpha\widehat{G}$ and $\overline{F_0}$ must intersect on $(x_{[i^*+1]}, x_{[i^*]}]$.
-We denote this intersection as
-\begin{equation} \label{eq:weak-boundary-proof-tau}
-    \tau = \min\{t\,|\,\overline{F_0}(t)\le\alpha\widehat{G}(t)\} = \min\{t\,|\,\overline{F_0}(t)=\alpha\widehat{G}(t)\}.
-\end{equation}
-We can now express the BH procedure as the thresholding procedure with threshold set at $\tau$ (since there is no observation between $\tau$ and $x_{[i^*]}$).
+Recall (see proof of Lemma \ref{lemma:monotonicity-BH-procedure}) that the BH procedure is the thresholding procedure with threshold set at $\tau$ (defined in \eqref{eq:weak-boundary-proof-tau}).
+% \begin{equation} \label{eq:weak-boundary-proof-tau-recall}
+%     \tau = \inf\{t\,|\,\overline{F_0}(t)\le\alpha\widehat{G}(t)\}. 
+%     %= \min\{t\,|\,\overline{F_0}(t)=\alpha\widehat{G}(t)\}.
+% \end{equation}
 The NDP may also be re-written as 
 $$
 \text{NDP} = \frac{|{S}\setminus\widehat{S}|}{|{S}|} = \frac{1}{s}\sum_{i\in S}\mathbbm{1}\{x(i) < \tau\} = 1 - \widehat{W}_\text{signal}(\tau),
@@ -355,9 +431,9 @@ So it suffices to show that $F_a(\tau)\to 0$ in probability.
 Now let $t^* = 2q\log(p)$ for some $q$ such that $\beta<q<r$.
 We have 
 \begin{equation} \label{eq:weak-boundary-proof-sufficient-2}
-    F_a(t^*) = \P[\chi^2_\nu(\Delta) \le t^*]
-    \le \P\left[2\sqrt{\Delta}Z_\nu \le t^* - \Delta\right] 
-    = \P\left[Z_\nu \le \frac{t^*}{2\sqrt{\Delta}} - \frac{\sqrt{\Delta}}{2}\right] \to 0.
+    F_a(t^*) = \P[\chi^2_\nu(\underline{\Delta}) \le t^*]
+    \le \P\left[2\sqrt{\underline{\Delta}}Z_\nu \le t^* - \underline{\Delta}\right] 
+    = \P\left[Z_\nu \le \frac{t^*}{2\sqrt{\underline{\Delta}}} - \frac{\sqrt{\underline{\Delta}}}{2}\right] \to 0.
 \end{equation}
 Hence in order to show \eqref{eq:weak-boundary-proof-sufficient-1}, it suffices to show 
 \begin{equation} \label{eq:weak-boundary-proof-sufficient-3}
@@ -365,11 +441,11 @@ Hence in order to show \eqref{eq:weak-boundary-proof-sufficient-1}, it suffices 
 \end{equation}
 By \eqref{eq:empirical-process-mean}, the mean of the empirical process $\widehat{G}$ evaluated at $t^*$ is
 \begin{equation*}
-    G(t^*) = \frac{p-s}{s}\overline{F_0}(t^*) + \frac{s}{p}\overline{F_a}(t^*).
+    G(t^*) = \frac{p-s}{p}\overline{F_0}(t^*) + \frac{s}{p}\overline{F_a}(t^*).
 \end{equation*}
 The first term, using Relation \eqref{eq:weak-boundary-proof-null-tail-prob}, is asymptotic to $p^{-q}L(p)$, where $L(p)$ is the logarithmic term in $p$.
 The second term, since $\overline{F_a}(t^*)\to 1$ by Relation \eqref{eq:weak-boundary-proof-sufficient-2}, is asymptotic to $p^{-\beta}$.
-Therefore, $G(t^*) \sim p^{-q}L(p) + p^{-\beta} = p^{-\beta}$, since $q>\beta$ and $p^\delta L(p)$ for all $\delta>0$.
+Therefore, $G(t^*) \sim p^{-q}L(p) + p^{-\beta} \sim p^{-\beta}$, since $q>\beta$ and $p^\delta L(p)$ for all $\delta>0$.
 
 The fluctuation of the empirical process at $t^*$, by Relation \eqref{eq:empirical-process-residual}, is 
 \begin{align*}
@@ -388,12 +464,12 @@ and therefore, together with \eqref{eq:weak-boundary-proof-null-tail-prob}, we h
 $$
 \overline{F_0}(t^*)/\widehat{G}(t^*) = p^{\beta-q}L(p)(1+o_{\P}(1)),
 $$
-which is eventually smaller than the FDR level $\alpha$ by the assumption \eqref{eq:FDR-rate-to-zero} and the fact that $\beta<q$.
+which is eventually smaller than the FDR level $\alpha$ by the assumption \eqref{eq:slowly-vanishing-error} and the fact that $\beta<q$.
 That is, 
 $$
 \P\left[\overline{F}_0(t^*) / \widehat{G}(t^*) < \alpha\right] \to 1.
 $$
-By definition of $\tau$ ( recall \eqref{eq:weak-boundary-proof-tau}), this implies that $\tau \le t^*$ with probability tending to 1, and \eqref{eq:weak-boundary-proof-sufficient-3} is shown.
+By definition of $\tau$ (recall \eqref{eq:weak-boundary-proof-tau}), this implies that $\tau \le t^*$ with probability tending to 1, and \eqref{eq:weak-boundary-proof-sufficient-3} is shown.
 The proof for the sufficient condition is complete.
 \end{proof}
 
@@ -402,10 +478,12 @@ The proof for the sufficient condition is complete.
 
 \begin{proof}[Proof of Proposition \ref{prop:signal-size-odds-ratio} and Corollary \ref{cor:signal-limits-OR}]
 We parametrize the 2-by-2 multinomial distribution with the parameter $\delta$, 
-$$
-\mu_{11} = \phi_1\theta_1+\delta,\quad \mu_{12} = \phi_1\theta_2-\delta,\quad 
-\mu_{21} = \phi_2\theta_1-\delta,\quad \mu_{22} = \phi_2\theta_2+\delta.
-$$ 
+\begin{equation} \label{eq:reparametrize-2-by-2-table-1}
+    \mu_{11} = \phi_1\theta_1+\delta,\quad 
+    \mu_{12} = \phi_1\theta_2-\delta,\quad 
+    \mu_{21} = \phi_2\theta_1-\delta,\quad 
+    \mu_{22} = \phi_2\theta_2+\delta.
+\end{equation}
 By relabeling of categories, we may assume $0<\theta_1,\phi_1\le1/2$ without loss of generality.
 Note that $\delta$ must lie within the range $[\delta_\mathrm{min}, \delta_\mathrm{max}]$, where
 $$
@@ -439,5 +517,34 @@ $$
 \quad
 \lim_{d\to \delta_\mathrm{max}} w^2(\delta) = \min\left\{\frac{\phi_1\theta_2}{\phi_2\theta_1}, \frac{\phi_2\theta_1}{\phi_1\theta_2}\right\}.
 $$
-The other three cases ($1/2\le\theta_1,\phi_1\le1$, $0<\theta_1\le1/2\le\phi_1\le1$, and $0\le\phi_1\le1/2\le\theta_1\le1$) may be handled similarly, or simply by observing the symmetry of the problem.
+The other three cases ($1/2\le\theta_1,\phi_1\le1$, $0<\theta_1\le1/2\le\phi_1\le1$, and $0\le\phi_1\le1/2\le\theta_1\le1$) may be handled similarly, or by observing the symmetry of the problem.
+\end{proof}
+
+\begin{proof}[Proof of Corollary \ref{cor:optimal-design}]
+Using the parametrization in \eqref{eq:reparametrize-2-by-2-table-1} and Corollay \ref{cor:signal-size-odds-ratio-conditional-frequency}, we have
+\begin{align}
+    \delta &= \frac{\phi_1 fR}{fR+1-f} - \left(\frac{\phi_1 fR}{fR+1-f} + f(1-\phi_1)\right)\phi_1 \nonumber \\
+    &= \frac{f(1-f)\phi_1(1-\phi_1)(R-1)}{fR+1-f}. \label{eq:eq:reparametrize-2-by-2-table-2}
+\end{align}
+Substituting \eqref{eq:eq:reparametrize-2-by-2-table-2} into the expression \eqref{eq:signal-size-chisq-delta}, after some simplification, yields
+\begin{equation} \label{eq:eq:reparametrize-2-by-2-table-3}
+    w^2 = \frac{f(1-f)\phi_1(1-\phi_1)(R-1)^2}{\left[\phi_1 R + (1-\phi_1)D\right]\left[\phi_1 + (1-\phi_1)D\right]},
+\end{equation}
+where $D = fR+1-f$.
+The derivative of \eqref{eq:eq:reparametrize-2-by-2-table-3} with respect to $\phi_1$ is
+\begin{equation*}
+    \frac{\mathrm{d}w^2}{\mathrm{d}\phi_1} = 
+    \frac{f(1-f)(R-1)^2}{\left[\phi_1 R+(1-\phi_1)D\right]^2 \left[\phi_1+(1-\phi_1)D\right]^2} \left[(D^2-R)\phi_1^2 - 2D^2\phi_1 + D^2\right],
+\end{equation*}
+which is strictly positive at $\phi_1=0$ (if $f\neq1$ and hence $D\neq0$), and strictly negative at $\phi_1=1$.
+Further, the second derivative
+\begin{equation*}
+    \frac{\mathrm{d}^2w^2}{\mathrm{d}\phi_1^2} = 
+    h(R,f) \left[(D^2-R)\phi_1 - D^2\right],
+\end{equation*}
+where $h$ is a function of $(R,f)$ taking positive values, is strictly negative on $[0,1]$.
+This implies that the solution to $(D^2-R)\phi_1^2 - 2D^2\phi_1 + D^2 = 0$ in the interval of $[0,1]$ is the maximizer of \eqref{eq:eq:reparametrize-2-by-2-table-3}.
+When $D^2-R>0$, this is the smaller of the two roots, and when $D^2-R<0$, the larger of the two;
+they share the same expression ${D}/{(D+\sqrt{R})}$, which coincides with \eqref{eq:optimal-design}.
+Finally, when $D^2=R$, the only root $\phi_1^*=1/2$ is the maximizer of \eqref{eq:eq:reparametrize-2-by-2-table-3}.
 \end{proof}
