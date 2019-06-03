@@ -66,7 +66,7 @@ We will also look for practical procedures that attain the performance limits, a
 \label{subsec:motivation-additive}
 
 The chi-square model \eqref{eq:model-chisq} is in fact quite genreal, and plays an important role in analyzing variable screening problems with omnidirectional tests.
-A primal example is multiple two-sided tests in additive error models,
+A primal example is multiple tests with two-sided alternatives in additive error models,
 \begin{equation} \label{eq:model-additive}
     x(i) = \mu(i) + \epsilon(i), \quad i=1,\ldots,p,
 \end{equation}
@@ -77,13 +77,13 @@ Taking squares on both sides of \eqref{eq:model-additive}, and we arrive at Mode
 In this case, the support recovery problem becomes to locate the set of observations with mean shifts, $S=\{i:\mu(i)\neq 0\}$, where the mean shifts could take place in both directions.
 
 While theoretical limits of support recovery problems in additive error models \eqref{eq:model-additive} have been extensively studied (see, e.g., \cite{arias2017distribution, butucea2018variable, gao2018fundamental}), such studies were focused exclusively on one-sided alternatives.
-On the other hand, in many applications, restricting ourselves to one-sided alternatives is insufficient.
-For example, in fMRI studies, average brain activities at each of the tens of thousands of voxels may be either higher or lower in the case group compared to the controls \citep{narayan2015two}. 
+In many applications, however, this restriction can be quite limiting.
+For example, in fMRI studies, average brain activities at each of the tens of thousands of voxels may either increase or decrease in the case group compared to the controls \citep{narayan2015two}. 
 In the challenging application of anomaly detection on Internet traffic streams, millions of IP addresses need to be scanned in real time to identify both volumetric attacks and blackouts \citep{kallitsis2016amon}.
-In general, both the locations and the directions of the signals are unknown, and many interesting results obtained under one-sided alternatives unfortunately do not apply.
+Indeed, omnidirectional alternatives are arguably the more realistic choice in discovery sciences where little to no prior knowledge is available.
 
-Studying model \eqref{eq:model-chisq} will allow us to tackle the omnidirectional alternatives, which are arguably the more realistic in discovery sciences where little to no prior knowledge is available.
-In comparing with results on one-sided alternatives, we will also be able to quantify if, and how much of a price has to be paid for the additional uncertainty of the two-sided alternatives in the additive model \eqref{eq:model-additive}.
+Unfortunately, the many interesting results obtained under one-sided alternatives cannot be easily adapted to the two-sided cases where the locations and the directions of the signals are both unknown.
+Analyzing model \eqref{eq:model-chisq} will allow us to to quantify if, and how much of a price has to be paid for the additional uncertainty of the two-sided alternatives in the additive models.
 
 \subsection{Contributions}
 
@@ -93,26 +93,25 @@ First, we show that several common family-wise error rate controlling procedures
 Second, we show that the Benjamini-Hochberg (BH) procedure \cite{benjamini1995controlling} is asymptotically optimal to first order for \emph{approximate} support recovery problems (see Sec. \ref{subsec:risks} below).
 These two results are made precise in Theorems \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary}.
 
-Under appropriate parametrizations of the signal sizes and sparsity levels in $\lambda$, these results establish the phase transitions of support recovery problems in the chi-square model, previewed in Figure \ref{fig:phase-chi-squared}.
-They also reveal that exact support recovery problems can be substantially harder under the omnidirectional alternatives, while the difficulties of approximate support recovery problems remain unchanged.
-Remarkably, the degree-of-freedom parameter does not affect the asymptotic boundaries in both problems.
-
+Under appropriate parametrizations of the signal sizes and sparsity, these results establish the phase transitions of support recovery problems in the chi-square model, previewed in Figure \ref{fig:phase-chi-squared}.
+Remarkably, the degree-of-freedom parameter does not affect the asymptotic boundaries in both the approximate and exact support recovery problems.
+Further, the two boundaries are also identical to that in the additive Gaussian error model \eqref{eq:model-additive} under the one-sided alternatives, indicating vanishing difference between the difficulties of one-sided and two-sided alternatives.
 
 \begin{figure}
       \centering
       \includegraphics[width=0.7\textwidth]{./phase_diagram_chisquared.eps}
       % \includegraphics[width=0.35\textwidth]{./phase_diagram_chisquared.eps}
-      \caption{The phase diagram of the high-dimensional chi-square model \eqref{eq:model-chisq}, illustrating the boundaries of the exact support recovery problem (top solid curve; Theorem \ref{thm:chi-squred-strong-boundary}), approximate support recovery problem (middle solid curve; Theorem \ref{thm:chi-squred-weak-boundary}), and the signal detection problem (lower solid curve; described in \citep{donoho2004higher}). 
+      \caption{The phase diagram of the high-dimensional chi-square model \eqref{eq:model-chisq}, illustrating the boundaries of the exact support recovery problem (top curve; Theorem \ref{thm:chi-squred-strong-boundary}), approximate support recovery problem (middle curve; Theorem \ref{thm:chi-squred-weak-boundary}), and the signal detection problem (lower curve; described in \citep{donoho2004higher}). 
       The risk of exact support recovery \eqref{eq:risk-exact} can be made to vanish above the strong classification boundary \eqref{eq:strong-classification-boundary-chisquared} in the \emph{classifiable} region with, e.g., Bonferroni's procedure; conversely, the risk has liminf at least one.
       Similarly, the risk of approximate support recovery \eqref{eq:risk-approximate} can be made to vanish above the weak classification boundary \eqref{eq:weak-classification-boundary-chisquared} in or above the \emph{weakly classifiable} region with Benjamini-Hochberg's procedure; conversely, the risk has liminf at least one.
       Both boundaries are unaffected by the degrees-of-freedom parameter in the model.
-      In comparison, for one-side alternatives in the additive model \eqref{eq:model-additive} under Gaussian noise, the strong classification boundary (dashed curve) can be substantially lower than that in the chi-square model; the weak classification and detection boundaries are identical to those in the chi-square models .} 
+      All three boundaries are identical to those in the Gaussian additive error model \eqref{eq:model-additive} under one-side alternatives.} 
       \label{fig:phase-chi-squared}
 \end{figure}
 
 
-The notion of signal sizes in the chi-square models, unlike in additive error models, is perhaps not as transparent.
-Our third contribution demystifies this notion of signal sizes in the context of association tests.
+The notion of signal sizes in the chi-square models, unlike in additive error models, is perhaps not as easy to interpret.
+Our third contribution demystifies this concept in the context of association tests.
 We do so by characterizing of the relationship between signal sizes, marginal frequencies, odds ratio, and sample sizes for association tests on 2-by-2 contingency tables.
 % Specifically, the amount of signal, when rare variants are present, is weaker compared to the signal when the marginal distributions are balanced.
 % In other words, reliable detection of the effects by rare variants would require more samples compared to common variants, even at the same odds ratio.

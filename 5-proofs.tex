@@ -121,14 +121,12 @@ $$
 
 \begin{proof}[Proof of Theorem \ref{thm:chi-squred-strong-boundary}]
 We first prove the sufficient condition.
-The condition $\underline{r} > {{g}}(\beta)$ implies, after some algebraic manipulation
-$$
-\frac{1}{2\sqrt{\underline{r}}} - \frac{\sqrt{\underline{r}}}{2} < -\sqrt{1-\beta}.
-$$
-Therefore, we can pick $q>1$ so small such that 
-$$
-\frac{q}{2\sqrt{\underline{r}}} - \frac{\sqrt{\underline{r}}}{2} < -\sqrt{1-\beta}.
-$$
+The condition $\underline{r} > {{g}}(\beta)$ implies, after some algebraic manipulation,
+$\sqrt{\underline{r}} -\sqrt{1-\beta} > 1$.
+Therefore, we can pick $q>1$ such that 
+\begin{equation} \label{eq:choice-of-q}
+    \sqrt{\underline{r}} -\sqrt{1-\beta} > \sqrt{q} > 1.
+\end{equation}
 The Bonferroni procedure sets the threshold at $t_p = F^\leftarrow(1-\alpha/p)$, which, by Lemma \ref{lemma:chisq-quantiles}, is asymptotic to $2\log{p} - 2\log{\alpha}$.
 By the assumption on $\alpha$ in \eqref{eq:slowly-vanishing-error}, for any $\delta>0$, we have $\alpha\gg p^{-\delta}$ for large $p$.
 Therefore, $-\log\alpha\ll\delta\log{p}$ eventually, and we have
@@ -156,13 +154,13 @@ $$
 where $Z_i$'s are iid standard normal variables, we have
 \begin{align}
     \P[\chi_\nu^2({\underline{\Delta}}) \le t^*]
-    &\le \P[2Z_\nu\sqrt{\underline{\Delta}} + \underline{\Delta} \le t^*] 
-    = \P\Big[Z_\nu \le \frac{t^*}{2\sqrt{\underline{\Delta}}} - \frac{\sqrt{\underline{\Delta}}}{2}\Big] \nonumber \\
-    &\le \P\Big[Z_\nu \le \frac{2q\log{p}}{2\sqrt{2\underline{r}\log{p}}} - \frac{\sqrt{2\underline{r}\log{p}}}{2}\Big] \nonumber \\
-    &= \P\Big[Z_\nu \le \left(\frac{q}{2\sqrt{\underline{r}}} - \frac{\sqrt{\underline{r}}}{2}\right)\sqrt{2\log{p}}\Big]. \label{eq:chi-square-sufficient-2}
+    &\le \P[(Z_\nu+\sqrt{\underline{\Delta}})^2 \le t^*] 
+    = \P[|Z_\nu+\sqrt{\underline{\Delta}}| \le \sqrt{t^*}]  \nonumber \\
+    &\le \P\left[Z_\nu \le - \sqrt{\underline{\Delta}} +  \sqrt{t^*}\right] \nonumber \\
+    &= \P\left[Z_\nu \le \sqrt{2\underline{r}\log{p}}\left(\sqrt{q} - \sqrt{\underline{r}}\right)\right]. \label{eq:chi-square-sufficient-2}
 \end{align}
-By our choice of $q$, the last probability in \eqref{eq:chi-square-sufficient-2}
-is bounded from above by 
+By our choice of $q$ in \eqref{eq:choice-of-q}, the last probability in \eqref{eq:chi-square-sufficient-2}
+is bounded above by 
 $$
 \P\Big[Z_\nu \le -\sqrt{2(1-\beta)\log{p}}\Big] = o\left(p^{-(1-\beta)}\right).
 $$
@@ -174,34 +172,87 @@ This completes the proof for the first part of Theorem \ref{thm:chi-squred-stron
 
 We now show the necessary condition. 
 We first normalize the maxima by the chi-square quantiles $u_p = F^{\leftarrow}(1-1/p)$, where $F$ is the distribution of a (central) chi-square random variable,
-\begin{equation}
+\begin{equation} \label{eq:chi-square-necessary-0}
  \P[\widehat{S}_p = S_p] \le \P\left[\max_{i\in S^c}x(i) < \min_{i\in S}x(i)\right]
   % &= \P\left[\frac{\max_{i\in S^c}x(i)}{u_p} < \frac{\min_{i\in S}x(i)}{u_p}\right] \nonumber \\
   % &\le  \P\left[\frac{\max_{i\in S^c}\chi_\nu^2(\lambda(i))}{u_p} < \frac{\min_{i\in S}\chi_\nu^2(\lambda(i))}{u_p}\right] \nonumber \\
-  = \P\left[ \frac{M_{S^c}}{u_p} < \frac{m_S}{u_p} \right], \label{eq:chi-square-necessary-0}
+  = \P\left[ \frac{M_{S^c}}{u_p} < \frac{m_S}{u_p} \right],
 \end{equation}
 where $M_{S^c} = \max_{i\in S^c}\chi_\nu^2(\lambda(i))$ and $m_{S} = \min_{i\in S}\chi_\nu^2(\lambda(i))$.
-
-By relative stability of chi-square distributions (Lemma \ref{lemma:rapid-variation-chisq}), we have
+Writing
 \begin{equation} \label{eq:chi-square-necessary-1}
-    \frac{M_{S^c}}{u_{p}} = \frac{M_{S^c}}{u_{p-p^{1-\beta}}} \frac{u_{p-p^{1-\beta}}}{u_{p}} \stackrel{\P}{\longrightarrow} 1,
+    \frac{M_{S^c}}{u_{p}} = \frac{M_{S^c}}{u_{p-p^{1-\beta}}} \frac{u_{p-p^{1-\beta}}}{u_{p}}, % \stackrel{\P}{\longrightarrow} 1,
 \end{equation}
-where we used the expression for chi-square quantiles (Lemma \ref{lemma:chisq-quantiles}).
-Meanwhile, for any $i\in S$, by stochastic monotonicity of chi-square distributions (Lemma \ref{lemma:stochastic-monotonicity}) and the fact that signal sizes are bounded above by $\overline{\Delta}$, we have
+we know by the relative stability of chi-square random variables (Corollary \ref{cor:relative-stability}) that the first term in the product converges to 1 in probability.
+The second term, using the expression for chi-square quantiles (Lemma \ref{lemma:chisq-quantiles}), is asymptotic to 
+$$
+\frac{2\log{(p-p^{1-\beta})}}{2\log{p}} = \frac{\log{p}+\log{(1-p^{-\beta})}}{\log{p}} \sim 1.
+$$
+Therefore, the expression \eqref{eq:chi-square-necessary-1} converges to $1$ in probability.
+
+Meanwhile, for any $i\in S$, by Lemma \ref{lemma:stochastic-monotonicity} and the fact that signal sizes are bounded above by $\overline{\Delta}$, we have,
 \begin{equation*}
     {\chi_\nu^2(\lambda(i))} \stackrel{\mathrm{d}}{\le}
     {\chi_\nu^2(\overline{\Delta})} \stackrel{\mathrm{d}}{=} 
-    {Z_1^2 + \ldots + Z_{\nu-1}^2 + (Z_\nu + \sqrt{\overline{\Delta}})^2}.
+    {Z_1^2 + \ldots + Z_{\nu-1}^2 + \left(Z_\nu + \sqrt{\overline{\Delta}}\right)^2}.
 \end{equation*}
-Dividing by $u_p$, and taking minimum over $S$, we obtain
+Dividing through by $u_p$, and taking minimum over $S$, we obtain
+\begin{equation} \label{eq:chi-square-necessary-3}
+    \frac{m_S}{u_p} 
+    = \min_{i\in S} \frac{\chi_\nu^2(\lambda(i))}{u_p} 
+    % \stackrel{\mathrm{d}}{\le} \min \left\{\frac{\chi_\nu^2(\overline{\Delta})}{u_p}, s \text{ i.i.d. copies} \right\} \\
+    \stackrel{\mathrm{d}}{\le} \min_{i\in S}\frac{Z_1^2(i) + \ldots + Z_{\nu-1}^2(i)}{u_p} + \frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{u_p}.
+\end{equation}
+Let $i^\dagger = i^\dagger_p$ be the index minimizing the second term in \eqref{eq:chi-square-necessary-3}, i.e.,
+\begin{equation}
+    i^\dagger := \argmin_{i\in S} \frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{u_p}
+    = \argmin_{i\in S} \frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{2\log{p}},
+\end{equation}
+and define the function $f_p(x):=(x+\sqrt{\overline{\Delta}})^2/(2\log{p})$, we shall first show that 
+\begin{equation} \label{eq:chi-square-necessary-4}
+    %\min_{i\in S} \frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{2\log{p}} 
+    \P[ f_p(Z_\nu(i^\dagger)) < 1 ] \to 1.
+\end{equation}
+On the one hand, we know (by solving a quadratic inequality) that
+\begin{equation} \label{eq:chi-square-necessary-5}
+    f_p(x)<1 \iff \frac{x}{\sqrt{2\log{p}}} \in (-(\sqrt{\overline{r}}+1), -(\sqrt{\overline{r}}-1)).
+\end{equation}
+On the other hand, we know (by relative stability of i.i.d. Gaussians) that 
+\begin{equation} \label{eq:chi-square-necessary-6}
+    \frac{\min_{i\in S} Z_\nu(i)}{\sqrt{2\log{p}}}
+    \to -\sqrt{1-\beta} \quad\text{in probability}.
+\end{equation}
+Further, by the assumption on the signal sizes $\overline{r} < (1+\sqrt{1-\beta})^2$, we have,
+\begin{equation} \label{eq:chi-square-necessary-7}
+    -(\sqrt{\overline{r}}+1) < - \sqrt{1-\beta} < - (\sqrt{\overline{r}}-1).
+\end{equation}
+Combining \eqref{eq:chi-square-necessary-5}, \eqref{eq:chi-square-necessary-6}, and \eqref{eq:chi-square-necessary-7}, we obtain
+$$
+\P\left[ f_p(Z_\nu(i^\dagger)) < 1 \right] \ge \P\left[ f_p\left(\min_{i\in S}Z_nu(i)\right) < 1 \right] \to 1,
+$$
+and we arrive at \eqref{eq:chi-square-necessary-4}.
+As a corollary, since $u_p\sim2\log{p}$,
+\begin{equation} \label{eq:chi-square-necessary-8}
+    \P\left[\frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{u_p} < 1\right]\to1.
+\end{equation}
+
+Finally, by independence between $Z_1^2(i)+\ldots+Z_{\nu-1}^2(i)$ and $(z_\nu^2(i)+\sqrt{\overline{\Delta}})^2$, and the fact that $i^\dagger$ is a function of only the second term, we have
+$$
+Z_1^2(i^\dagger)+\ldots+Z_{\nu-1}^2(i^\dagger) 
+\stackrel{\mathrm{d}}{=} Z_1^2(i)+\ldots+Z_{\nu-1}^2(i) 
+\quad \text{for all} \;\; i\in S.
+$$
+Therefore, $Z_1^2(i^\dagger)+\ldots+Z_{\nu-1}^2(i^\dagger) = O_\P(1)$, and 
+\begin{equation} \label{eq:chi-square-necessary-9}
+    \frac{Z_1^2(i^\dagger)+\ldots+Z_{\nu-1}^2(i^\dagger)}{u_p} \to 0 \quad \text{in probability}. 
+\end{equation}
+Together, \eqref{eq:chi-square-necessary-8} and \eqref{eq:chi-square-necessary-9} implies that
 \begin{align}
-    \frac{m_S}{u_p} =& \min_{i\in S} \frac{\chi_\nu^2(\lambda(i))}{u_p} 
-    \stackrel{\mathrm{d}}{\le} \min_{i\in S} \frac{\chi_\nu^2(\overline{\Delta})}{u_p} \\
-    \stackrel{\mathrm{d}}{\le}& \min_{i\in S}\frac{Z_1^2(i) + \ldots + Z_{\nu-1}^2(i) + Z_\nu^2(i)}{u_p} + \min_{i\in S}\frac{2\sqrt{\overline{\Delta}}Z_\nu(i)}{u_p} + \frac{\overline{\Delta}}{u_p} \\
-    \stackrel{\P}{\to}& \;0 - 2\sqrt{\overline{r}}\sqrt{1-\beta} + \overline{r}. \label{eq:chi-square-necessary-3}
+    \P\left[\frac{m_S}{u_p}<1\right]
+    &\ge \P\left[\min_{i\in S}\frac{Z_1^2(i) + \ldots + Z_{\nu-1}^2(i)}{u_p} + \frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{u_p} < 1\right] \nonumber \\
+    &\ge \P\left[\frac{Z_1^2(i^\dagger) + \ldots + Z_{\nu-1}^2(i^\dagger)}{u_p} + \frac{(Z_\nu(i^\dagger) + \sqrt{\overline{\Delta}})^2}{u_p} < 1\right] \to 1. \label{eq:chi-square-necessary-10}
 \end{align}
-Since $\overline{r} < g(\beta)$, the last expression is strictly less than 1.
-In view of \eqref{eq:chi-square-necessary-0}, \eqref{eq:chi-square-necessary-1} and \eqref{eq:chi-square-necessary-3}, we conclude that exact recovery cannot succeed with any positive probability.
+In view of \eqref{eq:chi-square-necessary-0}, \eqref{eq:chi-square-necessary-1}, and \eqref{eq:chi-square-necessary-10}, we conclude that exact recovery cannot succeed with any positive probability.
 The proof of the necessary condition is complete.
 \end{proof}
 
@@ -302,9 +353,9 @@ Compare Alternatives 1 and 2 where we have $p$ independent observations $x(i)$, 
 \begin{enumerate}
     \item[Alt.1] the $p-s$ coordinates in the null part have common distribution $F_0$, and the $s$ signals have alternative distributions $F^{i}_1$, $i\in S$, respectively.
     \item[Alt.2] the $p-s$ coordinates in the null part have common distribution $F_0$, and the $s$ signals have alternative distributions $F^{i}_2$, $i\in S$, respectively, where
-    $$ F^{i}_2(t) \le F^{i}_1(t), \quad \text{for all} \quad i\in S.$$
+    $$ F^{i}_2(t) \le F^{i}_1(t), \quad \text{for all} \;\; t\in\R, \; \text{and for all} \;\; i\in S.$$
 \end{enumerate}
-If we apply the BH procedure at the same nominal level of FDR $\alpha$, then the FNR under Alternative 2 is bounded above by that under Alternative 1.
+If we apply the BH procedure at the same nominal level of FDR $\alpha$, then the FNR under Alternative 2 is bounded above by the FNR under Alternative 1.
 \end{lemma}
 
 Loosely put, the power of the BH procedure is monotone increasing with respect to the stochastic ordering of the alternatives.

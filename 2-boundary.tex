@@ -167,7 +167,7 @@ Our first main result characterizes the phase-transition phenomenon in the exact
 Consider the high-dimensional chi-squared model \eqref{eq:model-chisq} with signal sparsity and size as described in \eqref{eq:signal-sparsity} and \eqref{eq:signal-size}.
 The function 
 \begin{equation} \label{eq:strong-classification-boundary-chisquared}
-    g(\beta) = \left(\sqrt{1-\beta} + \sqrt{2-\beta}\right)^2
+    g(\beta) = \left(1 + \sqrt{1-\beta}\right)^2
 \end{equation}
 characterizes the phase transition of exact support recovery problems.
 Specifically, if $\underline{r} > {{g}}(\beta)$, then Bonferroni's, Sid\'ak's, Holm's, and Hochberg's procedures with slowly vanishing FWER levels all achieve asymptotic perfect support recovery in the sense of \eqref{eq:exact-recovery-success}. 
@@ -182,23 +182,21 @@ The strong classification boundary is illustrated in Figure \ref{fig:phase-chi-s
 As alluded to in the introduction, Theorem \ref{thm:chi-squred-strong-boundary} also allows us to compare the difficulties of one-sided versus two-sided additives in additive models under Gaussian errors.
 
 \begin{remark} \label{rmk:strong-classification-boundary-1}
-The exact support recovery problem under one-sided alternatives in the Gaussian additive error model \eqref{eq:model-additive} was studied \cite{gao2018fundamental}.
-The same parametrization of sparsity \eqref{eq:signal-sparsity} was used.
-The signal sizes of the non-zero mean shifts in $\mu(i)$ were parametrized in a similar fashion as \eqref{eq:signal-size} between $\sqrt{2\underline{r}\log{p}}$ and $\sqrt{2\overline{r}\log{p}}$, where $0<\underline{r}\le\overline{r}$.
-Under one-sided alternatives in the additive model, a phase transition in the $r$-$\beta$ plane also exists for the exact support recovery problem. The boundary the phase transition was found to be
-\begin{equation} \label{eq:strong-classification-boundary-additive}
-    \widetilde{g}(\beta) = \left(1 + \sqrt{1-\beta}\right)^2,
-\end{equation}
-which is strictly below that of two-sided alternative case in \eqref{eq:strong-classification-boundary-chisquared}, except when the problem is extremely sparse ($\beta = 1$).
-In particular, as the problem becomes denser ($\beta\to0$), the required signal size in the one-sided additive model $\widetilde{g}(\beta)$ tends to $4$, while the required signal size in the chi-square (or two-sided alternative additive) model ${g}(\beta)$ tends to $\to3+2\sqrt{2}\approx 5.828$, almost 50\% higher.
-In finite dimensions, however, this difference is not very pronounced; see Remark \ref{rmk:strong-classification-boundary-2}.
+The exact support recovery problem under one-sided alternatives in the dependent Gaussian additive error model \eqref{eq:model-additive} was studied in \cite{gao2018fundamental}.
+The same parametrization of sparsity \eqref{eq:signal-sparsity} was adopted.
+The signal sizes of the non-zero mean shifts in $\mu(i)$ were assumed to be between $\sqrt{2\underline{r}\log{p}}$ and $\sqrt{2\overline{r}\log{p}}$, where $0<\underline{r}\le\overline{r}$.
+Under one-sided alternatives in the additive model, a phase transition in the $r$-$\beta$ plane also exists for the exact support recovery problem,
+where boundary the phase transition was found to be identical to \eqref{eq:strong-classification-boundary-chisquared}.
+In finite dimensions, we find the two-sided alternatives to be slightly more difficult than its one-sided counterpart. 
+However, this difference is not very pronounced even in moderate dimensions, and vanishes as $p\to\infty$, in accordance with Theorem \ref{thm:chi-squred-strong-boundary}. 
+See Section \ref{sec:numerical} for numerical illustrations.
 \end{remark}
 
 \begin{remark} \label{rmk:strong-classification-boundary-2}
-Theorem \ref{thm:chi-squred-strong-boundary} predicts the same asymptotic boundary \eqref{eq:strong-classification-boundary-chisquared} for all values of the degree-of-freedom parameter $\nu$.
-In simulations, we find the asymptotic predictions to be quite accurate when $\nu>3$, even in moderate dimensions. 
-For $\nu\le3$, the phase transitions take place somewhat below ${g}$, and closer to $\widetilde{g}$.
-See Section \ref{sec:numerical} for numerical illustrations.
+Theorem \ref{thm:chi-squred-strong-boundary} predicts that the asymptotic boundaries are the same for all values of the degree-of-freedom parameter $\nu$.
+In simulations, we find this asymptotic prediction quite accurate for $\nu\le3$, even in moderate dimensions. 
+For $\nu>3$, the phase transitions take place somewhat above ${g}$.
+See Section \ref{sec:numerical}.
 \end{remark}
 
 \subsection{FDR-controlling procedures}
@@ -242,7 +240,6 @@ Proof of Theorem \ref{thm:chi-squred-weak-boundary} is found in Appendix \ref{su
 \begin{remark}
 The approximate support recovery problem in the additive error model \eqref{eq:model-additive} under one-sided alternatives was studied in \cite{arias2017distribution}, where a phase transition boundary was described in the sense of Definition \ref{def:approx-recovery-success-failure}.
 Interestingly, the weak classification boundary is identical to \eqref{eq:weak-classification-boundary-chisquared}.
-That is, unlike in the exact support recovery problem, the requirement on the signal sizes in the approximate support recovery for the two-sided problem is no higher than in the one-sided case.
 
 To complete the comparisons, we note that the phase transition boundary for sparse signal detection problem is also identical in both types of alternatives; this was analyzed in \cite{donoho2004higher}.
 \end{remark}
