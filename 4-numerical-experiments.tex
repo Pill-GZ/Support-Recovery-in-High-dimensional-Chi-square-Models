@@ -11,24 +11,24 @@ The numerical results illustrate that the predicted boundaries are not only accu
 
 \begin{figure}
       \centering
-      \includegraphics[width=0.32\textwidth]{./simulated_phase_diagram_chi-squared_nu1_p100.eps}
-      \includegraphics[width=0.32\textwidth]{./simulated_phase_diagram_chi-squared_nu1_p1000.eps}
-      \includegraphics[width=0.32\textwidth]{./simulated_phase_diagram_chi-squared_nu1_p10000.eps}
-      \includegraphics[width=0.32\textwidth]{./simulated_phase_diagram_chi-squared_nu3_p100.eps}
-      \includegraphics[width=0.32\textwidth]{./simulated_phase_diagram_chi-squared_nu3_p1000.eps}
-      \includegraphics[width=0.32\textwidth]{./simulated_phase_diagram_chi-squared_nu3_p10000.eps}
-      \includegraphics[width=0.32\textwidth]{./simulated_phase_diagram_chi-squared_nu6_p100.eps}
-      \includegraphics[width=0.32\textwidth]{./simulated_phase_diagram_chi-squared_nu6_p1000.eps}
-      \includegraphics[width=0.32\textwidth]{./simulated_phase_diagram_chi-squared_nu6_p10000.eps}
-      \includegraphics[width=0.32\textwidth]{./simulated_phase_diagram_chi-squared_nu10_p100.eps}
-      \includegraphics[width=0.32\textwidth]{./simulated_phase_diagram_chi-squared_nu10_p1000.eps}
-      \includegraphics[width=0.32\textwidth]{./simulated_phase_diagram_chi-squared_nu10_p10000.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_strong_boundary/simulated_phase_diagram_chi-squared_nu1_p100.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_strong_boundary/simulated_phase_diagram_chi-squared_nu1_p1000.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_strong_boundary/simulated_phase_diagram_chi-squared_nu1_p10000.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_strong_boundary/simulated_phase_diagram_chi-squared_nu2_p100.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_strong_boundary/simulated_phase_diagram_chi-squared_nu2_p1000.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_strong_boundary/simulated_phase_diagram_chi-squared_nu2_p10000.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_strong_boundary/simulated_phase_diagram_chi-squared_nu3_p100.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_strong_boundary/simulated_phase_diagram_chi-squared_nu3_p1000.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_strong_boundary/simulated_phase_diagram_chi-squared_nu3_p10000.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_strong_boundary/simulated_phase_diagram_chi-squared_nu6_p100.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_strong_boundary/simulated_phase_diagram_chi-squared_nu6_p1000.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_strong_boundary/simulated_phase_diagram_chi-squared_nu6_p10000.eps}
       % \includegraphics[width=0.35\textwidth]{./phase_diagram_chisquared.eps}
-      \caption{The empirical probability of exact support recovery with Bonferroni's procedures in the Chi-squared model \eqref{eq:model-chisq}. 
-      We simulate $\nu=1, 3, 6$, and $10$ (first to last row), at dimensions $p=100, 1000$, and $10000$ (left to right column), for a grid of sparsity levels $\beta$ and signal sizes $r$.
+      \caption{The empirical probability of exact support recovery using Bonferroni's procedure in the Chi-squared model \eqref{eq:model-chisq}. 
+      We simulate $\nu=1, 2, 3, 6$ (first to last row), at dimensions $p=100, 1000, 10000$ (left to right column), for a grid of sparsity levels $\beta$ and signal sizes $r$.
       The experiments were repeated 1000 times for each sparsity-signal size combination; darker color indicates higher probability of exact support recovery.  
-      Numerical results are generally in agreement with the boundaries described in Theorem \ref{thm:chi-squred-strong-boundary}; for small $\nu$'s, the phase transitions seem to take place somewhat below the predicted boundaries.
-      The weak classification boundary (Theorem \ref{thm:chi-squred-weak-boundary}) and the detection boundary (\citep{donoho2004higher}) are also plotted.} 
+      Numerical results are generally in agreement with the boundaries described in Theorem \ref{thm:chi-squred-strong-boundary}; for large $\nu$'s and finite dimensions, the phase transitions take place somewhat above the predicted boundaries.
+      The weak classification boundary (Theorem \ref{thm:chi-squred-weak-boundary}) and the detection boundary (see \citep{donoho2004higher}) are plotted for comparison.} 
       \label{fig:phase-simulated-chi-squared}
 \end{figure}
 
@@ -36,5 +36,28 @@ The numerical results illustrate that the predicted boundaries are not only accu
 
 \subsection{The weak classification boundary in finite dimensions}
 
+
+\begin{figure}
+      \centering
+      \includegraphics[width=0.32\textwidth]{./sim_weak_boundary/simulated_weak_boundary_chi-squared_nu1_p100.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_weak_boundary/simulated_weak_boundary_chi-squared_nu1_p1000.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_weak_boundary/simulated_weak_boundary_chi-squared_nu1_p10000.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_weak_boundary/simulated_weak_boundary_chi-squared_nu2_p100.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_weak_boundary/simulated_weak_boundary_chi-squared_nu2_p1000.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_weak_boundary/simulated_weak_boundary_chi-squared_nu2_p10000.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_weak_boundary/simulated_weak_boundary_chi-squared_nu3_p100.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_weak_boundary/simulated_weak_boundary_chi-squared_nu3_p1000.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_weak_boundary/simulated_weak_boundary_chi-squared_nu3_p10000.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_weak_boundary/simulated_weak_boundary_chi-squared_nu6_p100.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_weak_boundary/simulated_weak_boundary_chi-squared_nu6_p1000.eps}
+      \includegraphics[width=0.32\textwidth]{./sim_weak_boundary/simulated_weak_boundary_chi-squared_nu6_p10000.eps}
+      % \includegraphics[width=0.35\textwidth]{./phase_diagram_chisquared.eps}
+      \caption{The estimated risk of approximate support recovery $\mathrm{risk}^{\mathrm{A}}$ (see \eqref{eq:risk-approximate}) of the Benjamini-Hochberg procedure in the Chi-squared model \eqref{eq:model-chisq}. 
+      We simulate $\nu=1, 2, 3, 6$ (first to last row), at dimensions $p=100, 1000, 10000$ (left to right column), for a grid of sparsity levels $\beta$ and signal sizes $r$.
+      The experiments were repeated 1000 times for each sparsity-signal size combination; darker color indicates higher larger $\mathrm{risk}^{\mathrm{A}}$. 
+      Numerical results are generally in agreement with the boundaries described in Theorem \ref{thm:chi-squred-weak-boundary}; for large $\nu$'s and finite dimensions, the phase transitions take place somewhat above the predicted boundaries.
+      The strong classification boundary (Theorem \ref{thm:chi-squred-strong-boundary}) and the detection boundary (see \citep{donoho2004higher}) are plotted for comparison.} 
+      \label{fig:phase-simulated-chi-squared-weak-boundary}
+\end{figure}
 
 \subsection{Phase transitions of reported findings from GWAS}

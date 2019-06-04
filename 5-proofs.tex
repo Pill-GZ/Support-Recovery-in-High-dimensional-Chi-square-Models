@@ -157,7 +157,7 @@ where $Z_i$'s are iid standard normal variables, we have
     &\le \P[(Z_\nu+\sqrt{\underline{\Delta}})^2 \le t^*] 
     = \P[|Z_\nu+\sqrt{\underline{\Delta}}| \le \sqrt{t^*}]  \nonumber \\
     &\le \P\left[Z_\nu \le - \sqrt{\underline{\Delta}} +  \sqrt{t^*}\right] \nonumber \\
-    &= \P\left[Z_\nu \le \sqrt{2\underline{r}\log{p}}\left(\sqrt{q} - \sqrt{\underline{r}}\right)\right]. \label{eq:chi-square-sufficient-2}
+    &= \P\left[Z_\nu \le \sqrt{2\log{p}}\left(\sqrt{q} - \sqrt{\underline{r}}\right)\right]. \label{eq:chi-square-sufficient-2}
 \end{align}
 By our choice of $q$ in \eqref{eq:choice-of-q}, the last probability in \eqref{eq:chi-square-sufficient-2}
 is bounded above by 
@@ -228,12 +228,14 @@ Further, by the assumption on the signal sizes $\overline{r} < (1+\sqrt{1-\beta}
 \end{equation}
 Combining \eqref{eq:chi-square-necessary-5}, \eqref{eq:chi-square-necessary-6}, and \eqref{eq:chi-square-necessary-7}, we obtain
 $$
-\P\left[ f_p(Z_\nu(i^\dagger)) < 1 \right] \ge \P\left[ f_p\left(\min_{i\in S}Z_nu(i)\right) < 1 \right] \to 1,
+\P\left[\min_{i\in S} f_p(Z_\nu(i)) < 1\right]
+= \P\left[ f_p(Z_\nu(i^\dagger)) < 1 \right] 
+\ge \P\left[ f_p\left(\min_{i\in S}Z_nu(i)\right) < 1 \right] \to 1,
 $$
 and we arrive at \eqref{eq:chi-square-necessary-4}.
-As a corollary, since $u_p\sim2\log{p}$,
+As a corollary, since $u_p\sim2\log{p}$, it follows that
 \begin{equation} \label{eq:chi-square-necessary-8}
-    \P\left[\frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{u_p} < 1\right]\to1.
+    \P\left[\min_{i\in S}\frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{u_p} < 1\right]\to1.
 \end{equation}
 
 Finally, by independence between $Z_1^2(i)+\ldots+Z_{\nu-1}^2(i)$ and $(z_\nu^2(i)+\sqrt{\overline{\Delta}})^2$, and the fact that $i^\dagger$ is a function of only the second term, we have
@@ -246,7 +248,7 @@ Therefore, $Z_1^2(i^\dagger)+\ldots+Z_{\nu-1}^2(i^\dagger) = O_\P(1)$, and
 \begin{equation} \label{eq:chi-square-necessary-9}
     \frac{Z_1^2(i^\dagger)+\ldots+Z_{\nu-1}^2(i^\dagger)}{u_p} \to 0 \quad \text{in probability}. 
 \end{equation}
-Together, \eqref{eq:chi-square-necessary-8} and \eqref{eq:chi-square-necessary-9} implies that
+Together, \eqref{eq:chi-square-necessary-8} and \eqref{eq:chi-square-necessary-9} imply that
 \begin{align}
     \P\left[\frac{m_S}{u_p}<1\right]
     &\ge \P\left[\min_{i\in S}\frac{Z_1^2(i) + \ldots + Z_{\nu-1}^2(i)}{u_p} + \frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{u_p} < 1\right] \nonumber \\
@@ -410,7 +412,8 @@ Therefore, it follows that $\widehat{S}_1 \subseteq \widehat{S}_2$ and hence $|S
 The conclusion in Lemma \ref{lemma:monotonicity-BH-procedure} follows from the last inequality.
 \end{proof}
 
-Lemma \ref{lemma:monotonicity-BH-procedure} allows us to reduce the alternative with unequal signal sizes to one with equal signal sizes in the proof of the sufficient condition. 
+Lemma \ref{lemma:monotonicity-BH-procedure} allows us to reduce the analysis of alternative with unequal signal sizes to one with equal signal sizes. 
+The structure for the rest of the proof for the sufficient condition follows that of Theorem 2 in \cite{arias2017distribution}. 
 
 \begin{proof}[Proof of sufficient condition in Theorem \ref{thm:chi-squred-weak-boundary}]
 The FDR vanishes by our choice of $\alpha$ and the FDR-controlling property of the BH procedure.

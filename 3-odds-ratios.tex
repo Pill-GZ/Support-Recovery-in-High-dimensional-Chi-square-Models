@@ -1,12 +1,14 @@
 
-In large scale variable screening studies, we would like to find suitable designs such that combination of the dimensionality $p$, sparsity $\beta$, and signal sizes $r$ of the problem lands in the desired region of discovery, as predicted by the results in Section \ref{sec:chisq-boundaries}.
+In large scale variable screening studies, researchers wish to choose efficient study designs for data collection, as well as efficient statistical methods for data analysis.
+The methodological questions were answered in Theorems \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary}; this section deals with the question of design choices.
+Specifically, we would like to find suitable designs such that combination of the dimensionality $p$, sparsity $\beta$, and signal sizes $r$ of the problem lands in the desired region of discovery, as predicted by the results in Section \ref{sec:chisq-boundaries}.
 
-In reality, however, not all three of the parameters $(p, \beta, r)$ can be altered as we wish.
+In applications, not all three of the parameters $(p, \beta, r)$ can be altered as we wish.
 In particular, the problem dimensions and sparsity levels are usually determined by the underlying physical processes.
 In the GWAS example, the number of genomic marker locations is determined by the chip used for gene sequencing, while the number of relevant genomic locations is a consequence of the biological process.
 Therefore, in order to achieve a desired level of error control, we can only hope to influence the statistical signal sizes.
 
-We discuss in this section on how to attain the necessary statistical signal sizes in the case of association tests on 2-by-2 contingency tables, and clarify the relationship between statistical signal sizes and odds ratios in such tests.
+We shall discuss strategies to attain the necessary statistical signal sizes in the case of association tests on 2-by-2 contingency tables, and clarify the relationship between statistical signal sizes and odds ratios in such tests.
 
 \subsection{Odds ratios and statistical power}
 \label{subsec:odds-and-power}
@@ -38,8 +40,7 @@ Odds ratios further away from 1 indicate greater contrasts between the probabili
 Independence between the genotypes and phenotyes would imply an odds ratio of zero, and hence $\mu_{jk} = \phi_j\theta_k$, for all $j,k \in\{1,2\}$.
 
 When data are sampled from the multinomial distribution, the chi-square test defined in \eqref{eq:chisq-statistic} is asymptotically equivalent to tests including, e.g., the likelihood ratio test and Welch's t-test, both in terms of level and power \cite{ferguson2017course,gao2019upass}.
-
-Specifically, with a sequence of local alternatives $\mu^{(1)}, \mu^{(2)}, \ldots$, such that $\sqrt{n}(\mu^{(n)}_{jk} - \phi_j\theta_k)$ converges to a constant table $\delta = (\delta_{jk})$, the aforementioned test statistics converge in distribution to the non-central chi-squared distribution with non-centrality parameter 
+For a sequence of local alternatives $\mu^{(1)}, \mu^{(2)}, \ldots$, such that $\sqrt{n}(\mu^{(n)}_{jk} - \phi_j\theta_k)$ converges to a constant table $\delta = (\delta_{jk})$, the chi-square test statistics converge in distribution to the non-central chi-squared distribution with non-centrality parameter 
 $\lambda = \sum_{j=1}^2 \sum_{k=1}^2 {\delta_{jk}^2}/{(\phi_j\theta_k)}$.
 Hence for large samples from a fixed distribution $\mu$, the statistics would be well approximated by a $\chi^2_\nu(\lambda)$ distribution, where $\nu=1$ and
 \begin{equation} 
@@ -107,12 +108,12 @@ This is much more efficient than a balanced design, where $w^2$ can only reach u
 \subsection{Optimal study designs and rare variants}
 \label{subsec:optimal-design} 
 
-For a study with a fixed budget, that is, a fixed total number of subjects $n$ to recruit, the researcher is free to choose the fraction of cases $\phi_1$ to be included in the study.
+For a study with a fixed budget, i.e., a fixed total number of subjects $n$, the researcher is free to choose the fraction of cases $\phi_1$ to be included in the study.
 A natural question is how the budget should be allocated to maximize the statistical power of discovery, or equivalently, the signal sizes $\lambda$ or $w^2$.
 
 In principal, Relation \eqref{eq:signal-size-odds-ratio} can be optimized with respect to the fraction of cases $\phi_1$ in order to find optimal designs, if the rest of the parameters are known and held constant.
 In practice this is not the case.
-While $(\phi_1, \phi_2)$ may be controlled by by the researcher, the marginal distributions of genotypes $(\theta_1, \theta_2)$ are often unknown prior to data collection, and can change with the case-to-control ratio.
+While $(\phi_1, \phi_2)$ can be controlled, the marginal distributions of genotypes $(\theta_1, \theta_2)$ are often unknown prior to data collection, and can change with the case-to-control ratio.
 
 Fortunately, the conditional distributions of genotypes in the healthy control groups are often reported in existing studies, and are available in GWAS catalogs such as \cite{macarthur2016new}.
 % Assume (after appropriate relabelling, hence without loss of generality) that the first variant is associated with an increased risk of disease, and is henceforth referred to as the risk variant.

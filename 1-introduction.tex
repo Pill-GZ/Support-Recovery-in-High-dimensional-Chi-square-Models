@@ -12,7 +12,8 @@ These categorical covariate screening problems naturally give rise to the high-d
 \label{subsec:motivation-chisq}
 
 Broadly speaking, GWAS aim to discover genetic variations that are linked to traits or diseases of interested, by testing for associations between the subjects' genetic compositions and their phenotypes \citep{bush2012genome}.
-In a typical GWAS with case-control design, a total of $n$ subjects are recruited consisting of $n_1$ subjects possessing the defined trait, and $n_2$ subjects without the trait as controls.
+In a typical GWAS with case-control design, a total of $n$ subjects are recruited. 
+They consist of $n_1$ subjects possessing the defined trait, and $n_2$ subjects without the trait as controls.
 The genetic compositions of these subjects are then examined for variations known as single-nucleotide polymorphisms (SNPs) at an array of $p$ genomic marker locations, and compared between the case group and the control group.
 
 Focusing on one specific genomic location, the counts of observed genotypes, if two variants are present, can be tabulated as follows.
@@ -74,28 +75,30 @@ where the errors $\epsilon$ are assumed to have standard normal distributions.
 
 Under two-sided alternatives, unbiased tests call for rejecting the hypothesis $\mu(i)=0$ at locations where observations have large absolute values, or equivalently, large $x^2(i)$'s.
 Taking squares on both sides of \eqref{eq:model-additive}, and we arrive at Model \eqref{eq:model-chisq} with non-centrality parameters $\lambda(i) = \mu^2(i)$ and degrees-of-freedom parameter $\nu =1$.
-In this case, the support recovery problem becomes to locate the set of observations with mean shifts, $S=\{i:\mu(i)\neq 0\}$, where the mean shifts could take place in both directions.
+In this case, the support recovery problem is to locate the set of observations with mean shifts, $S=\{i:\mu(i)\neq 0\}$, where the mean shifts could take place in both directions.
 
-While theoretical limits of support recovery problems in additive error models \eqref{eq:model-additive} have been extensively studied (see, e.g., \cite{arias2017distribution, butucea2018variable, gao2018fundamental}), such studies were focused exclusively on one-sided alternatives.
-In many applications, however, this restriction can be quite limiting.
-For example, in fMRI studies, average brain activities at each of the tens of thousands of voxels may either increase or decrease in the case group compared to the controls \citep{narayan2015two}. 
+While theoretical limits of support recovery problems in the additive error models have been extensively studied (see, e.g., \cite{arias2017distribution, butucea2018variable, gao2018fundamental}), these efforts focus exclusively on one-sided alternatives, most assuming equal signal sizes.
+In many applications, however, these restrictions can be unrealistic.
+For example, in fMRI studies, average brain activities at each of the tens of thousands of voxels may either increase or decrease, and to different extents, when comparing the case group to the controls \citep{narayan2015two}. 
 In the challenging application of anomaly detection on Internet traffic streams, millions of IP addresses need to be scanned in real time to identify both volumetric attacks and blackouts \citep{kallitsis2016amon}.
-Indeed, omnidirectional alternatives are arguably the more realistic choice in discovery sciences where little to no prior knowledge is available.
+Indeed, omnidirectional tests are the more natural choice in discovery sciences where little to no prior knowledge is available.
 
-Unfortunately, the many interesting results obtained under one-sided alternatives cannot be easily adapted to the two-sided cases where the locations and the directions of the signals are both unknown.
-Analyzing model \eqref{eq:model-chisq} will allow us to to quantify if, and how much of a price has to be paid for the additional uncertainty of the two-sided alternatives in the additive models.
+To develop a theory for settings where both the locations and directions of the signals are unknown would generate new insights, but would also require some new tools.
+In particular, analyzing model \eqref{eq:model-chisq} will allow us to to quantify if, and how much of a price has to be paid for the additional uncertainty of the two-sided alternatives in the additive models.
 
 \subsection{Contributions}
 
 The contribution of this work is three-fold.
 
 First, we show that several common family-wise error rate controlling procedures, including Bonferroni's procedure \cite{dunn1961multiple}, are asymptotically optimal to first order for \emph{exact} support recovery problems (defined in Sec. \ref{subsec:risks} below) in the chi-square model \eqref{eq:model-chisq}.
-Second, we show that the Benjamini-Hochberg (BH) procedure \cite{benjamini1995controlling} is asymptotically optimal to first order for \emph{approximate} support recovery problems (see Sec. \ref{subsec:risks} below).
+Second, we show that the Benjamini-Hochberg (BH) procedure \cite{benjamini1995controlling} is asymptotically optimal to first order for \emph{approximate} support recovery problems (defined, too, in Sec. \ref{subsec:risks}).
 These two results are made precise in Theorems \ref{thm:chi-squred-strong-boundary} and \ref{thm:chi-squred-weak-boundary}.
 
 Under appropriate parametrizations of the signal sizes and sparsity, these results establish the phase transitions of support recovery problems in the chi-square model, previewed in Figure \ref{fig:phase-chi-squared}.
 Remarkably, the degree-of-freedom parameter does not affect the asymptotic boundaries in both the approximate and exact support recovery problems.
-Further, the two boundaries are also identical to that in the additive Gaussian error model \eqref{eq:model-additive} under the one-sided alternatives, indicating vanishing difference between the difficulties of one-sided and two-sided alternatives.
+Further, the two boundaries coincide with those in the additive Gaussian error model \eqref{eq:model-additive} under the one-sided alternatives, indicating vanishing difference between the difficulties of one-sided and two-sided alternatives.
+%The many interesting results obtained under one-sided alternatives cannot be easily adapted to the two-sided cases where the locations and the directions of the signals are both unknown.
+
 
 \begin{figure}
       \centering
@@ -181,7 +184,7 @@ Specifically, the lower bounds that we develop in Theorems \ref{thm:chi-squred-s
 \begin{remark}
 Although it is intuitively appealing to consider only threshold procedures, such procedures are not always optimal.
 Recently, \citet{chen2018scan} showed that thresholding procedures are in fact sub-optimal in the additive models \eqref{eq:model-additive} when errors have heavy (regularly-varying) tails. 
-\citet{gao2018fundamental} recently characterized the conditions under which thresholding procedures are optimal in exact support recovery problems.
+\citet{gao2018fundamental} recently characterized the conditions under which thresholding procedures are optimal in the exact support recovery problems.
 The optimality of thresholding procedures in approximate support recovery problems is an open problem that invites a separate discussion. 
 We content ourselves with making optimality statements concerning only thresholding procedures in the current work.
 \end{remark}

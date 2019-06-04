@@ -5,14 +5,14 @@ Let the non-centrality parameter vectors $\lambda = \lambda_p$ have
 \begin{equation} \label{eq:signal-sparsity}
     |S_p| = \left\lfloor p^{1-\beta} \right\rfloor
 \end{equation}
-non-zero entries, where the sizes of the non-zero parameters $\lambda(i)$ for all signals $i\in S_p$ are in the range between
+non-zero entries, where the sizes of the non-zero parameters are range-bound,
 \begin{equation} \label{eq:signal-size}
     \underline{\Delta} = 2\underline{r}\log{p}
-    \quad\text{and}\quad
-    \overline{\Delta} = 2\overline{r}\log{p},
+    \le \lambda(i) \le
+    \overline{\Delta} = 2\overline{r}\log{p}, \quad \text{for all}\;\;i\in S_p,
 \end{equation}
 for some constants $0<\underline{r}\le\overline{r}$.
-Here $\beta$ parametrizes the problem sparsity, whereas $\underline{r}$ and $\overline{r}$ parametrize the signal sizes.
+Here $\beta$ parametrizes the problem sparsity, whereas $\underline{r}$ and $\overline{r}$ parametrize the signal sizes, which are {not} assumed to be equal.
 
 \subsection{Asymptotic success and failure of support recovery}
 
@@ -170,7 +170,7 @@ The function
     g(\beta) = \left(1 + \sqrt{1-\beta}\right)^2
 \end{equation}
 characterizes the phase transition of exact support recovery problems.
-Specifically, if $\underline{r} > {{g}}(\beta)$, then Bonferroni's, Sid\'ak's, Holm's, and Hochberg's procedures with slowly vanishing FWER levels all achieve asymptotic perfect support recovery in the sense of \eqref{eq:exact-recovery-success}. 
+Specifically, if $\underline{r} > {{g}}(\beta)$, then Bonferroni's, Sid\'ak's, Holm's, and Hochberg's procedures with slowly vanishing (see Def. \ref{def:slowly-vanishing}) nominal FWER levels all achieve asymptotic perfect support recovery in the sense of \eqref{eq:exact-recovery-success}. 
 
 Conversely, if $\overline{r} < {{g}}(\beta)$, then for any thresholding procedure $\widehat{S}$, we have $\P[\widehat{S}=S]\to0$.
 Therefore, in view of Lemma \ref{lemma:risk-exact-recovery-probability}, exact support recovery asymptotically fails for all thresholding procedures in the sense of \eqref{eq:exact-recovery-failure}.
@@ -230,7 +230,7 @@ The function
     h(\beta) = \beta
 \end{equation}
 characterizes the phase transition of approximate support recovery problem.
-Specifically, if $\underline{r} > {h}(\beta)$, then the Benjamini-Hochberg procedure $\widehat{S}_p$ (defined in \eqref{eq:BH-procedure}) with slowly vanishing FDR levels achieves asymptotically approximate support recovery in the sense of \eqref{eq:approx-recovery-success}. 
+Specifically, if $\underline{r} > {h}(\beta)$, then the Benjamini-Hochberg procedure $\widehat{S}_p$ (defined in \eqref{eq:BH-procedure}) with slowly vanishing (see Def. \ref{def:slowly-vanishing}) nominal FDR levels achieves asymptotically approximate support recovery in the sense of \eqref{eq:approx-recovery-success}. 
 
 Conversely, if $\overline{r} < {h}(\beta)$, then approximate support recovery asymptotically fails in the sense of \eqref{eq:approx-recovery-failure} for all thresholding procedures.
 \end{theorem}
@@ -238,8 +238,8 @@ Conversely, if $\overline{r} < {h}(\beta)$, then approximate support recovery as
 Proof of Theorem \ref{thm:chi-squred-weak-boundary} is found in Appendix \ref{subsec:proof-chi-squred-weak-boundary}. 
 
 \begin{remark}
-The approximate support recovery problem in the additive error model \eqref{eq:model-additive} under one-sided alternatives was studied in \cite{arias2017distribution}, where a phase transition boundary was described in the sense of Definition \ref{def:approx-recovery-success-failure}.
-Interestingly, the weak classification boundary is identical to \eqref{eq:weak-classification-boundary-chisquared}.
+The approximate support recovery problem in the additive error model \eqref{eq:model-additive} under one-sided alternatives was studied in \cite{arias2017distribution}, where a phase transition boundary was described in the sense of Def. \ref{def:approx-recovery-success-failure}.
+Similar to the case of strong classification boundaries, the weak classification boundaries also coincide.
 
-To complete the comparisons, we note that the phase transition boundary for sparse signal detection problem is also identical in both types of alternatives; this was analyzed in \cite{donoho2004higher}.
+To complete the comparisons, we point out that the phase transition boundary for sparse signal detection problem is also identical in the two types of alternatives; this was analyzed in \cite{donoho2004higher}.
 \end{remark}
