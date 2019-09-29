@@ -1,4 +1,4 @@
-\documentclass[ejs]{imsart}
+\documentclass[ejs, preprint]{imsart}
 
 \RequirePackage[OT1]{fontenc}
 \RequirePackage{amsthm,amsmath}
@@ -76,8 +76,8 @@
 \begin{document}
 
 \begin{frontmatter}
-\title{\Large{High-dimensional Chi-square Models and Multiple Testing for Categorical Data}} %\thanksref{T1}} 
-\runtitle{Multiple Testing for Categorical Data}
+\title{\Large{Five Shades of Grey: Phase Transitions in High-dimensional Multiple Testing}} %\thanksref{T1}} 
+\runtitle{Phase Transitions in High-dimensional Multiple Testing} % and Multiple Testing for Categorical Data}
 %\thankstext{T1}{Footnote to the title with the `thankstext' command.}
 
 \begin{aug}
@@ -98,22 +98,25 @@
 \end{aug}
 
 \begin{abstract}
-We study high-dimensional multiple testing problems where test statistics have approximate chi-square distributions, typified by categorical variable screenings.
-We first characterize two new phase transition phenomena in the chi-square models, deriving the statistical signal sizes necessary and sufficient for statistical procedures to 1) approximately, and 2) exactly select the set of relevant features in large dimensions.
-Remarkably, the degrees-of-freedom parameter is irrelevant for the boundaries of both phase transitions.
+We are motivated by high-dimensional multiple testing problems, typified by marginal screenings of categorical variables, where test statistics have approximate chi-square distributions.
+We characterize four new phase transitions in high-dimensional chi-square models, and derive the signal sizes necessary and sufficient for statistical procedures to simultaneously control false discovery (in terms of family-wise error rate or false discovery rate) and missed detection (in terms of family-wise non-discovery rate or false non-discovery rate) in large dimensions.
+% 1) approximately, and 2) exactly select the set of relevant features in large dimensions.
+Remarkably, degrees-of-freedom of the chi-square distributions do not affect the boundaries in all four phase transitions.
 Several well-known procedures are shown to attain these boundaries.
+Two new boundaries are also identified in the Gaussian location model under one-sided alternatives.
 
-We then elucidate on the nature of statistical signal sizes in the context of association tests on contingency tables. 
-Specifically, we characterize the relationship between statistical signal size and marginal frequencies, odds ratio, and sample sizes. % in common association tests for binary traits.
+We then elucidate on the nature of signal sizes in association tests by characterizing its relationship with the marginal frequencies, odds ratio, and sample sizes in simple $2\times2$ contingency tables. % in common association tests for binary traits.
 % Specifically, detection of rare genetic variants associated with the outcomes requires more samples compared to common variants. 
-% Specifically, the difficulty in detecting associations between genetic variants and phenotype traits is quantified in terms of the statistical signal sizes.
-We further demonstrate, perhaps surprisingly, that balanced designs in case-control studies may \emph{not} deliver the best power. % for detecting rare genetic variants with high odds ratios.
+% Specifically, the difficulty in detecting associations between genetic variants and phenotype traits is quantified in terms of the signal sizes.
+We demonstrate, perhaps surprisingly, that balanced designs in case-control studies may {not} deliver the best power at a given sample size. % for detecting rare genetic variants with high odds ratios.
 % Specifically, the amount of signal per sample is inherently smaller when rare variants are present. 
 % In other words, 
 % Further, case prevalence in the recruited subjects plays a role, while case prevalence in the population is irrelevant.
+% We provide explicit formulas for power calculations, as well as software tools for finding the optimal study designs.
+Together, these results lead to improved understanding of the power limits in high-dimensional screenings for categorical covariates, such as genome-wide association studies (GWAS).
 
-We provide explicit formulas for power calculations, as well as software tools for finding the optimal study designs.
-These results allow us to perform power analysis for high-dimensional screening problems for categorical covariates, such as genome-wide association studies (GWAS).
+% The phase transition phenomena are demonstrated with numerical simulations, and with empirical evidence from GWAS.
+% data from the NHGRI-EBI GWAS catalog.
 \end{abstract}
 
 \begin{keyword}[class=MSC]
@@ -137,11 +140,11 @@ These results allow us to perform power analysis for high-dimensional screening 
 \label{sec:intro}
 \input{1-introduction.tex}
 
-\section{Phase transitions of multiple testing in chi-square models}
+\section{Phase transitions of multiple testing in the chi-square models}
 \label{sec:chisq-boundaries}
 \input{2-boundary.tex}
 
-\section{Odds ratios and signal sizes in association tests}
+\section{The phase transition phenomena in GWAS}
 \label{sec:signal-size-odds-ratio}
 \input{3-odds-ratios.tex}
 
@@ -156,9 +159,10 @@ These results allow us to perform power analysis for high-dimensional screening 
 
 
 \section*{Acknowledgements}
-We thank Stilian Stoev for providing the freedom and generous support for pursuing this project.
-We also thank Yuanzhi Li and Jinqi Shen for their careful proof-reading and thoughtful feedback on early versions of the manuscript.
+I thank Professor Stilian Stoev for his generous support, and for encouraging me to pursue the current project.
+I also thank Yuanzhi Li and Jinqi Shen for their careful proof-reading and thoughtful feedback on early versions of the manuscript.
 
+This research is supported by NSF Grant DMS-1830293, Algorithms for Threat Detection.
 \bibliographystyle{plainnat}
 \bibliography{references}
 

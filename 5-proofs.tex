@@ -1,8 +1,11 @@
 
 
+
+
+
 \subsection{Auxiliary facts about chi-square distributions}
 
-We first establish some auxiliary facts about chi-square distributions, used in the proofs of Theorem \ref{thm:chi-squred-strong-boundary} and Theorem \ref{thm:chi-squred-weak-boundary}.
+We first establish some auxiliary facts about chi-square distributions, used in the proofs of Theorem \ref{thm:chi-squared-exact-boundary} and Theorem \ref{thm:chi-squared-approx-boundary}.
 
 \begin{lemma}[Rapid variation of chi-square distribution tails] \label{lemma:rapid-variation-chisq}
 The central chi-square distribution with $\nu$ degrees of freedom has rapidly varying tails.
@@ -105,28 +108,23 @@ Then
 \end{lemma}
 
 \begin{proof}[Proof of Lemma \ref{lemma:chisq-quantiles}]
-The case where $\nu=1$ follows from the well-known Normal quantiles 
+The case where $\nu=1$ follows from the well-known formula for Normal quantiles 
 $$
 F^\leftarrow(1 - 1/p) = \Phi^\leftarrow(1-1/(2p))\sim\sqrt{2\log{(2p)}}\sim\sqrt{2\log{p}}.
 $$
 The case where $\nu\ge2$ follows from the following estimates of high quantiles of chi-square distributions (see, e.g., \citep{inglot2010inequalities}),
 $$
-    \nu +  2\log(1/y) -5/2 \le u(y) \le \nu +  2\log(1/y) + 2\sqrt{\nu\log(1/y)}, \quad \text{for all }y\le0.17.
+    \nu +  2\log(1/y) -5/2 \le u(y) \le \nu +  2\log(1/y) + 2\sqrt{\nu\log(1/y)}, \quad \text{for all }y\le0.17,
 $$
+where both the lower and upper bound are asymptotic to $2\log(1/y)$.
 \end{proof}
 
 
-\subsection{Proof of Theorem \ref{thm:chi-squred-strong-boundary}}
-\label{subsec:proof-chi-squred-strong-boundary}
+\subsection{Proof of Theorem \ref{thm:chi-squared-exact-boundary}}
+\label{subsec:proof-chi-squared-exact-boundary}
 
-\begin{proof}[Proof of Theorem \ref{thm:chi-squred-strong-boundary}]
+\begin{proof}[Proof of Theorem \ref{thm:chi-squared-exact-boundary}]
 We first prove the sufficient condition.
-The condition $\underline{r} > {{g}}(\beta)$ implies, after some algebraic manipulation,
-$\sqrt{\underline{r}} -\sqrt{1-\beta} > 1$.
-Therefore, we can pick $q>1$ such that 
-\begin{equation} \label{eq:choice-of-q}
-    \sqrt{\underline{r}} -\sqrt{1-\beta} > \sqrt{q} > 1.
-\end{equation}
 The Bonferroni procedure sets the threshold at $t_p = F^\leftarrow(1-\alpha/p)$, which, by Lemma \ref{lemma:chisq-quantiles}, is asymptotic to $2\log{p} - 2\log{\alpha}$.
 By the assumption on $\alpha$ in \eqref{eq:slowly-vanishing-error}, for any $\delta>0$, we have $\alpha\gg p^{-\delta}$ for large $p$.
 Therefore, $-\log\alpha\ll\delta\log{p}$ eventually, and we have
@@ -135,8 +133,14 @@ $$
 $$
 for any $\delta>0$.
 Hence, $t_p\sim 2\log{p}$.
-Setting the $t^* = t^*_p = 2q\log{p}$, we have $t_p < t^*_p$ for large $p$.
 
+The condition $\underline{r} > {{g}}(\beta)$ implies, after some algebraic manipulation,
+$\sqrt{\underline{r}} -\sqrt{1-\beta} > 1$.
+Therefore, we can pick $q>1$ such that 
+\begin{equation} \label{eq:choice-of-q}
+    \sqrt{\underline{r}} -\sqrt{1-\beta} > \sqrt{q} > 1.
+\end{equation}
+Setting the $t^* = t^*_p = 2q\log{p}$, we have $t_p < t^*_p$ for large $p$.
 
 On the one hand, $\text{FWER} = 1 - \P[\widehat{S}_p \subseteq S_p]$ vanishes under the Bonferroni procedure with $\alpha\to0$.
 On the other hand, for large $p$, the probability of no missed detection is bounded from below by
@@ -144,7 +148,7 @@ On the other hand, for large $p$, the probability of no missed detection is boun
     \P[\widehat{S}_p \supseteq S_p] 
     = \P[\min_{i\in S} x(i) \ge t_p] 
     \ge \P[\min_{i\in S} x(i) \ge t^*] 
-    \ge 1 - p^{1-\beta}\P[\chi_\nu^2(\underline{\Delta}) \le t^*],
+    \ge 1 - p^{1-\beta}\P[\chi_\nu^2(\underline{\Delta}) < t^*],
 \end{equation}
 where we have used the fact that signal sizes are bounded below by $\underline{\Delta}$, and the stochastic monotonicity of chi-square distributions (Lemma \ref{lemma:stochastic-monotonicity}) in the last inequality.
 Writing
@@ -153,42 +157,41 @@ $$
 $$
 where $Z_i$'s are iid standard normal variables, we have
 \begin{align}
-    \P[\chi_\nu^2({\underline{\Delta}}) \le t^*]
-    &\le \P[(Z_\nu+\sqrt{\underline{\Delta}})^2 \le t^*] 
-    = \P[|Z_\nu+\sqrt{\underline{\Delta}}| \le \sqrt{t^*}]  \nonumber \\
-    &\le \P\left[Z_\nu \le - \sqrt{\underline{\Delta}} +  \sqrt{t^*}\right] \nonumber \\
-    &= \P\left[Z_\nu \le \sqrt{2\log{p}}\left(\sqrt{q} - \sqrt{\underline{r}}\right)\right]. \label{eq:chi-square-sufficient-2}
+    \P[\chi_\nu^2({\underline{\Delta}}) < t^*]
+    &\le \P[(Z_\nu+\sqrt{\underline{\Delta}})^2 < t^*] 
+    = \P[|Z_\nu+\sqrt{\underline{\Delta}}| < \sqrt{t^*}]  \nonumber \\
+    &\le \P\left[Z_\nu < - \sqrt{\underline{\Delta}} +  \sqrt{t^*}\right] \nonumber \\
+    &= \P\left[Z_\nu < \sqrt{2\log{p}}\left(\sqrt{q} - \sqrt{\underline{r}}\right)\right]. \label{eq:chi-square-sufficient-2}
 \end{align}
 By our choice of $q$ in \eqref{eq:choice-of-q}, the last probability in \eqref{eq:chi-square-sufficient-2}
 is bounded above by 
 $$
-\P\Big[Z_\nu \le -\sqrt{2(1-\beta)\log{p}}\Big] = o\left(p^{-(1-\beta)}\right).
+\P\Big[Z_\nu < -\sqrt{2(1-\beta)\log{p}}\Big] = o\left(p^{-(1-\beta)}\right).
 $$
 This, combined with \eqref{eq:chi-square-sufficient-1}, completes the proof of the sufficient condition for the Bonferroni's procedure.
 
 Under the assumption of independence, Sid\'ak's, Holm's, and Hochberg's procedures are strictly more powerful than Bonferroni's procedure, while controlling FWER at the nominal levels.
 Therefore, the risks of exact support recovery for these procedures also vanishes.
-This completes the proof for the first part of Theorem \ref{thm:chi-squred-strong-boundary}.
+This completes the proof for the first part of Theorem \ref{thm:chi-squared-exact-boundary}.
 
 We now show the necessary condition. 
 We first normalize the maxima by the chi-square quantiles $u_p = F^{\leftarrow}(1-1/p)$, where $F$ is the distribution of a (central) chi-square random variable,
 \begin{equation} \label{eq:chi-square-necessary-0}
- \P[\widehat{S}_p = S_p] \le \P\left[\max_{i\in S^c}x(i) < \min_{i\in S}x(i)\right]
+ \P[\widehat{S}_p = S_p] \le \P\left[M_{S^c} <  t_p \le m_{S} \right]
   % &= \P\left[\frac{\max_{i\in S^c}x(i)}{u_p} < \frac{\min_{i\in S}x(i)}{u_p}\right] \nonumber \\
   % &\le  \P\left[\frac{\max_{i\in S^c}\chi_\nu^2(\lambda(i))}{u_p} < \frac{\min_{i\in S}\chi_\nu^2(\lambda(i))}{u_p}\right] \nonumber \\
   = \P\left[ \frac{M_{S^c}}{u_p} < \frac{m_S}{u_p} \right],
 \end{equation}
-where $M_{S^c} = \max_{i\in S^c}\chi_\nu^2(\lambda(i))$ and $m_{S} = \min_{i\in S}\chi_\nu^2(\lambda(i))$.
-Writing
+where $M_{S^c} = \max_{i\in S^c}x(i)$ and $m_{S} = \min_{i\in S}x(i)$.
+By the relative stability of chi-square random variables (Corollary \ref{cor:relative-stability}), we know that ${M_{S^c}}/{u_{|S^c|}}\to1$ in probability. 
+Further, using the expression for $u_p$ (Lemma \ref{lemma:chisq-quantiles}), we obtain
+$$
+\frac{u_{p-p^{1-\beta}}}{u_{p}} \sim \frac{2\log{(p-p^{1-\beta})}}{2\log{p}} = \frac{\log{p}+\log{(1-p^{-\beta})}}{\log{p}} \sim 1.
+$$
+Therefore, the left-hand-side of the last probability in \eqref{eq:chi-square-necessary-0} converges to 1,
 \begin{equation} \label{eq:chi-square-necessary-1}
-    \frac{M_{S^c}}{u_{p}} = \frac{M_{S^c}}{u_{p-p^{1-\beta}}} \frac{u_{p-p^{1-\beta}}}{u_{p}}, % \stackrel{\P}{\longrightarrow} 1,
+    \frac{M_{S^c}}{u_{p}} = \frac{M_{S^c}}{u_{p-p^{1-\beta}}} \frac{u_{p-p^{1-\beta}}}{u_{p}} \stackrel{\P}{\longrightarrow} 1.
 \end{equation}
-we know by the relative stability of chi-square random variables (Corollary \ref{cor:relative-stability}) that the first term in the product converges to 1 in probability.
-The second term, using the expression for chi-square quantiles (Lemma \ref{lemma:chisq-quantiles}), is asymptotic to 
-$$
-\frac{2\log{(p-p^{1-\beta})}}{2\log{p}} = \frac{\log{p}+\log{(1-p^{-\beta})}}{\log{p}} \sim 1.
-$$
-Therefore, the expression \eqref{eq:chi-square-necessary-1} converges to $1$ in probability.
 
 Meanwhile, for any $i\in S$, by Lemma \ref{lemma:stochastic-monotonicity} and the fact that signal sizes are bounded above by $\overline{\Delta}$, we have,
 \begin{equation*}
@@ -201,14 +204,17 @@ Dividing through by $u_p$, and taking minimum over $S$, we obtain
     \frac{m_S}{u_p} 
     = \min_{i\in S} \frac{\chi_\nu^2(\lambda(i))}{u_p} 
     % \stackrel{\mathrm{d}}{\le} \min \left\{\frac{\chi_\nu^2(\overline{\Delta})}{u_p}, s \text{ i.i.d. copies} \right\} \\
-    \stackrel{\mathrm{d}}{\le} \min_{i\in S}\frac{Z_1^2(i) + \ldots + Z_{\nu-1}^2(i)}{u_p} + \frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{u_p}.
+    \stackrel{\mathrm{d}}{\le} 
+    \min_{i\in S}\left\{\frac{Z_1^2(i) + \ldots + Z_{\nu-1}^2(i)}{u_p} + \frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{u_p}\right\}.
 \end{equation}
 Let $i^\dagger = i^\dagger_p$ be the index minimizing the second term in \eqref{eq:chi-square-necessary-3}, i.e.,
 \begin{equation}
     i^\dagger := \argmin_{i\in S} \frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{u_p}
-    = \argmin_{i\in S} \frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{2\log{p}},
+    = \argmin_{i\in S} f_p\left(z_\nu(i)\right),
+    % \frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{2\log{p}},
 \end{equation}
-and define the function $f_p(x):=(x+\sqrt{\overline{\Delta}})^2/(2\log{p})$, we shall first show that 
+where $f_p(x):=(x+\sqrt{\overline{\Delta}})^2/(2\log{p})$. 
+We shall first show that 
 \begin{equation} \label{eq:chi-square-necessary-4}
     %\min_{i\in S} \frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{2\log{p}} 
     \P[ f_p(Z_\nu(i^\dagger)) < 1 ] \to 1.
@@ -217,8 +223,9 @@ On the one hand, we know (by solving a quadratic inequality) that
 \begin{equation} \label{eq:chi-square-necessary-5}
     f_p(x)<1 \iff \frac{x}{\sqrt{2\log{p}}} \in (-(\sqrt{\overline{r}}+1), -(\sqrt{\overline{r}}-1)).
 \end{equation}
-On the other hand, we know (by relative stability of i.i.d. Gaussians) that 
+On the other hand, we know (by relative stability of i.i.d. Gaussians \cite{gao2018fundamental}) that 
 \begin{equation} \label{eq:chi-square-necessary-6}
+    % f_p(\min_{i\in S}z_\nu(i)) =
     \frac{\min_{i\in S} Z_\nu(i)}{\sqrt{2\log{p}}}
     \to -\sqrt{1-\beta} \quad\text{in probability}.
 \end{equation}
@@ -230,7 +237,7 @@ Combining \eqref{eq:chi-square-necessary-5}, \eqref{eq:chi-square-necessary-6}, 
 $$
 \P\left[\min_{i\in S} f_p(Z_\nu(i)) < 1\right]
 = \P\left[ f_p(Z_\nu(i^\dagger)) < 1 \right] 
-\ge \P\left[ f_p\left(\min_{i\in S}Z_nu(i)\right) < 1 \right] \to 1,
+\ge \P\left[ f_p\left(\min_{i\in S}Z_\nu(i)\right) < 1 \right] \to 1,
 $$
 and we arrive at \eqref{eq:chi-square-necessary-4}.
 As a corollary, since $u_p\sim2\log{p}$, it follows that
@@ -238,7 +245,7 @@ As a corollary, since $u_p\sim2\log{p}$, it follows that
     \P\left[\min_{i\in S}\frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{u_p} < 1\right]\to1.
 \end{equation}
 
-Finally, by independence between $Z_1^2(i)+\ldots+Z_{\nu-1}^2(i)$ and $(z_\nu^2(i)+\sqrt{\overline{\Delta}})^2$, and the fact that $i^\dagger$ is a function of only the second term, we have
+Finally, by independence between $Z_1^2(i)+\ldots+Z_{\nu-1}^2(i)$ and $(z_\nu^2(i)+\sqrt{\overline{\Delta}})^2$, and the fact that $i^\dagger$ is a function of only the latter, we have
 $$
 Z_1^2(i^\dagger)+\ldots+Z_{\nu-1}^2(i^\dagger) 
 \stackrel{\mathrm{d}}{=} Z_1^2(i)+\ldots+Z_{\nu-1}^2(i) 
@@ -251,26 +258,26 @@ Therefore, $Z_1^2(i^\dagger)+\ldots+Z_{\nu-1}^2(i^\dagger) = O_\P(1)$, and
 Together, \eqref{eq:chi-square-necessary-8} and \eqref{eq:chi-square-necessary-9} imply that
 \begin{align}
     \P\left[\frac{m_S}{u_p}<1\right]
-    &\ge \P\left[\min_{i\in S}\frac{Z_1^2(i) + \ldots + Z_{\nu-1}^2(i)}{u_p} + \frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{u_p} < 1\right] \nonumber \\
+    &\ge \P\left[\min_{i\in S}\left\{\frac{Z_1^2(i) + \ldots + Z_{\nu-1}^2(i)}{u_p} + \frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{u_p}\right\} < 1\right] \nonumber \\
     &\ge \P\left[\frac{Z_1^2(i^\dagger) + \ldots + Z_{\nu-1}^2(i^\dagger)}{u_p} + \frac{(Z_\nu(i^\dagger) + \sqrt{\overline{\Delta}})^2}{u_p} < 1\right] \to 1. \label{eq:chi-square-necessary-10}
 \end{align}
 In view of \eqref{eq:chi-square-necessary-0}, \eqref{eq:chi-square-necessary-1}, and \eqref{eq:chi-square-necessary-10}, we conclude that exact recovery cannot succeed with any positive probability.
 The proof of the necessary condition is complete.
 \end{proof}
 
-\subsection{Proof of Theorem \ref{thm:chi-squred-weak-boundary}}
-\label{subsec:proof-chi-squred-weak-boundary}
+\subsection{Proof of Theorem \ref{thm:chi-squared-approx-boundary}}
+\label{subsec:proof-chi-squared-approx-boundary}
 
 We first show the necessary condition. 
 That is, when $\overline{r} < \beta$, no thresholding procedure is able to achieve approximate support recovery.
 The main structure of the proof follows that of Theorem 1 in \citet{arias2017distribution}. 
 Our arguments, however, allow for unequal signal sizes; these arguments can in turn be used to generalize the results in \cite{arias2017distribution}.
 
-\begin{proof}[Proof of necessary condition in Theorem \ref{thm:chi-squred-weak-boundary}]
+\begin{proof}[Proof of necessary condition in Theorem \ref{thm:chi-squared-approx-boundary}]
 Denote the distributions of $\chi^2_\nu(0)$, $\chi^2_\nu(\underline{\Delta})$ and $\chi^2_\nu(\overline{\Delta})$ as $F_0$, $F_{\underline{a}}$, and $F_{\overline{a}}$ respectively.
 
-We first show the necessary condition, i.e., when $\overline{r}<\beta$, approximate support recovery cannot be achieved with any thresholding procedure.
-In particular, we show that the liminf of the sum of FDP and NDP is at least 1.
+% We first show the necessary condition, i.e., when $\overline{r}<\beta$, approximate support recovery cannot be achieved with any thresholding procedure.
+% In particular, we show that the liminf of the sum of FDP and NDP is at least 1.
 
 Recall that thresholding procedures are of the form
 $$
@@ -278,31 +285,31 @@ $$
 $$
 Denote $\widehat{S} := \left\{i\,|\,x(i) > t_p(x)\right\}$, and $\widehat{S}(u) := \left\{i\,|\,x(i) > u\right\}$.
 For any threshold $u\ge t_p$ we must have $\widehat{S}(u)\subseteq\widehat{S}$, and hence
-\begin{equation} \label{eq:weak-boundary-proof-FDP}
+\begin{equation} \label{eq:approx-boundary-proof-FDP}
     \text{FDP} = \frac{|\widehat{S}\setminus{S}|}{|\widehat{S}|} \ge \frac{|\widehat{S}\setminus{S}|}{|\widehat{S}\cup{S}|} = \frac{|\widehat{S}\setminus{S}|}{|\widehat{S}\setminus{S}| + |S|} \ge
     \frac{|\widehat{S}(u)\setminus{S}|}{|\widehat{S}(u)\setminus{S}| + |S|}.
 \end{equation}
 On the other hand, for any threshold $u\le t_p$ we must have $\widehat{S}(u)\supseteq\widehat{S}$, and hence
-\begin{equation} \label{eq:weak-boundary-proof-NDP}
+\begin{equation} \label{eq:approx-boundary-proof-NDP}
     \text{NDP} = \frac{|{S}\setminus\widehat{S}|}{|{S}|} \ge 
     \frac{|{S}\setminus\widehat{S}(u)|}{|{S}|}.
 \end{equation}
-Since either $u\ge t_p$ or  $u\le t_p$ must take place, putting \eqref{eq:weak-boundary-proof-FDP} and \eqref{eq:weak-boundary-proof-NDP} together, we have
-\begin{equation} \label{eq:weak-boundary-proof-converse-1}
+Since either $u\ge t_p$ or  $u\le t_p$ must take place, putting \eqref{eq:approx-boundary-proof-FDP} and \eqref{eq:approx-boundary-proof-NDP} together, we have
+\begin{equation} \label{eq:approx-boundary-proof-converse-1}
     \text{FDP} + \text{NDP} 
     \ge \frac{|\widehat{S}(u)\setminus{S}|}{|\widehat{S}(u)\setminus{S}|+|{S}|} \wedge \frac{|{S}\setminus\widehat{S}(u)|}{|{S}|},
 \end{equation}
 for any $u$.
-Therefore it suffices to show that for a suitable choice of $u$, the RHS of \eqref{eq:weak-boundary-proof-converse-1} converges to 1.
+Therefore it suffices to show that for a suitable choice of $u$, the RHS of \eqref{eq:approx-boundary-proof-converse-1} converges to 1.
 
-Let $t^* = 2q\log{p}$, where $\overline{r}<q<\beta$, we obtain an estimate of the tail probability
+Let $t^* = 2q\log{p}$ for some fixed $q$, we obtain an estimate of the tail probability
 \begin{align}
     \overline{F_0}(t^*) 
     &= \P[\chi_\nu^2(0) > t^*] 
     = \frac{2^{1-\nu/2}}{\Gamma(\nu/2)} \int_{2q\log{p}}^\infty x^{\nu/2-1}e^{-x/2} \mathrm{d}x \nonumber \\
-    &\sim \frac{2^{1-\nu/2}}{\Gamma(\nu/2)} \left(2q\log{p}\right)^{\nu/2-1}p^{-q}, \label{eq:weak-boundary-proof-null-tail-prob}
+    &\sim \frac{2^{2-\nu/2}}{\Gamma(\nu/2)} \left(2q\log{p}\right)^{\nu/2-1}p^{-q}. \label{eq:approx-boundary-proof-null-tail-prob}
 \end{align}
-where $a_p\sim b_p$ is taken to mean $a_p/b_p\to 1$.
+where $a_p\sim b_p$ is taken to mean $a_p/b_p\to 1$; the tail estimate was also used in \cite{donoho2004higher}.
 Observe that $|\widehat{S}(t^*)\setminus{S}|$ has distribution $\text{Binom}(p-s, \overline{F_0}(t^*))$, denote $X = X_p := {|\widehat{S}(t^*)\setminus{S}|}/{|S|}$, and we have 
 $$
 \mu := \E\left[X\right] = \frac{(p-s)\overline{F_0}(t^*)}{s},
@@ -314,22 +321,24 @@ Therefore for any $M>0$, we have, by Chebyshev's inequality,
     \P\left[X < M\right] 
     \le \P\left[\left|X-\mu\right| > \mu - M\right]
     \le \frac{\mu/s}{(\mu-M)^2}
-    = \frac{1/(\mu s)}{(1-M/\mu)^2}. \label{eq:weak-boundary-proof-converse-2}
+    = \frac{1/(\mu s)}{(1-M/\mu)^2}. \label{eq:approx-boundary-proof-converse-2}
 \end{equation}
-Now, from the expression of $\overline{F_0}(t^*)$ in \eqref{eq:weak-boundary-proof-null-tail-prob}, we obtain
+Now, from the expression of $\overline{F_0}(t^*)$ in \eqref{eq:approx-boundary-proof-null-tail-prob}, we obtain
 $$
-\mu = (p^\beta - 1)\overline{F_0}(t^*) \sim \frac{2^{1-\nu/2}}{\Gamma(\nu/2)} \left(2q\log{p}\right)^{\nu/2-1}p^{\beta-q}\to\infty \quad \text{ as }\;p\to\infty.
+\mu = (p^\beta - 1)\overline{F_0}(t^*) \sim \frac{2^{1-\nu/2}}{\Gamma(\nu/2)} \left(2q\log{p}\right)^{\nu/2-1}p^{\beta-q}.
 $$
-Therefore the last expression in \eqref{eq:weak-boundary-proof-converse-2} converges to 0, and we conclude that $X\to\infty$ in probability, and hence
-$$
+Since $\overline{r}<\beta$, we can pick $q$ such that $\overline{r}<q<\beta$. 
+In turn, we have $\mu \to\infty$, as $p\to\infty$.
+Therefore the last expression in \eqref{eq:approx-boundary-proof-converse-2} converges to 0, and we conclude that $X\to\infty$ in probability, and hence
+\begin{equation} \label{eq:approx-boundary-proof-converse-3}
 \frac{|\widehat{S}(t^*)\setminus{S}|}{|\widehat{S}(t^*)\setminus{S}|+|{S}|} 
 = \frac{X}{X+1} \to 1 \quad \text{in probability}.
-$$
+\end{equation}
 
 On the other hand, we show that with the same choice of $u = t^*$,
-$$
-\frac{|{S}\setminus\widehat{S}(t^*)|}{|{S}|}\to 1 \quad \text{in probability}.
-$$
+\begin{equation} \label{eq:approx-boundary-proof-converse-4}
+    \frac{|{S}\setminus\widehat{S}(t^*)|}{|{S}|}\to 1 \quad \text{in probability}.
+\end{equation}
 By the stochastic monotonicity of chi-square distributions (Lemma \ref{lemma:stochastic-monotonicity}), the probability of missed detection for each signal is lower bounded by $\P[\chi^2_\nu(\lambda_i) \le t^*] \ge F_{\overline{a}}(t^*))$.
 Therefore, $|{S}\setminus\widehat{S}(t^*)| \stackrel{\mathrm{d}}{\ge} \text{Binom}(s, {F_{\overline{a}}}(t^*))$, and it suffices to show that ${F_{\overline{a}}}(t^*)$ converges to 1.
 This is indeed the case, since
@@ -378,7 +387,7 @@ Therefore, by the definition of $i^*$, we have
 Since $\widehat{G}$ is constant on $(x_{[i^*+1]}, x_{[i^*]}]$, the fact that 
 $\overline{F_0}(x_{[i^*]}) \le \alpha\widehat{G}(x_{[i^*]})$ and $\overline{F_0}(x_{[i^*+1]}) > \alpha\widehat{G}(x_{[i^*+1]})$ implies that $\alpha\widehat{G}$ and $\overline{F_0}$ must ``intersect'' on the interval.
 We denote this ``intersection'' as
-\begin{equation} \label{eq:weak-boundary-proof-tau}
+\begin{equation} \label{eq:approx-boundary-proof-tau}
     \tau = \inf\{t\,|\,\overline{F_0}(t)\le\alpha\widehat{G}(t)\}. 
     %= \min\{t\,|\,\overline{F_0}(t)=\alpha\widehat{G}(t)\}.
 \end{equation}
@@ -389,15 +398,15 @@ Now, denote the observations under Alternatives 1 and 2 as $x_1(i)$ and $x_2(i)$
 Since $x_2(i)$ stochastically dominates $x_1(i)$ for all $i\in\{1,\ldots,p\}$, there exists a coupling $(\widetilde{x}_1, \widetilde{x}_2)$ of $x_1$ and $x_2$ such that 
 % $\widetilde{x}_1(i) = \widetilde{x}_2(i)$ for $i\in S^c$, and 
 $\widetilde{x}_1(i) \le \widetilde{x}_2(i)$ a.s. for all $i$.
-We will replace $x_1$ and $x_2$ with $\widetilde{x}_1$ and $\widetilde{x}_2$ in what follows.
-Since we will compare expectations with respect to $\widetilde{x}$'s in the last step, this replacement does not cause any trouble.
+We will replace $\widetilde{x}_1$ and $\widetilde{x}_2$ with $x_1$ and $x_2$ in what follows.
+Since we will compare the FNR's, i.e., expectations with respect to the marginals of ${x}$'s in the last step, this replacement does not affect the conclusions.
 To simplify notation, we still write $x_1$ and $x_2$ in place of $\widetilde{x}_1$ and $\widetilde{x}_2$.
 
 Let $\widehat{G}_k$ be the empirical survival function under Alternative $k$, i.e.,
 \begin{equation} \label{eq:empirical-survival}
     \widehat{G}_k(t) = \frac{1}{p}\sum_{i\in[p]}\mathbbm{1}\{x_k(i) \ge t\}, \quad k\in\{1,2\}.
 \end{equation}
-We define the BH thresholds $\tau_1$ and $\tau_2$ by replacing $\widehat{G}$ in \eqref{eq:weak-boundary-proof-tau} with $\widehat{G}_1$ and $\widehat{G}_2$, respectively.
+We define the BH thresholds $\tau_1$ and $\tau_2$ by replacing $\widehat{G}$ in \eqref{eq:approx-boundary-proof-tau} with $\widehat{G}_1$ and $\widehat{G}_2$, respectively.
 Denote the set estimates of signal support $\widehat{S}_k = \{i\,|\,x_k(i)\ge\tau_k\}$ by the BH procedure.
 We claim that (perhaps surprisingly),
 \begin{equation} \label{eq:monotonicity-BH-procedure-thresholds}
@@ -405,21 +414,21 @@ We claim that (perhaps surprisingly),
 \end{equation}
 
 Indeed, by definition of the empirical survival function \eqref{eq:empirical-survival} and the fact that $x_1(i) \le x_2(i)$ almost surely for all $i$,  we have $\widehat{G}_1(t) \le \widehat{G}_2(t)$ for all $t$.
-Hence, $\overline{F_0}(t)\le\alpha\widehat{G}_1(t)$ implies $\overline{F_0}(t)\le\alpha\widehat{G}_2(t)$, and Relation \eqref{eq:monotonicity-BH-procedure-thresholds} follows from the definition of $\tau$ in \eqref{eq:weak-boundary-proof-tau}.
+Hence, $\overline{F_0}(t)\le\alpha\widehat{G}_1(t)$ implies $\overline{F_0}(t)\le\alpha\widehat{G}_2(t)$, and Relation \eqref{eq:monotonicity-BH-procedure-thresholds} follows from the definition of $\tau$ in \eqref{eq:approx-boundary-proof-tau}.
 
 Finally, when $\tau_2 \le \tau_1$, we have $\tau_2 \le \tau_1 \le x_1(i) \le x_2(i)$ with probability 1 for all $i\in\widehat{S}_1$.
 Therefore, it follows that $\widehat{S}_1 \subseteq \widehat{S}_2$ and hence $|S\setminus\widehat{S}_2| \le |S\setminus\widehat{S}_1|$ almost surely. 
 The conclusion in Lemma \ref{lemma:monotonicity-BH-procedure} follows from the last inequality.
 \end{proof}
 
-Lemma \ref{lemma:monotonicity-BH-procedure} allows us to reduce the analysis of alternative with unequal signal sizes to one with equal signal sizes. 
+Lemma \ref{lemma:monotonicity-BH-procedure} allows us to reduce the analysis of alternative with unequal signal sizes to alternatives with equal signal sizes. 
 The structure for the rest of the proof for the sufficient condition follows that of Theorem 2 in \cite{arias2017distribution}. 
 
-\begin{proof}[Proof of sufficient condition in Theorem \ref{thm:chi-squred-weak-boundary}]
+\begin{proof}[Proof of sufficient condition in Theorem \ref{thm:chi-squared-approx-boundary}]
 The FDR vanishes by our choice of $\alpha$ and the FDR-controlling property of the BH procedure.
 It only remains to show that FNR also vanishes.
 
-To do so we compare the FNR under the alternative specified in Theorem \ref{thm:chi-squred-weak-boundary} to one with all of the signal sizes equal to $\underline{\Delta}$.
+To do so we compare the FNR under the alternative specified in Theorem \ref{thm:chi-squared-approx-boundary} to one with all of the signal sizes equal to $\underline{\Delta}$.
 Let $x(i)$ be vectors of independent observations with $p-s$ nulls having $\chi^2_\nu(0)$ distributions, and $s$ signals having $\chi^2_\nu(\underline{\Delta})$ distributions.
 By Lemma \ref{lemma:stochastic-monotonicity} Lemma \ref{lemma:monotonicity-BH-procedure}, it suffices to show that the FNR under the BH procedure in this setting vanishes.
 
@@ -464,8 +473,8 @@ where $\overline{F_0}$ and $\overline{F_{a}}$ are the survival functions of $\ch
 \end{equation}
 uniformly in $t$.
 
-Recall (see proof of Lemma \ref{lemma:monotonicity-BH-procedure}) that the BH procedure is the thresholding procedure with threshold set at $\tau$ (defined in \eqref{eq:weak-boundary-proof-tau}).
-% \begin{equation} \label{eq:weak-boundary-proof-tau-recall}
+Recall (see proof of Lemma \ref{lemma:monotonicity-BH-procedure}) that the BH procedure is the thresholding procedure with threshold set at $\tau$ (defined in \eqref{eq:approx-boundary-proof-tau}).
+% \begin{equation} \label{eq:approx-boundary-proof-tau-recall}
 %     \tau = \inf\{t\,|\,\overline{F_0}(t)\le\alpha\widehat{G}(t)\}. 
 %     %= \min\{t\,|\,\overline{F_0}(t)=\alpha\widehat{G}(t)\}.
 % \end{equation}
@@ -474,7 +483,7 @@ $$
 \text{NDP} = \frac{|{S}\setminus\widehat{S}|}{|{S}|} = \frac{1}{s}\sum_{i\in S}\mathbbm{1}\{x(i) < \tau\} = 1 - \widehat{W}_\text{signal}(\tau),
 $$
 so that it suffices to show that 
-\begin{equation} \label{eq:weak-boundary-proof-sufficient-1}
+\begin{equation} \label{eq:approx-boundary-proof-sufficient-1}
     \widehat{W}_\text{signal}(\tau)\to 1
 \end{equation} in probability.
 Applying Lemma \ref{lemma:empirical-process} to $\widehat{W}_\text{signal}$, we know that 
@@ -482,24 +491,27 @@ $$
 \widehat{W}_\text{signal}(\tau) = \overline{F_a}(\tau) + O_\P\left(\xi_s\sqrt{\overline{F_a}(\tau)F_a(\tau)}\right) = \overline{F_a}(\tau) + o_\P(1).
 $$
 So it suffices to show that $F_a(\tau)\to 0$ in probability.
-Now let $t^* = 2q\log(p)$ for some $q$ such that $\beta<q<r$.
+Now let $t^* = 2q\log(p)$ for some $q$ such that $\beta<q<\underline{r}$.
 We have 
-\begin{equation} \label{eq:weak-boundary-proof-sufficient-2}
-    F_a(t^*) = \P[\chi^2_\nu(\underline{\Delta}) \le t^*]
-    \le \P\left[2\sqrt{\underline{\Delta}}Z_\nu \le t^* - \underline{\Delta}\right] 
-    = \P\left[Z_\nu \le \frac{t^*}{2\sqrt{\underline{\Delta}}} - \frac{\sqrt{\underline{\Delta}}}{2}\right] \to 0.
-\end{equation}
-Hence in order to show \eqref{eq:weak-boundary-proof-sufficient-1}, it suffices to show 
-\begin{equation} \label{eq:weak-boundary-proof-sufficient-3}
+\begin{align}
+    F_a(t^*) 
+    &= \P[\chi^2_\nu(\underline{\Delta}) \le t^*]
+    \le \P\left[2\sqrt{\underline{\Delta}}Z_\nu \le t^* - \underline{\Delta}\right] \nonumber \\
+    &= \P\left[Z_\nu \le \frac{t^*}{2\sqrt{\underline{\Delta}}} - \frac{\sqrt{\underline{\Delta}}}{2}\right] 
+    = \P\left[Z_\nu \le \frac{q-\underline{r}}{2\sqrt{\underline{r}}}\sqrt{2\log{p}}\right] \to 0. \label{eq:approx-boundary-proof-sufficient-2}
+\end{align} 
+Hence in order to show \eqref{eq:approx-boundary-proof-sufficient-1}, it suffices to show 
+\begin{equation} \label{eq:approx-boundary-proof-sufficient-3}
     \P\left[\tau \le t^*\right] \to 1.
 \end{equation}
 By \eqref{eq:empirical-process-mean}, the mean of the empirical process $\widehat{G}$ evaluated at $t^*$ is
 \begin{equation*}
     G(t^*) = \frac{p-s}{p}\overline{F_0}(t^*) + \frac{s}{p}\overline{F_a}(t^*).
 \end{equation*}
-The first term, using Relation \eqref{eq:weak-boundary-proof-null-tail-prob}, is asymptotic to $p^{-q}L(p)$, where $L(p)$ is the logarithmic term in $p$.
-The second term, since $\overline{F_a}(t^*)\to 1$ by Relation \eqref{eq:weak-boundary-proof-sufficient-2}, is asymptotic to $p^{-\beta}$.
-Therefore, $G(t^*) \sim p^{-q}L(p) + p^{-\beta} \sim p^{-\beta}$, since $q>\beta$ and $p^\delta L(p)$ for all $\delta>0$.
+The first term, using Relation \eqref{eq:approx-boundary-proof-null-tail-prob}, is asymptotic to $p^{-q}L(p)$, where $L(p)$ is the logarithmic term in $p$.
+The second term, since $\overline{F_a}(t^*)\to 1$ by Relation \eqref{eq:approx-boundary-proof-sufficient-2}, is asymptotic to $p^{-\beta}$.
+Therefore, $G(t^*) \sim p^{-q}L(p) + p^{-\beta} \sim p^{-\beta}$, since 
+$p^{\beta-q}L(p)\to0$ where $q>\beta$.
 
 The fluctuation of the empirical process at $t^*$, by Relation \eqref{eq:empirical-process-residual}, is 
 \begin{align*}
@@ -507,14 +519,14 @@ The fluctuation of the empirical process at $t^*$, by Relation \eqref{eq:empiric
     &= O_\P\left(\xi_p\sqrt{\overline{F_0}(t^*)F_0(t^*)} + \frac{s}{p}\xi_s\sqrt{\overline{F_a}(t^*)F_a(t^*)}\right)\\
     &= O_\P\left(\xi_p\sqrt{\overline{F_0}(t^*)}\right) + o_\P\left(p^{-\beta}\right).
 \end{align*}
-By \eqref{eq:weak-boundary-proof-null-tail-prob} and the expression for $\xi_p$, the first term is $O_\P\left(p^{-(q+1)/2}L(p)\right)$ where $L(p)$ is a poly-logarithmic term in $p$.
+By \eqref{eq:approx-boundary-proof-null-tail-prob} and the expression for $\xi_p$, the first term is $O_\P\left(p^{-(q+1)/2}L(p)\right)$ where $L(p)$ is a poly-logarithmic term in $p$.
 Since $\beta<\min\{q,1\}$, we have $\beta<(q+1)/2$, and hence $\widehat{R}(t^*) = o_\P(p^{-\beta})$.
 
 Putting the mean and the fluctuation of $\widehat{G}(t^*)$ together, we obtain
 $$
 \widehat{G}(t^*) = G(t^*) + \widehat{R}(t^*) \sim_\P G(t^*) \sim p^{-\beta},
 $$
-and therefore, together with \eqref{eq:weak-boundary-proof-null-tail-prob}, we have
+and therefore, together with \eqref{eq:approx-boundary-proof-null-tail-prob}, we have
 $$
 \overline{F_0}(t^*)/\widehat{G}(t^*) = p^{\beta-q}L(p)(1+o_{\P}(1)),
 $$
@@ -523,11 +535,206 @@ That is,
 $$
 \P\left[\overline{F}_0(t^*) / \widehat{G}(t^*) < \alpha\right] \to 1.
 $$
-By definition of $\tau$ (recall \eqref{eq:weak-boundary-proof-tau}), this implies that $\tau \le t^*$ with probability tending to 1, and \eqref{eq:weak-boundary-proof-sufficient-3} is shown.
+By definition of $\tau$ (recall \eqref{eq:approx-boundary-proof-tau}), this implies that $\tau \le t^*$ with probability tending to 1, and \eqref{eq:approx-boundary-proof-sufficient-3} is shown.
 The proof for the sufficient condition is complete.
 \end{proof}
 
-\subsection{Signal sizes and odds ratio in 2-by-2 contingency tables}
+\subsection{Proof of Theorem \ref{thm:chi-squared-exact-approx-boundary}}
+\label{subsec:proof-chi-squared-exact-approx-boundary}
+
+Proof of Theorem \ref{thm:chi-squared-exact-approx-boundary} uses ideas from both the proof of Theorem \ref{thm:chi-squared-exact-boundary} and that of Theorem \ref{thm:chi-squared-approx-boundary}, and is substantially shorter.
+
+\begin{proof}[Proof of Theorem \ref{thm:chi-squared-exact-approx-boundary}]
+% The reduction to equal signal sizes can be achieved 
+We first show the sufficient condition.
+Vanishing FWER is guaranteed by the properties of the procedures, as discussed in the proof  of Theorem \ref{thm:chi-squared-exact-boundary}, and we only need to show that FNR also goes to zero. 
+As in the proof of Theorem \ref{thm:chi-squared-exact-approx-boundary}, it suffices to show that
+\begin{equation} \label{eq:exact-approx-boundary-proof-sufficient-1}
+    \text{NDP} = 1 - \widehat{W}_\text{signal}(t_p) \to 0,
+\end{equation}
+where $t_p$ is the threshold of Bonferroni's procedure.
+
+Since $\underline{r}>\widetilde{g}(\beta)=1$, we can pick $q$ such that $1<q<\underline{r}$.
+Let $t^* = 2q\log{p}$, we have $t_p<t_p^*$ for large $p$ as in the proof of Theorem \ref{thm:chi-squared-exact-boundary}.
+Therefore for large $p$, we have
+$$
+\widehat{W}_\text{signal}(t_p) \le \widehat{W}_\text{signal}(t^*) \le \overline{F_a}(t^*) + o_\P(1),
+$$
+where the last inequality follows from the stochastic monotonicity of the chi-square family, and Lemma \ref{lemma:empirical-process}.
+Indeed, $F_a(t^*)\to0$ by \eqref{eq:approx-boundary-proof-sufficient-2} and our choice of $q<\underline{r}$. 
+The proof of the sufficient condition is complete.
+
+The necessary condition follows similar logic as in the proof of Theorem \ref{thm:chi-squared-approx-boundary}.
+That is, we show that $\mathrm{FWER} + \mathrm{FNR}$ has liminf at least 1 by working with the lower bound
+\begin{equation} \label{eq:exact-approx-boundary-proof-necessary-1}
+    \mathrm{FWER}(\mathcal{R}) + \mathrm{FNR}(\mathcal{R}) \ge \P\left[\max_{i\in S^c}x(i)>u\right] \wedge \E\left[\frac{|S\setminus \widehat{S}(u)|}{|S|}\right],
+\end{equation}
+which holds for any thresholding procedure $\mathcal{R}$ and for arbitrary $u\in\R$.
+By the assumption that $\overline{r}<\widetilde{g}(\beta)=1$, we can pick $q$ such that $\overline{r}<q<1$ and let $u = t^*=2q\log{p}$.
+By relative stability of chi-squared random variables (Lemma \ref{lemma:rapid-variation-chisq}), we have
+\begin{equation} \label{eq:exact-approx-boundary-proof-necessary-2}
+    \P\left[\frac{\max_{i\in S^c} x(i)}{2\log{p}} > \frac{t^*}{2\log{p}}\right] \to 1.
+\end{equation}
+where the first fraction in \eqref{eq:exact-approx-boundary-proof-necessary-2} converges to 1, while the second converges to $q<1$.
+On the other hand, by our choice of $q>\overline{r}$, the second term in \eqref{eq:exact-approx-boundary-proof-necessary-1} also converges to 1 as in \eqref{eq:approx-boundary-proof-converse-4}.
+This completes the proof of the necessary condition.
+\end{proof}
+
+\subsection{Proof of Theorem \ref{thm:chi-squared-approx-exact-boundary}}
+\label{subsec:proof-chi-squared-approx-exact-boundary}
+
+\begin{proof}[Proof of Theorem \ref{thm:chi-squared-approx-exact-boundary}]
+We first show the sufficient condition.
+Since FDR control is guaranteed by the BH procedure, we only need to show that the FWNR also vanishes, that is,
+\begin{equation} \label{eq:approx-exact-boundary-proof-sufficient-1}
+    \P\left[\min_{i\in S}x(i) \ge \tau\right] \to 1,
+\end{equation}
+where $\tau$ is the threshold for the BH procedure.
+
+By the assumption that $\underline{r}>\widetilde{h}(\beta)=(\sqrt{\beta}+\sqrt{1-\beta})^2$, we have $\sqrt{\underline{r}}-\sqrt{1-\beta}>\sqrt{\beta}$, so we can pick $q>0$, such that 
+\begin{equation} \label{eq:approx-exact-boundary-proof-sufficient-2}
+\sqrt{\underline{r}}-\sqrt{1-\beta}>\sqrt{q}>\sqrt{\beta}.
+\end{equation}
+Let $t^*=2q\log{p}$, we claim that 
+\begin{equation} \label{eq:approx-exact-boundary-proof-sufficient-3}
+\P\left[\tau\le t^*\right]\to 1.
+\end{equation}
+Indeed, by our choice of $q>\beta$, \eqref{eq:approx-exact-boundary-proof-sufficient-3} follows in the same way that \eqref{eq:approx-boundary-proof-sufficient-3} did.
+
+With this $t^*$, we have
+\begin{equation} \label{eq:approx-exact-boundary-proof-sufficient-4}
+    \P\left[\min_{i\in S}x(i) \ge \tau\right] \ge 
+    \P\left[\min_{i\in S}x(i) \ge t^* \ge \tau\right] \ge
+    \P\left[\min_{i\in S}x(i) \ge t^*\right] \wedge \P\left[t^* \ge \tau\right].
+\end{equation}
+However, by our choice of $\sqrt{q} < \sqrt{\underline{r}}-\sqrt{1-\beta}$, the first term in this minimum goes to 1 too, according to \eqref{eq:chi-square-sufficient-1} and \eqref{eq:chi-square-sufficient-2}.
+Together with \eqref{eq:approx-exact-boundary-proof-sufficient-3}, this proves \eqref{eq:approx-exact-boundary-proof-sufficient-1}, and completes proof of the sufficient condition.
+
+The necessary condition, again, follows from a lower bound
+\begin{equation} \label{eq:approx-exact-boundary-proof-necessary-1}
+    \mathrm{FDR}(\mathcal{R}) + \mathrm{FWNR}(\mathcal{R}) \ge \E\left[\frac{|\widehat{S}(u)\setminus S|}{|\widehat{S}(u)\setminus S| + |S|}\right] \wedge 
+    \P\left[\min_{i\in S}x(i)<u\right],
+\end{equation}
+which holds for any thresholding procedure $\mathcal{R}$ and for arbitrary $u\in\R$.
+
+By the assumption that $\overline{r}<\widetilde{h}(\beta)=(\sqrt{\beta}+\sqrt{1-\beta})^2$, we can pick a constant $q>0$, such that 
+\begin{equation} \label{eq:approx-exact-boundary-proof-necessary-2}
+    \sqrt{\overline{r}} - \sqrt{1-\beta} < \sqrt{q} < \sqrt{\beta}.
+\end{equation}
+Let also $u = t^*=2q\log{p}$.
+By our choice of $q < \beta$, we know from \eqref{eq:approx-boundary-proof-converse-3} that the first term on the right-hand-side of \eqref{eq:approx-exact-boundary-proof-necessary-1} converges to 1.
+It remain to show that the second term in \eqref{eq:approx-exact-boundary-proof-necessary-1} also converges to 1.
+
+For the second term in \eqref{eq:approx-exact-boundary-proof-necessary-1}, dividing through by $2\log{p}$, we obtain
+\begin{equation} \label{eq:approx-exact-boundary-proof-necessary-3}
+    \P\left[\min_{i\in S}x(i)<t^*\right] = \P\left[ \frac{m_{S}}{2\log{p}} < q \right].
+\end{equation}
+Analogous to \eqref{eq:chi-square-necessary-3}, we have
+\begin{equation} \label{eq:approx-exact-boundary-proof-necessary-4}
+    \frac{m_{S}}{2\log{p}} 
+    \stackrel{\mathrm{d}}{\le} \min_{i\in S}\frac{Z_1^2(i) + \ldots + Z_{\nu-1}^2(i)}{2\log{p}} + \frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{2\log{p}}.
+\end{equation}
+Define $i^\dagger = i^\dagger_p$ to be the index minimizing the second term in \eqref{eq:approx-exact-boundary-proof-necessary-4}, i.e.,
+\begin{equation}
+    i^\dagger := \argmin_{i\in S} f_p\left(z_\nu(i)\right),
+    % \frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{2\log{p}},
+\end{equation}
+where $f_p(x):=(x+\sqrt{\overline{\Delta}})^2/(2\log{p})$. 
+
+Since $\sqrt{q}>\sqrt{\overline{r}}-\sqrt{1-\beta}$ and that $q>0$, we have,
+\begin{equation}
+    \frac{\sqrt{\overline{r}}-\sqrt{q}}{\sqrt{1-\beta}}<1
+    \quad\text{and}\quad
+    \frac{\sqrt{\overline{r}}+\sqrt{q}}{\sqrt{1-\beta}}>0.
+\end{equation}
+Therefore, we can further pick a constant $\beta_0\in(0,1]$ such that
+\begin{equation} \label{eq:approx-exact-boundary-proof-necessary-5}
+    \frac{\sqrt{\overline{r}}-\sqrt{q}}{\sqrt{1-\beta}} 
+    < \sqrt{\beta_0} < 
+    \frac{\sqrt{\overline{r}}+\sqrt{q}}{\sqrt{1-\beta}}.
+\end{equation}
+Let $Z_{[1]}\le Z_{[2]}\le\ldots\le Z_{[s]}$ be the order statistics of 
+$\{Z_\nu(i)\}_{i\in S}$ and define $k=\lfloor s^{1-\beta_0}\rfloor$.
+Applying Lemma \ref{lemma:relative-stability-order-statistics} (stated below), we obtain
+% \begin{equation*} 
+% Z_{[k]} \sim -\sqrt{2\beta_0\log{s}} \sim -\sqrt{2\beta_0(1-\beta)\log{p}}.
+% % , \quad\text{as}\;\;p\to\infty.
+% \end{equation*}
+% Therefore, we have,
+\begin{equation} \label{eq:approx-exact-boundary-proof-necessary-6}
+    % f_p(\min_{i\in S}z_\nu(i)) =
+    \frac{Z_{[k]}}{\sqrt{2\log{p}}}
+    = \frac{Z_{[k]}}{\sqrt{2\log{s}}} \frac{\sqrt{2\log{s}}}{\sqrt{2\log{p}}} 
+    \to -\sqrt{\beta_0(1-\beta)}
+    % \left(-(\sqrt{\overline{r}}+\sqrt{q}), -(\sqrt{\overline{r}}-\sqrt{q})\right) 
+    \quad\text{in probability}.
+\end{equation}
+Since we know (by solving a quadratic inequality) that
+\begin{equation} \label{eq:approx-exact-boundary-proof-necessary-7}
+    f_p(x)<q \iff \frac{x}{\sqrt{2\log{p}}} \in \left(-(\sqrt{\overline{r}}+\sqrt{q}), -(\sqrt{\overline{r}}-\sqrt{q})\right),
+\end{equation}
+combining \eqref{eq:approx-exact-boundary-proof-necessary-5}, \eqref{eq:approx-exact-boundary-proof-necessary-6}, and 
+\eqref{eq:approx-exact-boundary-proof-necessary-7}, it follows that
+\begin{equation*}
+    %\min_{i\in S} \frac{(Z_\nu(i) + \sqrt{\overline{\Delta}})^2}{2\log{p}} 
+    \P\left[ f_p\left(Z_\nu(i^\dagger)\right) < q \right] \ge \P\left[ f_p\left(Z_{[k]}\right) < q \right] \to 1.
+\end{equation*}
+Finally, using \eqref{eq:chi-square-necessary-9}, we conclude that 
+$$
+\P\left[\min_{i\in S}x(i)<t^*\right] = 
+\P\left[\frac{m_{S}}{2\log{p}} < q\right] \ge
+\P\left[o_\P(1) + f_p\left(Z_\nu(i^\dagger)\right) < q \right] \to 1.
+$$
+Therefore, the two terms on the right-hand-side of \eqref{eq:approx-exact-boundary-proof-necessary-1} both converge 1. 
+This completes the proof of the necessary condition.
+\end{proof}
+
+It only remains to justify \eqref{eq:approx-exact-boundary-proof-necessary-6}.
+
+\begin{lemma}[Relative stability of order statistics]
+\label{lemma:relative-stability-order-statistics}
+Let $Z_{[1]} \le \ldots \le Z_{[s]}$ be the order statistics of $s$ i.i.d. standard Gaussian random variables.
+Let $\beta_0\in(0,1]$ and define $k=\lfloor s^{1-\beta_0}\rfloor$, then we have
+\begin{equation}
+    \frac{Z_{[k]}}{\sqrt{2\log{s}}} \to -\sqrt{\beta_0} \quad\text{in probability}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}[Proof of Lemma \ref{lemma:relative-stability-order-statistics}]
+Using the Renyi representation for order statistics, we write
+\begin{equation} \label{eq:relative-stability-order-statistics-proof-1}
+    Z_{[i]} = \Phi^{\leftarrow}(U_{[i]}),
+\end{equation}
+where $U_{[i]}$ is the $i^\mathrm{th}$ (smallest) order statistic of $s$ independent uniform random variables over $(0,1)$.
+Since $U_{[i]}$ has a $\mathrm{Beta}(i, s+1-i)$ distribution, with mean and standard deviation,
+$$
+\E[U_{[k]}] = k/(s+1) \sim s^{-\beta_0}, 
+\quad \text{and} \quad
+{\mathrm{sd}(U_{[k]})} = \frac{1}{s+1}\sqrt{\frac{k(s+1-k)}{s+2}} \sim s^{-\frac{1+\beta_0}{2}},
+$$
+we obtain by Chebyshev's inequality 
+% (since $\E[U_{[k]}]/\mathrm{sd}(U_{[k]})\sim p^{(1-\beta_0)/2}$) 
+$$
+\P\left[s^{-\beta_0}(1-\epsilon) < U_{[k]} < s^{-\beta_0}(1+\epsilon)\right] \to 1,
+$$
+where $\epsilon$ is an arbitrary positive constant.
+This implies, by representation \eqref{eq:relative-stability-order-statistics-proof-1},
+\begin{equation} \label{eq:relative-stability-order-statistics-proof-2}
+    \P\left[\Phi^{\leftarrow}\left(s^{-\beta_0}(1-\epsilon)\right) < Z_{[k]} < \Phi^{\leftarrow}\left(s^{-\beta_0}(1+\epsilon)\right)\right] \to 1.
+\end{equation}
+Using the expression for standard Gaussian quantiles, we know that
+\begin{align*}
+    \Phi^{\leftarrow}\left(s^{-\beta_0}(1-\epsilon)\right) 
+    &\sim -\sqrt{2\log{\left(s^{\beta_0}/(1-\epsilon)\right)}} \\
+    &= -\sqrt{2(\beta_0\log{s} - \log{(1-\epsilon)})} \sim -\sqrt{2\beta_0\log{s}},
+\end{align*}
+and similarly $\Phi^{\leftarrow}\left(s^{-\beta_0}(1+\epsilon)\right)\sim -\sqrt{2\beta_0\log{s}}$.
+Since both ends of the interval in \eqref{eq:relative-stability-order-statistics-proof-2} are asymptotic to $-\sqrt{2\beta_0\log{s}}$, 
+% dividing through by $\sqrt{2\log{s}}$, and 
+the desired conclusion follows.
+\end{proof}
+
+\subsection{Signal sizes and odds ratios in 2-by-2 contingency tables}
 \label{subsec:proof-signal-size-odds-ratio}
 
 \begin{proof}[Proof of Proposition \ref{prop:signal-size-odds-ratio} and Corollary \ref{cor:signal-limits-OR}]
@@ -562,8 +769,8 @@ w^2 = \sum_{i=1}^2 \sum_{j=1}^2 \frac{(\mu_{ij} - \phi_i\theta_j)^2}{\phi_i\thet
 = \delta^2\sum_i\sum_j \frac{1}{\phi_i\theta_j}
 = \frac{\delta^2}{\phi_1\theta_1\phi_2\theta_2},
 \end{equation}
-Solving for $\delta$ in \eqref{eq:odds-ratio-delta} using $R>0$, and plug into the expression for signal size \eqref{eq:signal-size-chisq-delta} yields Relation \eqref{eq:signal-size-odds-ratio}.
-The last claim follows from the fact that $w^2(\delta)$ is decreasing on $[\delta_\mathrm{min},0)$, increasing on $(0,\delta_\mathrm{max}]$, with limits
+Solving for $\delta$ in \eqref{eq:odds-ratio-delta}, and plug into the expression for signal size \eqref{eq:signal-size-chisq-delta} yields Relation \eqref{eq:signal-size-odds-ratio}.
+The last claim in Proposition \ref{prop:signal-size-odds-ratio} follows from the fact that $w^2(\delta)$ is decreasing on $[\delta_\mathrm{min},0)$, increasing on $(0,\delta_\mathrm{max}]$, with limits
 $$
 \lim_{d\to \delta_\mathrm{min}} w^2(\delta) = \frac{\phi_1\theta_1}{\phi_2\theta_2},
 \quad
@@ -571,34 +778,34 @@ $$
 \quad
 \lim_{d\to \delta_\mathrm{max}} w^2(\delta) = \min\left\{\frac{\phi_1\theta_2}{\phi_2\theta_1}, \frac{\phi_2\theta_1}{\phi_1\theta_2}\right\}.
 $$
-The other three cases ($1/2\le\theta_1,\phi_1\le1$, $0<\theta_1\le1/2\le\phi_1\le1$, and $0\le\phi_1\le1/2\le\theta_1\le1$) may be handled similarly, or by observing the symmetry of the problem.
+The other three cases ($1/2\le\theta_1,\phi_1\le1$, $0<\theta_1\le1/2\le\phi_1\le1$, and $0\le\phi_1\le1/2\le\theta_1\le1$) may be obtained similarly, or by appealing to the symmetry of the problem.
 \end{proof}
 
 \begin{proof}[Proof of Corollary \ref{cor:optimal-design}]
-Using the parametrization in \eqref{eq:reparametrize-2-by-2-table-1} and Corollay \ref{cor:signal-size-odds-ratio-conditional-frequency}, we have
+Using the parametrization in \eqref{eq:reparametrize-2-by-2-table-1} and Corollary \ref{cor:signal-size-odds-ratio-conditional-frequency}, we have
 \begin{align}
     \delta &= \frac{\phi_1 fR}{fR+1-f} - \left(\frac{\phi_1 fR}{fR+1-f} + f(1-\phi_1)\right)\phi_1 \nonumber \\
-    &= \frac{f(1-f)\phi_1(1-\phi_1)(R-1)}{fR+1-f}. \label{eq:eq:reparametrize-2-by-2-table-2}
+    &= \frac{f(1-f)\phi_1(1-\phi_1)(R-1)}{fR+1-f}. \label{eq:reparametrize-2-by-2-table-2}
 \end{align}
-Substituting \eqref{eq:eq:reparametrize-2-by-2-table-2} into the expression \eqref{eq:signal-size-chisq-delta}, after some simplification, yields
-\begin{equation} \label{eq:eq:reparametrize-2-by-2-table-3}
+Substituting \eqref{eq:reparametrize-2-by-2-table-2} into the expression \eqref{eq:signal-size-chisq-delta}, after some simplification, yields
+\begin{equation} \label{eq:reparametrize-2-by-2-table-3}
     w^2 = \frac{f(1-f)\phi_1(1-\phi_1)(R-1)^2}{\left[\phi_1 R + (1-\phi_1)D\right]\left[\phi_1 + (1-\phi_1)D\right]},
 \end{equation}
 where $D = fR+1-f$.
-The derivative of \eqref{eq:eq:reparametrize-2-by-2-table-3} with respect to $\phi_1$ is
-\begin{equation*}
+Notice that the derivative of \eqref{eq:reparametrize-2-by-2-table-3} with respect to $\phi_1$,
+\begin{equation} \label{eq:signal-size-first-derivative}
     \frac{\mathrm{d}w^2}{\mathrm{d}\phi_1} = 
     \frac{f(1-f)(R-1)^2}{\left[\phi_1 R+(1-\phi_1)D\right]^2 \left[\phi_1+(1-\phi_1)D\right]^2} \left[(D^2-R)\phi_1^2 - 2D^2\phi_1 + D^2\right],
-\end{equation*}
-which is strictly positive at $\phi_1=0$ (if $f\neq1$ and hence $D\neq0$), and strictly negative at $\phi_1=1$.
-Further, the second derivative
-\begin{equation*}
+\end{equation}
+is strictly positive at $\phi_1=0$ (if $f\neq1$ and hence $D\neq0$), and strictly negative at $\phi_1=1$.
+Further, the second derivative can be written as
+\begin{equation} \label{eq:signal-size-second-derivative}
     \frac{\mathrm{d}^2w^2}{\mathrm{d}\phi_1^2} = 
-    h(R,f) \left[(D^2-R)\phi_1 - D^2\right],
-\end{equation*}
-where $h$ is a function of $(R,f)$ taking positive values, is strictly negative on $[0,1]$.
-This implies that the solution to $(D^2-R)\phi_1^2 - 2D^2\phi_1 + D^2 = 0$ in the interval of $[0,1]$ is the maximizer of \eqref{eq:eq:reparametrize-2-by-2-table-3}.
-When $D^2-R>0$, this is the smaller of the two roots, and when $D^2-R<0$, the larger of the two;
-they share the same expression ${D}/{(D+\sqrt{R})}$, which coincides with \eqref{eq:optimal-design}.
-Finally, when $D^2=R$, the only root $\phi_1^*=1/2$ is the maximizer of \eqref{eq:eq:reparametrize-2-by-2-table-3}.
+    h(R,f) \left[(\phi_1-1)D^2 - \phi_1R\right],
+\end{equation}
+where $h$ is some function of $(R,f)$ taking on strictly positive values.
+Since $\left[(\phi_1-1)D^2 - \phi_1R\right]<0$, the second derivative \eqref{eq:signal-size-second-derivative} must be strictly negative on $[0,1]$.
+This implies that the first derivative \eqref{eq:signal-size-first-derivative} has a unique zero between 0 and 1, and hence, the solution to $(D^2-R)\phi_1^2 - 2D^2\phi_1 + D^2 = 0$ in the interval of $[0,1]$ must be the maximizer of \eqref{eq:reparametrize-2-by-2-table-3} --- when $D^2-R>0$, the smaller of the two roots maximizes \eqref{eq:reparametrize-2-by-2-table-3}, and when $D^2-R<0$, it is the larger of the two.
+They share the same expression ${D}/{(D+\sqrt{R})}$, which coincides with \eqref{eq:optimal-design}.
+Finally, when $D^2=R$, the only root $\phi_1^*=1/2$ is the maximizer of \eqref{eq:reparametrize-2-by-2-table-3}.
 \end{proof}
