@@ -1,13 +1,12 @@
 
 
 We return to the application of association screenings for categorical variables, and put the results in the previous section to use.
+In particular, we focus on the exact-approximate support recovery problem, and demonstrate its phase transition (Theorem \ref{thm:chi-squared-exact-approx-boundary}) in GWAS.
 
-In particular, we focus on the exact-approximate support recovery problem (Theorem \ref{thm:chi-squared-exact-approx-boundary}), and demonstrate the consequences of its phase transition in GWAS.
-We also derive efficient study designs that attain the necessary statistical signal sizes in the special (but fairly common) case of association tests on 2-by-2 contingency tables.
+In order to do so, we must connect the concept of ``statistical signal size'' $\lambda$ with some key quantities in association tests.
+While ``signal size'' likely sounds foreign to most practitioners, it is intimately linked with the concept of ``effect sizes'' --- or odds ratios --- in association studies, which are frequently estimated and reported in GWAS catalogs.
+We characterize the relationship between the two quantities in the special (but fairly common) case of association tests on 2-by-2 contingency tables in Section \ref{subsec:odds-and-power}.
 
-In order to do so, we must first connect the concept of ``statistical signal size'' $\lambda$ with some key quantities in association tests.
-While the former is likely foreign to most practitioners, it is intimately linked with the concept of ``effect sizes'' --- or odds ratios --- in association studies, which are usually explicitly estimated and reported in the GWAS literature.
-% We begin by characterizing the relationship between the two.
 
 \subsection{Odds ratios and statistical power}
 \label{subsec:odds-and-power}
@@ -113,7 +112,7 @@ This difference can also be read by comparing the dashed curve ($\theta_1=1/3,\p
 For a study with a fixed budget, i.e., a fixed total number of subjects $n$, the researcher is free to choose the fraction of cases $\phi_1$ to be included in the study.
 A natural question is how this budget should be allocated to maximize the statistical power of discovery, or equivalently, the signal sizes $\lambda=nw^2$.
 
-In principal, Relation \eqref{eq:signal-size-odds-ratio} can be optimized with respect to the fraction of cases $\phi_1$ in order to find optimal designs, if the rest of the parameters are known and held constant.
+In principal, Relation \eqref{eq:signal-size-odds-ratio} can be optimized with respect to the fraction of cases $\phi_1$ in order to find optimal designs, if $\theta_1$ is known and held constant.
 In practice, this is not the case.
 While $(\phi_1, \phi_2)$ can be controlled, the distributions of genotypes in the study are often unknown prior to data collection, and can change with the case-to-control ratio.
 
@@ -168,7 +167,7 @@ To illustrate, for rare and adversarial factors ($f\approx0$ and $R>1$), the opt
 Therefore, for studies under a fixed budget, controls should constitute the majority of the subjects in order to maximize power of discovering such variants.
 On the other hand, for rare and protective factors ($f\approx0$ and $R<0$), the optimal $\phi_1^*$ is greater than $1/2$, and cases should be the majority.
 
-\subsection{Power analysis in large-scale association screening studies}
+\subsection{Phase transition, and power analysis in large-scale association screening studies}
 
 % Specifically, we develop recipes to find suitable designs of association studies such that combination of the dimensionality $p$, sparsity $\beta$, and signal sizes $r$ of the problem lands in the desired region of risk control, as predicted by the results in Section \ref{sec:chisq-boundaries}.
 
@@ -193,12 +192,11 @@ In a typically GWAS, a pair of alleles are sequenced for every marker location, 
 
 \begin{figure}
       \centering
-      \includegraphics[width=0.49\textwidth]{./newplot.png} %OR-RAF_example.png}
-      \includegraphics[width=0.49\textwidth]{./OR-RAF_BC_study.png}
-      \caption{\fbox{Unfinished!!!} The OR-RAF diagram illustrating the sharp phase transition of marginal power in a GWAS study. 
-      Blue circles: estimated odds ratios and risk allele frequencies of discovered associations in a recent GWA study \cite{michailidou2017association}.
-      Red curve: the boundary of the phase transition for the exact-approximate support recovery problem $r=1$.
-      Dashed curves: equi-power curves.} 
+      \includegraphics[width=0.49\textwidth]{./OR-RAF_plots/OR-RAF_p4.png} \includegraphics[width=0.49\textwidth]{./OR-RAF_plots/OR-RAF_p1e2.png} \includegraphics[width=0.49\textwidth]{./OR-RAF_plots/OR-RAF_p1e6.png} \includegraphics[width=0.49\textwidth]{./OR-RAF_plots/OR-RAF_BC_study.png}
+      \caption{The OR-RAF diagram visualizing the marginal power of discovery in genetic association studies, after controlling FWER at $5\%$ level. 
+      Sample sizes are marked in each panel, whereas the problem dimensions are, respectively, $p=4$ (upper left), $p=10^2$ (upper left), and $p=10^6$ (lower left), so that $n/\log{p}$ are constant in the first three panels.
+      Red curves mark the boundaries ($r=1$) of the phase transition for the exact-approximate support recovery problem; dashed curves are the equi-signal (equi-power) curves.
+      We also visualize, in the lower right panel, discovered associations (blue circles) in a recent GWA study \cite{michailidou2017association}; the estimated odds ratios and risk allele frequencies are subject to selection bias and should not be taken at their face values.} 
       \label{fig:OR-RAF_GWAS}
 \end{figure}
 
@@ -208,4 +206,4 @@ In comparison, a more accurate power calculation, detailed in \cite{gao2019upass
 % For example, the number of subjects needed for $\mathrm{FWER}=\mathrm{FWNR}=0.01$ is $499,598$, an $8\%$ increase over the asymptotic prediction; at $\mathrm{FWER}=\mathrm{FWNR}=0.1$, this number becomes $398,996$, some $14\%$ lower than the asymptotic result.
 In general, we recommend using the more precise approximations over the back-of-envelope asymptotics for planning prospective studies and performing systematic reviews;
 a user-friendly web application implementing the precise approximations is provided in \cite{gao2019upass}.
-Nevertheless, the insights gained from the asymptotic results cannot be supplanted.
+Nevertheless, the asymptotic results generate simple but powerful insights that cannot be supplanted.
