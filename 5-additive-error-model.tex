@@ -1,0 +1,65 @@
+
+
+% $\mathrm{risk}^{\mathrm{EA}}$ and $\mathrm{risk}^{\mathrm{AE}}$.
+As alluded to in the introduction, we draw explicit comparisons between the one-sided and two-sided alternatives in Gaussian additive error models \eqref{eq:model-additive}.
+% The exact, and the approximate support recovery problems in the additive error model \eqref{eq:model-additive} under standard Gaussian errors have been studied in \cite{gao2018fundamental} and \cite{arias2017distribution}, respectively. 
+
+\begin{remark} \label{rmk:strong-classification-boundary-1}
+The exact support recovery problem under one-sided alternatives in the dependent Gaussian additive error model \eqref{eq:model-additive} was studied in \cite{gao2018fundamental}. 
+The parametrization of sparsity was identical to \eqref{eq:signal-sparsity}, while the range of the non-zero (and perhaps unequal) mean shifts $\mu(i)$ was parametrized as
+\begin{equation} \label{eq:signal-size-additive}
+    % \underline{\Delta} = 
+    \sqrt{2\underline{r}\log{p}}
+    \le \mu(i) \le
+    % \overline{\Delta} = 
+    \sqrt{2\overline{r}\log{p}}, \quad \text{for all}\;\;i\in S_p,
+\end{equation}
+with constants $\underline{r}$ and $\overline{r}$, where $0<\underline{r}\le\overline{r}\le+\infty$.
+Under this one-sided alternative, a phase transition in the $r$-$\beta$ plane was described, and the boundary was found to be identical to \eqref{eq:exact-boundary-chisquared} in Theorem \ref{thm:chi-squared-exact-boundary}. The latter, as discussed in Section \ref{subsec:motivation-additive}, covers two-sided alternatives in the additive model \eqref{eq:model-additive}.
+
+In other words, comparing the two-sided alternative versus its one-sided counterpart, there is asymptotically no difference in terms of the signal sizes needed to achieve exact support recovery.
+As we shall see in numerical experiments (in Section \ref{sec:numerical} below), the difference is not very pronounced even in moderate dimensions, and vanishes as $p\to\infty$, in accordance with Theorem \ref{thm:chi-squared-exact-boundary}.
+\end{remark}
+
+A similar comparison can be drawn in the approximate support recovery problem between the two types of alternatives.
+
+\begin{remark} \label{rmk:weak-classification-boundary}
+The approximate support recovery problem in the Gaussian additive error model \eqref{eq:model-additive} under one-sided alternatives was studied in \cite{arias2017distribution}, 
+where the phase transition phenomenon was characterized by a boundary that coincides with \eqref{eq:approx-boundary-chisquared} in Theorem \ref{thm:chi-squared-approx-boundary}.
+Similar to the exact support recovery problem, this indicates vanishing difference in the difficulties of the two alternatives.
+\end{remark}
+
+Theoretical limits in the Gaussian additive error model \eqref{eq:model-additive} have also been studied in \cite{butucea2018variable} under the Hamming loss, $\E[\widehat{S}\triangle S]$.
+Unfortunately, and the asymptotic analyses therein focused exclusively on the two-sided alternatives, and explicit comparisons between the two types of alternatives were not made.
+% , due in part to slightly different goals of the projects. 
+% Our discussions above also applied to the Hamming loss.
+
+Finally, we derive two new asymptotic results under the \emph{asymmetric} statistical risks, \eqref{eq:risk-exact-approx} and \eqref{eq:risk-approx-exact}, under one-sided alternatives.
+First, a counterpart of Theorem \ref{thm:chi-squared-exact-approx-boundary} describes the phase transition in the exact-approximate support recovery problem.
+
+\begin{theorem} \label{thm:additive-error-exact-approx-boundary}
+Consider the high-dimensional additive error model \eqref{eq:model-additive} under independent standard Gaussian errors, with signal sparsity and size as described in \eqref{eq:signal-sparsity} and \eqref{eq:signal-size-additive}.
+The function $\widetilde{g}(\beta)$ in \eqref{eq:exact-approx-boundary-chisquared} characterizes the phase transition of exact-approximate support recovery problem.
+
+Specifically, if $\underline{r} > \widetilde{g}(\beta)$, then the procedures listed in Theorem \ref{thm:chi-squared-exact-boundary} with slowly vanishing nominal FWER levels achieve asymptotically exact-approximate support recovery in the sense of \eqref{eq:support-recovery-success}. 
+Conversely, if $\overline{r} < \widetilde{g}(\beta)$, then for any thresholding procedure $\widehat{S}$, the exact-approximate support recovery fails in the sense of \eqref{eq:support-recovery-faliure}.
+\end{theorem}
+
+A counterpart of Theorem \ref{thm:chi-squared-approx-exact-boundary} also holds under one-sided alternatives.
+
+\begin{theorem} \label{thm:additive-error-approx-exact-boundary}
+In the context of Theorem \ref{thm:additive-error-exact-approx-boundary}, the function $\widetilde{h}(\beta)$ in \eqref{eq:approx-exact-boundary-chisquared}
+characterizes the phase transition of approximate-exact support recovery problem.
+
+Specifically, if $\underline{r} > \widetilde{h}(\beta)$, then the Benjamini-Hochberg procedure with slowly vanishing nominal FDR levels achieves asymptotically approximate-exact support recovery in the sense of \eqref{eq:support-recovery-success}. 
+Conversely, if $\overline{r} < \widetilde{h}(\beta)$, then for any thresholding procedure $\widehat{S}$, the approximate-exact support recovery fails in the sense of \eqref{eq:support-recovery-faliure}.
+\end{theorem}
+
+Theorems \ref{thm:additive-error-exact-approx-boundary} and \ref{thm:additive-error-approx-exact-boundary} are proved in Appendix \ref{subsec:proof-additive-error-mix-boundaries}. 
+
+\begin{remark}
+Comparing Theorems \ref{thm:chi-squared-exact-approx-boundary} to \ref{thm:additive-error-exact-approx-boundary} and Theorems \ref{thm:chi-squared-approx-exact-boundary} to \ref{thm:additive-error-approx-exact-boundary}, we see that the phase transition boundaries under the two types of alternatives are identical in the exact-approximate and approximate-exact support recovery problems.
+As pointed out in Remarks \ref{rmk:strong-classification-boundary-1} and \ref{rmk:weak-classification-boundary}, the additional uncertainty in the two-sided alternatives do not call for larger signal sizes asymptotically.
+
+To complete the comparisons, we point out that the phase transition boundaries for the sparse signal \emph{detection} problem in the two types of alternatives are both identical to \eqref{eq:detection-boundary-chisquare}. This was analyzed in \cite{donoho2004higher}.
+\end{remark}

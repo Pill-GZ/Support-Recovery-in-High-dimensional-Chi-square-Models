@@ -1,4 +1,5 @@
 \documentclass[ejs, preprint]{imsart}
+% \documentclass{article}
 
 \RequirePackage[OT1]{fontenc}
 \RequirePackage{amsthm,amsmath}
@@ -10,7 +11,7 @@
 \volume{0}
 \issue{0}
 \firstpage{1}
-\lastpage{8}
+\lastpage{48}
 
 % add packages
 \usepackage{enumitem}
@@ -103,17 +104,17 @@ We characterize four new phase transitions in high-dimensional chi-square models
 % 1) approximately, and 2) exactly select the set of relevant features in large dimensions.
 Remarkably, degrees-of-freedom of the chi-square distributions do not affect the boundaries in all four phase transitions.
 Several well-known procedures are shown to attain these boundaries.
-Two new boundaries are also identified in the Gaussian location model under one-sided alternatives.
+Two new phase transitions are also identified in the Gaussian location model under one-sided alternatives.
 
-We then elucidate on the nature of signal sizes in association tests by characterizing its relationship with the marginal frequencies, odds ratio, and sample sizes in simple $2\times2$ contingency tables. % in common association tests for binary traits.
+We then elucidate on the nature of signal sizes in association tests by characterizing its relationship with the marginal frequencies, odds ratio, and sample sizes in $2\times2$ contingency tables. % in common association tests for binary traits.
 % Specifically, detection of rare genetic variants associated with the outcomes requires more samples compared to common variants. 
 % Specifically, the difficulty in detecting associations between genetic variants and phenotype traits is quantified in terms of the signal sizes.
-We demonstrate, perhaps surprisingly, that balanced designs in case-control studies may {not} deliver the best power at a given sample size. % for detecting rare genetic variants with high odds ratios.
 % Specifically, the amount of signal per sample is inherently smaller when rare variants are present. 
 % In other words, 
 % Further, case prevalence in the recruited subjects plays a role, while case prevalence in the population is irrelevant.
 % We provide explicit formulas for power calculations, as well as software tools for finding the optimal study designs.
-Together, these results lead to improved understanding of the power limits in high-dimensional screenings for categorical covariates, such as genome-wide association studies (GWAS).
+Together, these results enable us to understand a phase transition phenomenon in high-dimensional screenings for categorical covariates, such as genome-wide association studies (GWAS).
+We also demonstrate, perhaps surprisingly, that balanced designs in such association studies may {not} deliver the best power at a given sample size. % for detecting rare genetic variants with high odds ratios.
 
 % The phase transition phenomena are demonstrated with numerical simulations, and with empirical evidence from GWAS.
 % data from the NHGRI-EBI GWAS catalog.
@@ -140,28 +141,44 @@ Together, these results lead to improved understanding of the power limits in hi
 \label{sec:intro}
 \input{1-introduction.tex}
 
+\section{Statistical risks, procedures, and the asymptotic regime}
+\label{sec:setup}
+\input{2-setup.tex}
+
 \section{Phase transitions of multiple testing in the chi-square models}
 \label{sec:chisq-boundaries}
-\input{2-boundary.tex}
+\input{3-boundary.tex}
 
 \section{The phase transition phenomena in GWAS}
 \label{sec:signal-size-odds-ratio}
-\input{3-odds-ratios.tex}
+\input{4-odds-ratios.tex}
+
+\section{Phase transitions in the Gaussian additive error model}
+\label{sec:additive-error-model-boundaries}
+\input{5-additive-error-model.tex}
 
 \section{Numerical illustrations}
 \label{sec:numerical}
-\input{4-numerical-experiments.tex}
+\input{6-numerical-experiments.tex}
+
+\section{Discussions}
+\label{sec:discussions}
+\input{7-discussion.tex}
 
 \appendix
+
+\section{A review of common procedures in multiple testing}
+\label{sec:procedures}
+\input{A1-procedures.tex}
+
 \section{Proofs}
 \label{sec:proofs}
-\input{5-proofs.tex}
+\input{A2-proofs.tex}
 
 
 \section*{Acknowledgements}
-I thank Professor Stilian Stoev for his generous support, and for encouraging me to pursue the current project.
-I also thank Yuanzhi Li and Jinqi Shen for their careful proof-reading and thoughtful feedback on early versions of the manuscript.
-
+I thank Professor Stilian Stoev for encouraging me to pursue the current project, and for his most generous support.
+I also thank Jingshen Wang and Yuanzhi Li for their helpful comments and thoughtful feedback, as well as Rafail Kartsioukas and Jinqi Shen for their careful proof-reading of the manuscript.
 This research is supported by NSF Grant DMS-1830293, Algorithms for Threat Detection.
 \bibliographystyle{plainnat}
 \bibliography{references}
