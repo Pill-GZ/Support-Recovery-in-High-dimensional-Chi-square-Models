@@ -1,17 +1,17 @@
-% \documentclass[aap, preprint]{imsart}
-\documentclass{article}
+\documentclass[aos, preprint]{imsart}
+% \documentclass{article}
 
 \RequirePackage[OT1]{fontenc}
 \RequirePackage{amsthm,amsmath}
 \RequirePackage[numbers]{natbib}
 \RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
 
-% % settings
-% \pubyear{2019}
-% \volume{0}
-% \issue{0}
-% \firstpage{1}
-% \lastpage{48}
+% settings
+\pubyear{2019}
+\volume{0}
+\issue{0}
+\firstpage{1}
+\lastpage{48}
 
 % add packages
 \usepackage{enumitem}
@@ -19,7 +19,7 @@
 %\usepackage[square,numbers]{natbib}
 %\bibliographystyle{plain}
 \usepackage{array,booktabs}
-\usepackage[margin=1.25in]{geometry}
+%\usepackage[margin=1.25in]{geometry}
 
 %
 % My definitions:
@@ -73,57 +73,71 @@
 %\endlocaldefs
 
 
+
 \begin{document}
 
-\title{{Five Shades of Grey:\\ Phase Transitions in High-dimensional Multiple Testing}} %\thanksref{T1}} 
+\begin{frontmatter}
+\title{\Large{Five Shades of Grey: Phase Transitions in High-dimensional Multiple Testing}} %\thanksref{T1}} 
+\runtitle{Phase Transitions in High-dimensional Multiple Testing} % and Multiple Testing for Categorical Data}
+%\thankstext{T1}{Footnote to the title with the `thankstext' command.}
 
-\author{Zheng Gao\thanks{Department of Statistics, University of Michigan, Ann Arbor, USA. This research is supported by NSF Grant DMS-1830293, Algorithms for Threat Detection.}\\{gaozheng@umich.edu}}
+\begin{aug}
+\author{\fnms{Zheng} \snm{Gao}\thanksref{t1}\ead[label=e1]{gaozheng@umich.edu}}
+%\and
+%\author{\fnms{Second} \snm{Author}}%\thanksref{t3}\ead[label=e2]{second@somewhere.com}}
 
-% \author{Chenlin\thanks{notes on author} \\ l.wind.wang@gmail.com\thanks{This is a test!}}
-\date{\vspace{-5ex}}
-% \title{A Experiment on \LaTeX \\ The Maketitle Experiement\thanks{notes on title}}
+\address{Department of Statistics, University of Michigan, Ann Arbor, USA\\
+\printead{e1}}
 
-\maketitle
+\thankstext{t1}{This research is supported by NSF Grant DMS-1830293, Algorithms for Threat Detection.}
+%\thankstext{t2}{First supporter of the project}
+%\thankstext{t3}{Second supporter of the project}
+\runauthor{Z. Gao}
 
+\affiliation{University of Michigan}
+
+\end{aug}
 
 \begin{abstract}
-We are motivated by high-dimensional multiple testing problems, typified by marginal screenings of categorical variables, where test statistics have approximate chi-square distributions.
+We are motivated by marginal screenings of categorical variables, and study high-dimensional multiple testing problems where test statistics have approximate chi-square distributions.
 We characterize four new phase transitions in high-dimensional chi-square models, and derive the signal sizes necessary and sufficient for statistical procedures to simultaneously control false discovery (in terms of family-wise error rate or false discovery rate) and missed detection (in terms of family-wise non-discovery rate or false non-discovery rate) in large dimensions.
 % 1) approximately, and 2) exactly select the set of relevant features in large dimensions.
-Remarkably, the degree-of-freedom of the chi-square distribution does not affect the boundaries in all four phase transitions.
+Remarkably, degrees of freedom in the chi-square distributions do not affect the boundaries in all four phase transitions.
 Several well-known procedures are shown to attain these boundaries.
 Two new phase transitions are also identified in the Gaussian location model under one-sided alternatives.
 
-We then elucidate on the nature of signal sizes in association tests by characterizing its relationship with the marginal frequencies, odds ratio, and sample sizes in $2\times2$ contingency tables. % in common association tests for binary traits.
+We then elucidate on the nature of signal sizes in association tests by characterizing its relationship with marginal frequencies, odds ratio, and sample sizes in $2\times2$ contingency tables.
+% in common association tests for binary traits.
 % Specifically, detection of rare genetic variants associated with the outcomes requires more samples compared to common variants. 
 % Specifically, the difficulty in detecting associations between genetic variants and phenotype traits is quantified in terms of the signal sizes.
 % Specifically, the amount of signal per sample is inherently smaller when rare variants are present. 
 % In other words, 
 % Further, case prevalence in the recruited subjects plays a role, while case prevalence in the population is irrelevant.
 % We provide explicit formulas for power calculations, as well as software tools for finding the optimal study designs.
-Together, these results enable us to understand a phase transition phenomenon in high-dimensional screenings for categorical covariates, such as genome-wide association studies (GWAS).
-We also demonstrate, perhaps surprisingly, that balanced designs in such association studies may {not} deliver the best power at a given sample size. % for detecting rare genetic variants with high odds ratios.
+This allows us to illustrate an interesting manifestation of the phase transition phenomena in genome-wide association studies (GWAS).
+We also show, perhaps surprisingly, that given total sample sizes, balanced designs in such association studies rarely deliver optimal power. 
+% for detecting rare genetic variants with high odds ratios.
 
 % The phase transition phenomena are demonstrated with numerical simulations, and with empirical evidence from GWAS.
 % data from the NHGRI-EBI GWAS catalog.
 \end{abstract}
 
-% \begin{keyword}[class=MSC]
-% %\kwd[Primary ]{62G10, 62G20}
-% \kwd{62G10, 62G20}
-% %\kwd[; secondary ]{60K35}
-% \end{keyword}
+\begin{keyword}[class=MSC]
+%\kwd[Primary ]{62G10, 62G20}
+\kwd{62G10, 62G20}
+%\kwd[; secondary ]{60K35}
+\end{keyword}
 
-% \begin{keyword}
-% \kwd{Multiple testing}
-% \kwd{asymptotic optimality}
-% \kwd{family-wise error rate (FWER) control}
-% \kwd{false discovery rate (FDR) control}
-% \kwd{categorical data analysis}
-% \kwd{association tests}
-% \end{keyword}
-% \tableofcontents
-% \end{frontmatter}
+\begin{keyword}
+\kwd{Multiple testing}
+\kwd{asymptotic optimality}
+\kwd{family-wise error rate (FWER) control}
+\kwd{false discovery rate (FDR) control}
+\kwd{categorical data analysis}
+\kwd{association tests}
+\end{keyword}
+\tableofcontents
+\end{frontmatter}
 
 \section{Introduction}
 \label{sec:intro}
@@ -133,7 +147,7 @@ We also demonstrate, perhaps surprisingly, that balanced designs in such associa
 \label{sec:setup}
 \input{2-setup.tex}
 
-\section{Phase transitions in the chi-square models}
+\section{Phase transitions of multiple testing in the chi-square models}
 \label{sec:chisq-boundaries}
 \input{3-boundary.tex}
 
@@ -166,9 +180,10 @@ We also demonstrate, perhaps surprisingly, that balanced designs in such associa
 
 \section*{Acknowledgements}
 I thank Professor Stilian Stoev for encouraging me to pursue the current project, and for his most generous support.
-I also thank Jingshen Wang and Yuanzhi Li for their helpful comments and thoughtful feedback, and Rafail Kartsioukas and Jinqi Shen for their careful proof-reading of the manuscript.
+I also thank Jingshen Wang and Yuanzhi Li for their helpful comments and thoughtful feedback, as well as Rafail Kartsioukas and Jinqi Shen for their careful proof-reading of the manuscript.
 This research is supported by NSF Grant DMS-1830293, Algorithms for Threat Detection.
-\bibliographystyle{plainnat}
+% \bibliographystyle{plainnat}
+\bibliographystyle{imsart-nameyear}
 \bibliography{references}
 
 

@@ -473,13 +473,13 @@ $$
 $$
 
 We need the following result to describe the deviations of the empirical distributions.
-\begin{lemma}[\cite{eicker1979asymptotic}] \label{lemma:empirical-process}
+\begin{lemma}[Theorem 1 of \citet{eicker1979asymptotic}] \label{lemma:empirical-process}
 Let $Z_1,\ldots,Z_k$ be iid with continuous survival function $Q$.
 Let $\widehat{Q}_k$ denote their empirical survival function and define 
 $\xi_k = \sqrt{2\log{\log{(k)}}/k}$ for $k \ge 3$. 
 Then
 $$
-\frac{1}{\xi_k}\sup_z\frac{\widehat{Q}_k(z) - Q(z)}{\sqrt{Q(z)(1 - Q(z))}} \to 1,
+\frac{1}{\xi_k}\sup_z\frac{|\widehat{Q}_k(z) - Q(z)|}{\sqrt{Q(z)(1 - Q(z))}} \to 1,
 $$
 in probability as $k \to \infty$.
 In particular,

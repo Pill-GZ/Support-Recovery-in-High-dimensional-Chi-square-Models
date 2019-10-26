@@ -48,12 +48,13 @@ Focusing on one specific genomic location, the counts of observed genotypes, if 
 % \end{table}
 Researchers test for associations between the genotypes and phenotypes using, for example, the Pearson chi-square test with statistic
 \begin{equation} \label{eq:chisq-statistic}
-    x = \sum_{j=1}^2 \sum_{k=1}^2 \frac{(O_{jk} - E_{jk})^2}{E_{jk}}.
+    x = \sum_{j=1}^2 \sum_{k=1}^2 \frac{(O_{jk} - E_{jk})^2}{E_{jk}},
 \end{equation}
-Here $E_{jk}$'s are the expected number of observations under the null, estimated empirically with $\widehat{E}_{jk} = (O_{j1}+O_{j2})(O_{1k}+O_{2k})/n$.
+where ${E}_{jk} = (O_{j1}+O_{j2})(O_{1k}+O_{2k})/n$.
+% are the expected number of observations under the null.
 %E_{jk} = \Big(\sum_{l}O_{jl}\Big)\Big(\sum_{l}O_{lk}\Big)\Big/n.
 
-Under the mild assumption that the counts $O_{jk}$'s follow a multinomial distribution (or alternatively, two independent binomial distributions), the statistic $x$ in \eqref{eq:chisq-statistic} can be shown to have an approximate $\chi^2(\lambda)$ distribution with $\nu=1$ degree of freedom at large sample sizes \citep{agresti2018introduction}. 
+Under the mild assumption that the counts $O_{jk}$'s follow a multinomial distribution (or a product-binomial distribution, if we decide to condition on one of the marginals), the statistic $x$ in \eqref{eq:chisq-statistic} can be shown to have an approximate $\chi^2(\lambda)$ distribution with $\nu=1$ degree of freedom at large sample sizes \citep{agresti2018introduction}. 
 Independence between the genotypes and phenotypes would imply a non-centrality parameter $\lambda$ value of zero; if dependence exists, we would have a non-zero $\lambda$ where its value depends on the underlying multinomial probabilities.
 More generally, if we have a $J$ phenotypes and $K$ genetic variants, assuming a $J\times K$ multinomial distribution, the statistic will follow approximately a $\chi^2_{\nu}(\lambda)$ distribution with $\nu = (J-1)(K-1)$ degrees of freedom, when sample sizes are large.
 
@@ -68,7 +69,7 @@ where $\lambda = (\lambda(i))_{i=1}^p$ is the $p$-dimensional non-centrality par
 Although the number of tested genomic locations $p$ can sometimes exceed $10^5$ or even $10^6$, it is often believed that only a small set of genetic locations have tangible influences on the outcome of the disease or the trait of interest.
 Under the stylized assumption of sparsity, $\lambda$ is assumed to have $s$ non-zero components, with $s$ being much smaller than the problem dimension $p$. 
 The goal of researchers is two-fold: 1) to test if $\lambda(i)=0$ for all $i$, and 2) to estimate the set $S=\{i:\lambda(i)\neq 0\}$.
-In other words, we look to first determine if there are \emph{any} genetic variations associated with the disease; if there are associations, we want to find their locations.
+In other words, we look to first determine if there are \emph{any} genetic variations associated with the disease; and if there are associations, we want to locate them.
 The latter, referred to as the \emph{support recovery problem}, is the focus of this work.
 
 \subsection{One-sided vs two-sided alternatives in additive error models}
@@ -86,7 +87,7 @@ Squaring on both sides of \eqref{eq:model-additive}, we arrive at Model \eqref{e
 In this case, the support recovery problem is equivalent to locating the set of observations with mean shifts, $S=\{i:\mu(i)\neq 0\}$, where the mean shifts could take place in both directions.
 
 Therefore, a theory for the chi-square model \eqref{eq:model-chisq} naturally lends itself to the study of two-sided alternatives in the Gaussian additive error model \eqref{eq:model-additive}.
-In comparing such results with existing theory on one-sided alternatives, we will be able to quantify if, and how much of a price has to be paid for the additional uncertainty when we have no knowledge of the direction of the alternatives.
+In comparing such results with existing theory on one-sided alternatives \cite{arias2017distribution, gao2018fundamental}, we will be able to quantify if, and how much of a price has to be paid for the additional uncertainty when we have no prior knowledge on the direction of the signals.
 
 % In many applications, of course, restricting ourselves to one-sided tests is unrealistic.
 % For example, in fMRI studies, the interest is in \emph{both} regions where average brain activities {increase} and where they {decrease}, when comparing the case group to the controls \citep{narayan2015two}. 
@@ -96,12 +97,13 @@ In comparing such results with existing theory on one-sided alternatives, we wil
 \subsection{Asymmetric statistical risks}
 \label{subsec:asymmetric-risk}
 
-Another overlooked issue of practical importance is the choice of statistical risks.
-In all aforementioned papers, the criteria for false discovery and non-discovery in support recovery problems are roughly \emph{symmetric}.
-Specifically, \citet{arias2017distribution} studied conditions under which \emph{fractions} of false discovery and non-discovery can vanish; \citet{gao2018fundamental} investigated \emph{family-wise error control} for both types of errors; meanwhile, \citet{butucea2018variable} analyzed the problem under the Hamming loss, which penalizes false discoveries and missed signals {equally}.
+% An issue of practical importance that was somewhat overlooked by the literature is the choice of statistical risks.
+The third consideration that motivates us is the choice of practically relevant statistical risks.
+To the best of our knowledge, so far, the literature on multiple testing have been concerned with criteria roughly \emph{symmetric} in terms of false discovery and false non-discovery control.
+For example, \citet{arias2017distribution} studied conditions under which \emph{fractions} of false discovery and \emph{fractions} of non-discovery can vanish; \citet{gao2018fundamental} investigated \emph{family-wise error control} for both types of errors; meanwhile, \citet{butucea2018variable} analyzed the problem under the Hamming loss, which penalizes false discoveries and missed signals {equally}.
 
 In applications, however, attitudes towards type I and type II errors are often different.
-In the example of GWAS, where the number of candidate locations $p$ could be in the millions, researchers are typically interested in the marginal (location-wise) power of discovery, while exercising stringent (family-wise) false discovery control --- a consideration not covered by existing theory.
+In the example of GWAS, where the number of candidate locations $p$ could be in the millions, researchers are typically interested in the marginal (location-wise) power of discovery, while exercising stringent (family-wise) false discovery control --- a situation not covered by existing theory.
 The observation on this asymmetry leads us to study, and discover, two new phase transitions, both in the additive error model \eqref{eq:model-additive} under one-sided alternatives, and in the chi-square model \eqref{eq:model-chisq}.
 The latter, as discussed in Section \ref{subsec:motivation-additive}, entails the additive error model \eqref{eq:model-additive} under two-sided alternatives.
 % Further details can be found in Section \ref{subsec:risks} below, after 
@@ -110,8 +112,8 @@ The latter, as discussed in Section \ref{subsec:motivation-additive}, entails th
 \subsection{Contributions}
 
 Our contribution is three-fold: (1) a thorough study of the theoretical limits of thresholding procedures in the chi-square model \eqref{eq:model-chisq} and an enumeration of practical procedures that attain these limits, 
-(2) an illustration of the implications of the phase transition phenomena in genetic association studies,
-(3) two new optimality results in the Gaussian additive error model \eqref{eq:model-additive}, and a direct comparison of the one-sided and two-sided alternatives. 
+(2) an illustration of the implications of the phase transition phenomena in genetic association studies, and
+(3) two new optimality results in the Gaussian additive error model \eqref{eq:model-additive}, as well as direct comparisons of the one-sided and two-sided alternatives. 
 
 In detail, we show that several commonly used family-wise error rate-control procedures --- including Bonferroni's procedure \cite{dunn1961multiple} --- are asymptotically optimal for the \emph{exact}, and \emph{exact-approximate} support recovery problems (defined in Section \ref{subsec:risks} below) in the chi-square model \eqref{eq:model-chisq}.
 We further show that the Benjamini-Hochberg (BH) procedure \cite{benjamini1995controlling} is asymptotically optimal for the \emph{approximate}, and \emph{approximate-exact} support recovery problems (defined, too, in Section \ref{subsec:risks}).
@@ -140,7 +142,7 @@ All phase transition boundaries (under suitable parametrizations) coincide with 
 Following the discussion in Section \ref{subsec:motivation-additive}, this indicates vanishing differences between the difficulties of the one-sided and two-sided alternatives in the Gaussian additive error model \eqref{eq:model-additive}.
 
 The rest of this paper is organized as follows. 
-Section \ref{sec:setup} describes the formal set-up for the main results summarized above; these results are detailed in Sections \ref{sec:chisq-boundaries}, \ref{sec:signal-size-odds-ratio}, and \ref{sec:additive-error-model-boundaries}. 
+Section \ref{sec:setup} describes the formal set-up for the main results summarized above; these main results are detailed in Sections \ref{sec:chisq-boundaries}, \ref{sec:signal-size-odds-ratio}, and \ref{sec:additive-error-model-boundaries}. 
 The phase transitions are demonstrated with numerical simulations in Section \ref{sec:numerical}.
 %The many interesting results obtained under one-sided alternatives cannot be easily adapted to the two-sided cases where the locations and the directions of the signals are both unknown.
 More related literature, comments, and discussions are collected in Section \ref{sec:discussions}.
